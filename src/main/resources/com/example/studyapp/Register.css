@@ -1,0 +1,27 @@
+.root{
+    -fx-background-color: #222222;
+
+}
+
+.label{
+    -fx-font-size: 20;
+    -fx-font-family: "lucida console";
+    -fx-text-fill: #888888;
+    -fx-alignment: center;
+}
+.button{
+    -fx-font-family: "lucida console";
+    -fx-background-color: #888888;
+}
+
+#header{
+    -fx-font-size: 28;
+    -fx-alignment: center;
+    -fx-text-fill: #ea0a8e;
+}
+
+#errorMsg{
+    -fx-font-size: 12;
+    -fx-alignment: center;
+    -fx-text-fill: #de2834;
+}
