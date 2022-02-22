@@ -2,18 +2,38 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studyapp.MainMenueController">
    <children>
-      <Label fx:id="header" layoutY="37.0" prefHeight="18.0" prefWidth="600.0" text="Willkommen">
+      <Label fx:id="header" layoutY="90.0" prefHeight="18.0" prefWidth="600.0" text="Willkommen">
          <font>
             <Font name="Lucida Console" size="20.0" />
          </font>
       </Label>
-      <Button layoutX="520.0" layoutY="360.0" mnemonicParsing="false" onAction="#abmelden" text="abmelden" />
-      <ListView fx:id="topicList" fixedCellSize="50.0" layoutX="14.0" layoutY="81.0" prefHeight="302.0" prefWidth="262.0" />
+      <MenuBar layoutY="1.0" prefHeight="26.0" prefWidth="600.0">
+        <menus>
+          <Menu fx:id="ThemaButton" mnemonicParsing="false" text="Thema">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Themen öffnen" />
+                  <MenuItem mnemonicParsing="false" onAction="#enterTopic" text="Neues Thema anlegen" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="User">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+                  <MenuItem mnemonicParsing="false" onAction="#abmelden" text="abmelden" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <TextField fx:id="addTopicField" layoutX="225.0" layoutY="200.0" visible="false" />
+      <Label fx:id="addTopicLabel" layoutX="182.0" layoutY="173.0" prefHeight="26.0" prefWidth="234.0" text="Themenname eingeben: " textAlignment="CENTER" visible="false" />
+      <Button fx:id="hinzufuegenB" layoutX="260.0" layoutY="234.0" mnemonicParsing="false" onAction="#addTopic" text="hinzufügen" visible="false" />
    </children>
 </AnchorPane>

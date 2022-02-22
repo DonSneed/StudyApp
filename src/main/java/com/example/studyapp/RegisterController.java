@@ -48,18 +48,19 @@ public class RegisterController {
         User newU = new User(StudyApp.users.size(), uNameField.getText(), pwField.getText(), standortField.getText(), false);
         if(checkNewUser()){
             addUserToList(newU);
-        }
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("registeredScreen.fxml"));
-        root = loader.load();
-        RegSceenController regSceenController = loader.getController();
-        regSceenController.displayUsername();
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        String css = getClass().getResource("Register.css").toExternalForm();
-        scene.getStylesheets().add(css);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("registeredScreen.fxml"));
+            root = loader.load();
+            RegSceenController regSceenController = loader.getController();
+            regSceenController.displayUsername();
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            String css = getClass().getResource("Register.css").toExternalForm();
+            scene.getStylesheets().add(css);
 
-        stage.setScene(scene);
-        stage.show();
+            stage.setScene(scene);
+            stage.show();
+        }
+
 
 
     }

@@ -30,12 +30,12 @@ public class StudyApp extends Application {
         launch();
     }
     public void uListeAnlegen()throws IOException{
-        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\A200016642\\Betrieb\\Projekte\\Javafx\\StudyApp\\src\\main\\resources\\UList.txt"));
+        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\A200016642\\Betrieb\\Projekte\\Javafx\\StudyApp\\src\\main\\resources\\UserData\\UList.txt"));
         String dataLine = br.readLine();
         while(dataLine != null){
             String[] userData = dataLine.split(",", 4);
-            User admin0 = new User(users.size(), userData[0], userData[1], userData[2], userData[3].equals("true"));
-            users.add(admin0);
+            User textLine = new User(users.size(), userData[0], userData[1], userData[2], userData[3].equals("true"));
+            users.add(textLine);
             dataLine = br.readLine();
         }
 

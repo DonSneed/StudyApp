@@ -8,7 +8,7 @@ public class User {
     private String password;
     private String standort;
     private boolean admin;
-    private ArrayList<Topic> topics = new ArrayList<Topic>();
+    public ArrayList<Topic> topics;
 
 
     public User(int a, String b, String c, String d, boolean e){
@@ -17,6 +17,7 @@ public class User {
         this.password = c;
         this.standort = d;
         this.admin = e;
+        topics = new ArrayList<Topic>();
     }
 
     public int getuNumber(){

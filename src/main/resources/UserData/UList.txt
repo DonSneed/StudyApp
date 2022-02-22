@@ -1,0 +1,4 @@
+admin,Sneed,Kassel,true
+enrico,Sneed,Kassel,false
+justin,Sneed,Bebra,false
+Spitzkopf Larry,Sneed,china,false
