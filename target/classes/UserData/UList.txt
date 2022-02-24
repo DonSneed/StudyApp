@@ -1,1 +1,2 @@
 admin,passwort,china,true
+enrico,passwortE,Kassel,false

@@ -36,7 +36,7 @@
       </MenuBar>
       <TextField fx:id="addTopicField" layoutX="182.0" layoutY="173.0" visible="false" />
       <Label fx:id="addTopicLabel" layoutX="182.0" layoutY="146.0" prefHeight="26.0" prefWidth="234.0" text="Themenname eingeben: " textAlignment="CENTER" visible="false" />
-      <Button fx:id="hinzufuegenB" layoutX="219.0" layoutY="210.0" mnemonicParsing="false" onAction="#addTopic" text="hinzufügen" />
+      <Button fx:id="hinzufuegenB" layoutX="219.0" layoutY="210.0" mnemonicParsing="false" onAction="#addTopic" text="hinzufügen" visible="false" />
       <Spinner fx:id="topicSpinner" layoutX="14.0" layoutY="173.0" />
       <Label fx:id="topicLabel" layoutX="14.0" layoutY="146.0" prefHeight="26.0" prefWidth="193.0" text="topicLabel">
          <font>
