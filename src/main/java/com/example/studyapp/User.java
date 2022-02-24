@@ -9,6 +9,7 @@ public class User {
     private String standort;
     private boolean admin;
     public ArrayList<Topic> topics;
+    public ArrayList<String> topicNames;
 
 
     public User(int a, String b, String c, String d, boolean e){
@@ -18,6 +19,7 @@ public class User {
         this.standort = d;
         this.admin = e;
         topics = new ArrayList<Topic>();
+        topicNames = new ArrayList<String>();
     }
 
     public int getuNumber(){

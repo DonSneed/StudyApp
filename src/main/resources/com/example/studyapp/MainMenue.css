@@ -15,3 +15,8 @@
 #header{
     -fx-font-size: 30;
 }
+
+#topicLabel{
+    -fx-allignment: center;
+    -fx-font-size: 25;
+}

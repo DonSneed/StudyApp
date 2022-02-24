@@ -30,7 +30,7 @@ public class StudyApp extends Application {
         launch();
     }
     public void uListeAnlegen()throws IOException{
-        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\A200016642\\Betrieb\\Projekte\\Javafx\\StudyApp\\src\\main\\resources\\UserData\\UList.txt"));
+        BufferedReader br = new BufferedReader(new FileReader("src\\main\\resources\\UserData\\UList.txt"));
         String dataLine = br.readLine();
         while(dataLine != null){
             String[] userData = dataLine.split(",", 4);
