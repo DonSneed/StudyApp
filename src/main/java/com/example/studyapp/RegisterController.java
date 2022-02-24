@@ -94,9 +94,10 @@ public class RegisterController {
         return true;
     }
     public void addUserToList(User newUser)throws IOException{
-        FileWriter fw = new FileWriter("C:\\Users\\A200016642\\Betrieb\\Projekte\\Javafx\\StudyApp\\src\\main\\resources\\UList.txt", true);
+        FileWriter fw = new FileWriter("src\\main\\resources\\UserData\\UList.txt", true);
         fw.write("\r\n" + newUser.getuName() + "," + newUser.getPassword() + "," + newUser.getStandort() + "," + newUser.getAdminAsString());
         fw.close();
+        new File("src\\main\\resources\\UserData\\" + newUser.getuName()).mkdirs();
         StudyApp.users.add(newUser);
         errorMsg.setText("Profil erstellt");
     }
