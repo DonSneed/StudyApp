@@ -28,6 +28,7 @@
           <Menu mnemonicParsing="false" text="User">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />
+                  <MenuItem mnemonicParsing="false" text="Passwort ändern" />
                   <MenuItem mnemonicParsing="false" onAction="#abmelden" text="abmelden" />
             </items>
           </Menu>
@@ -35,11 +36,11 @@
       </MenuBar>
       <TextField fx:id="addTopicField" layoutX="182.0" layoutY="173.0" visible="false" />
       <Label fx:id="addTopicLabel" layoutX="182.0" layoutY="146.0" prefHeight="26.0" prefWidth="234.0" text="Themenname eingeben: " textAlignment="CENTER" visible="false" />
-      <Button fx:id="hinzufuegenB" layoutX="219.0" layoutY="210.0" mnemonicParsing="false" onAction="#addTopic" text="hinzufügen" visible="false" />
+      <Button fx:id="hinzufuegenB" layoutX="219.0" layoutY="210.0" mnemonicParsing="false" onAction="#addTopic" text="hinzufügen" />
       <Spinner fx:id="topicSpinner" layoutX="14.0" layoutY="173.0" />
       <Label fx:id="topicLabel" layoutX="14.0" layoutY="146.0" prefHeight="26.0" prefWidth="193.0" text="topicLabel">
          <font>
-            <Font name="Lucida Console" size="20.0" />
+            <Font name="Lucida Console" size="12.0" />
          </font>
       </Label>
    </children>
