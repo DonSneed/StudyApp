@@ -8,6 +8,7 @@ public class Topic {
     public String name;
     public boolean school;
     public String txtLocation;
+    public ArrayList<String> FKNames;
 
 
     public Topic(String name){

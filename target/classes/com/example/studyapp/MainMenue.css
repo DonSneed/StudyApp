@@ -16,7 +16,7 @@
     -fx-font-size: 30;
 }
 
-#topicLabel{
-    -fx-allignment: center;
-    -fx-font-size: 25;
+#addTopicLabel{
+    -fx-alignment: center;
+    -fx-font-size: 15;
 }

@@ -1,2 +1,5 @@
 admin,passwort,china,true
 enrico,passwortE,Kassel,false
+Christine,passwortC,Bremen,false
+pavel,passwortP,china,false
+bradko,passwortB,heli,false

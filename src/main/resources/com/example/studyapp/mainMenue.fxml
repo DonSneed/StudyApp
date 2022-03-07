@@ -21,7 +21,7 @@
         <menus>
           <Menu fx:id="ThemaButton" mnemonicParsing="false" text="Thema">
             <items>
-              <MenuItem mnemonicParsing="false" text="Themen öffnen" />
+              <MenuItem mnemonicParsing="false" onAction="#editTopic" text="Themen bearbeiten" />
                   <MenuItem mnemonicParsing="false" onAction="#enterTopic" text="Neues Thema anlegen" />
             </items>
           </Menu>
@@ -34,14 +34,18 @@
           </Menu>
         </menus>
       </MenuBar>
-      <TextField fx:id="addTopicField" layoutX="182.0" layoutY="173.0" visible="false" />
-      <Label fx:id="addTopicLabel" layoutX="182.0" layoutY="146.0" prefHeight="26.0" prefWidth="234.0" text="Themenname eingeben: " textAlignment="CENTER" visible="false" />
-      <Button fx:id="hinzufuegenB" layoutX="219.0" layoutY="210.0" mnemonicParsing="false" onAction="#addTopic" text="hinzufügen" visible="false" />
-      <Spinner fx:id="topicSpinner" layoutX="14.0" layoutY="173.0" />
-      <Label fx:id="topicLabel" layoutX="14.0" layoutY="146.0" prefHeight="26.0" prefWidth="193.0" text="topicLabel">
+      <TextField fx:id="addTopicField" layoutX="182.0" layoutY="210.0" visible="false" />
+      <Label fx:id="addTopicLabel" layoutX="182.0" layoutY="136.0" prefHeight="61.0" prefWidth="260.0" text="Themenname eingeben: " textAlignment="CENTER" visible="false" />
+      <Button fx:id="hinzufuegenB" layoutX="219.0" layoutY="252.0" mnemonicParsing="false" onAction="#addTopic" text="hinzufügen" visible="false" />
+      <Spinner fx:id="topicSpinner" layoutX="14.0" layoutY="210.0" />
+      <Label layoutX="14.0" layoutY="185.0" prefHeight="26.0" prefWidth="70.0" text="Thema:">
          <font>
             <Font name="Lucida Console" size="12.0" />
          </font>
       </Label>
+      <Button fx:id="editFKB" layoutX="206.0" layoutY="210.0" mnemonicParsing="false" onAction="#goFKScreen" text="Fragenkatalog bearbeiten" visible="false" />
+      <Button fx:id="deleteTopicB" layoutX="206.0" layoutY="252.0" mnemonicParsing="false" onAction="#deleteTopic" text="Thema löschen" visible="false" />
+      <Button fx:id="deleteTopicBY" layoutX="193.0" layoutY="265.0" mnemonicParsing="false" onAction="#confirmDelTopic" text="Ja" visible="false" />
+      <Button fx:id="deleteTopicBN" layoutX="321.0" layoutY="265.0" mnemonicParsing="false" onAction="#cancelDelTopic" text="Nein" visible="false" />
    </children>
 </AnchorPane>
