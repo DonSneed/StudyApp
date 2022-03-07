@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studyapp.FScreenController">
+   <children>
+      <MenuBar layoutY="1.0" prefHeight="18.0" prefWidth="600.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="zurück">
+            <items>
+                  <MenuItem mnemonicParsing="false" text="zurück zu Themen" />
+                  <MenuItem mnemonicParsing="false" text="abmelden" />
+                  <MenuItem mnemonicParsing="false" text="Programm beenden" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <Spinner fx:id="FKSpinner" layoutX="14.0" layoutY="210.0" />
+      <Label fx:id="FKLabel" layoutX="14.0" layoutY="190.0" text="Fragenkatalog:">
+         <font>
+            <Font name="Lucida Console" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="header" layoutX="1.0" layoutY="90.0" prefHeight="18.0" prefWidth="600.0" text="Willkommen">
+         <font>
+            <Font name="Lucida Console" size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="editFKB" layoutX="237.0" layoutY="210.0" mnemonicParsing="false" text="bearbeiten" />
+      <Button fx:id="addFKB" layoutX="236.0" layoutY="252.0" mnemonicParsing="false" onAction="#addFKB" text="hinzufügen" />
+      <Button fx:id="delFKB" layoutX="237.0" layoutY="292.0" mnemonicParsing="false" text="löschen" />
+      <TextField fx:id="addFKField" layoutX="257.0" layoutY="210.0" visible="false" />
+      <Button fx:id="cancelAddB" layoutX="350.0" layoutY="252.0" mnemonicParsing="false" onAction="#cancelAdd" text="abbrechen" visible="false" />
+      <Button fx:id="confirmAddB" layoutX="238.0" layoutY="252.0" mnemonicParsing="false" text="bestätigen" visible="false" />
+   </children>
+</AnchorPane>
