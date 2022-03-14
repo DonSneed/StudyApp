@@ -68,6 +68,7 @@ public class MainMenueController implements Initializable{
         for (int i = 0; i < txtFiles.length; i++){
             if (!StudyApp.currentUser.topicNames.contains(txtFiles[i].getName().replace(".txt", ""))){
                 StudyApp.currentUser.topicNames.add(txtFiles[i].getName().replace(".txt", ""));
+                StudyApp.currentUser.topics.add(new Topic(txtFiles[i].getName().replace(".txt", ""), "src\\main\\resources\\UserData\\" + StudyApp.currentUser.getuName() + "\\\\" + txtFiles[i].getName()));
             }
         }
         topics = FXCollections.observableArrayList(StudyApp.currentUser.topicNames);
@@ -181,10 +182,14 @@ public class MainMenueController implements Initializable{
     }
 
     public void goFKScreen(ActionEvent event)throws IOException {
-        root = FXMLLoader.load(getClass().getResource("fScreen.fxml"));
-        stage = (Stage) header.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("fScreen.fxml"));
+        root = loader.load();
+        FScreenController fScreenController = loader.getController();
+        fScreenController.displayTopic(topicSpinner.getValue());
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
-        String css = getClass().getResource("login.css").toExternalForm();
+
+        String css = getClass().getResource("Login.css").toExternalForm();
         scene.getStylesheets().add(css);
         stage.setScene(scene);
         stage.show();
@@ -199,11 +204,12 @@ public class MainMenueController implements Initializable{
             valueFactory.setValue(StudyApp.currentUser.topicNames.get(0).replace(".txt", ""));
         }
         topicSpinner.setValueFactory(valueFactory);
-        currentValue = topicSpinner.getValue();
+        //currentValue = topicSpinner.getValue();
         topicSpinner.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                currentValue = topicSpinner.getValue();
+                //currentValue = topicSpinner.getValue();
+                setCurrentTopic();
             }
         });
     }
@@ -211,5 +217,13 @@ public class MainMenueController implements Initializable{
     public void displayTopic(){
         valueFactory.setValue(StudyApp.currentUser.topicNames.get(StudyApp.currentUser.topicNames.size()-1));
         topicSpinner.setValueFactory(valueFactory);
+    }
+
+    public void setCurrentTopic(){
+        for (int i = 0; i < StudyApp.currentUser.topicNames.size(); i++){
+            if (topicSpinner.getValue().equals(StudyApp.currentUser.topicNames.get(i))){
+                StudyApp.currentTopic = StudyApp.currentUser.topics.get(i);
+            }
+        }
     }
 }

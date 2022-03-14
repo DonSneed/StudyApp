@@ -14,6 +14,8 @@ public class StudyApp extends Application {
 
     public static ArrayList<User> users = new ArrayList<User>();
     public static User currentUser;
+    public static Topic currentTopic;
+    public static Fragenkatalog currentFk;
 
     @Override
     public void start(Stage stage) throws IOException {

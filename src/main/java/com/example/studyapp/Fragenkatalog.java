@@ -12,9 +12,23 @@ public class Fragenkatalog {
     public User user;
     public ArrayList<String> questions;
 
-    public Fragenkatalog(String name, String txtLocation){
+    public Fragenkatalog(String name){
         this.name = name;
-        this.txtLocation = txtLocation;
+        questions = new ArrayList<String>();
+    }
+
+    public Fragenkatalog(String name, int qAmount){
+        this.name = name;
+        this.qAmount = qAmount;
+        questions = new ArrayList<String>();
+    }
+
+    public void setLineNr(int i){
+        this.lineNr = i;
+    }
+
+    public void setTopic(Topic topic){
+        this.topic = topic;
     }
 
     public String getName(){
@@ -25,8 +39,8 @@ public class Fragenkatalog {
         return this.txtLocation;
     }
 
-    public Fragenkatalog(Topic topic, String name){
-
+    public void addQuestion(String question){
+        questions.add(question);
     }
 
 }

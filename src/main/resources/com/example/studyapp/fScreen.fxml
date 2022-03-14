@@ -10,7 +10,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studyapp.FScreenController">
    <children>
       <MenuBar layoutY="1.0" prefHeight="18.0" prefWidth="600.0">
@@ -24,7 +23,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <Spinner fx:id="FKSpinner" layoutX="14.0" layoutY="210.0" />
+      <Spinner fx:id="fKSpinner" layoutX="14.0" layoutY="210.0" />
       <Label fx:id="FKLabel" layoutX="14.0" layoutY="190.0" text="Fragenkatalog:">
          <font>
             <Font name="Lucida Console" size="12.0" />
@@ -35,11 +34,13 @@
             <Font name="Lucida Console" size="20.0" />
          </font>
       </Label>
-      <Button fx:id="editFKB" layoutX="237.0" layoutY="210.0" mnemonicParsing="false" text="bearbeiten" />
-      <Button fx:id="addFKB" layoutX="236.0" layoutY="252.0" mnemonicParsing="false" onAction="#addFKB" text="hinzufügen" />
-      <Button fx:id="delFKB" layoutX="237.0" layoutY="292.0" mnemonicParsing="false" text="löschen" />
+      <Button fx:id="editFKB" layoutX="234.0" layoutY="256.0" mnemonicParsing="false" text="bearbeiten" />
+      <Button fx:id="addFKB" layoutX="234.0" layoutY="300.0" mnemonicParsing="false" onAction="#addFKB" text="hinzufügen" />
+      <Button fx:id="delFKB" layoutX="235.0" layoutY="343.0" mnemonicParsing="false" text="löschen" />
       <TextField fx:id="addFKField" layoutX="257.0" layoutY="210.0" visible="false" />
       <Button fx:id="cancelAddB" layoutX="350.0" layoutY="252.0" mnemonicParsing="false" onAction="#cancelAdd" text="abbrechen" visible="false" />
-      <Button fx:id="confirmAddB" layoutX="238.0" layoutY="252.0" mnemonicParsing="false" text="bestätigen" visible="false" />
+      <Button fx:id="confirmAddB" layoutX="238.0" layoutY="252.0" mnemonicParsing="false" onAction="#confirmAdd" text="bestätigen" visible="false" />
+      <Label fx:id="notificationLabel" layoutX="186.0" layoutY="189.0" prefHeight="18.0" prefWidth="413.0" visible="false" />
+      <Button fx:id="startFKB" layoutX="234.0" layoutY="210.0" mnemonicParsing="false" onAction="#startFK" text="starten" />
    </children>
 </AnchorPane>
