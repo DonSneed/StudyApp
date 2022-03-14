@@ -124,59 +124,64 @@ public class FkexeController {
     }
 
     public void submitA(){
-        submitB.setVisible(false);
-        nextB.setVisible(true);
-    //check 1
-        if (answers[0].contains("(w") && a1CB.isSelected()){
-            a1Label.setTextFill(Color.web("#03fc30"));
-        }else if (answers[0].contains("(f") && !a1CB.isSelected()){
-            a1Label.setTextFill(Color.web("#03fc30"));
+        if (questions.size() > 0){
+            submitB.setVisible(false);
+            nextB.setVisible(true);
+            //check 1
+            if (answers[0].contains("(w") && a1CB.isSelected()){
+                a1Label.setTextFill(Color.web("#03fc30"));
+            }else if (answers[0].contains("(f") && !a1CB.isSelected()){
+                a1Label.setTextFill(Color.web("#03fc30"));
+            }else{
+                a1Label.setTextFill(Color.web("#ea0a8e"));
+                fCounter++;
+            }
+            //check 2
+            if (answers[1].contains("(w") && a2CB.isSelected()){
+                a2Label.setTextFill(Color.web("#03fc30"));
+            }else if (answers[1].contains("(f") && !a1CB.isSelected()){
+                a2Label.setTextFill(Color.web("#03fc30"));
+            }else{
+                a2Label.setTextFill(Color.web("#ea0a8e"));
+                fCounter++;
+            }
+            //check 3
+            if (answers.length > 2){
+                if (answers[2].contains("(w") && a3CB.isSelected()){
+                    a3Label.setTextFill(Color.web("#03fc30"));
+                }else if (answers[2].contains("(f") && !a1CB.isSelected()){
+                    a3Label.setTextFill(Color.web("#03fc30"));
+                }else{
+                    a3Label.setTextFill(Color.web("#ea0a8e"));
+                    fCounter++;
+                }
+            }
+            //check 4
+            if (answers.length > 3){
+                if (answers[3].contains("(w") && a4CB.isSelected()){
+                    a4Label.setTextFill(Color.web("#03fc30"));
+                }else if (answers[3].contains("(f") && !a1CB.isSelected()){
+                    a4Label.setTextFill(Color.web("#03fc30"));
+                }else{
+                    a4Label.setTextFill(Color.web("#ea0a8e"));
+                    fCounter++;
+                }
+            }
+            //check 5
+            if (answers.length > 4){
+                if (answers[4].contains("(w") && a5CB.isSelected()){
+                    a5Label.setTextFill(Color.web("#03fc30"));
+                }else if (answers[4].contains("(f") && !a1CB.isSelected()){
+                    a5Label.setTextFill(Color.web("#03fc30"));
+                }else{
+                    a5Label.setTextFill(Color.web("#ea0a8e"));
+                    fCounter++;
+                }
+            }
         }else{
-            a1Label.setTextFill(Color.web("#ea0a8e"));
-            fCounter++;
+
         }
-    //check 2
-        if (answers[1].contains("(w") && a2CB.isSelected()){
-            a2Label.setTextFill(Color.web("#03fc30"));
-        }else if (answers[1].contains("(f") && !a1CB.isSelected()){
-            a2Label.setTextFill(Color.web("#03fc30"));
-        }else{
-            a2Label.setTextFill(Color.web("#ea0a8e"));
-            fCounter++;
-        }
-    //check 3
-        if (answers.length > 2){
-            if (answers[2].contains("(w") && a3CB.isSelected()){
-                a3Label.setTextFill(Color.web("#03fc30"));
-            }else if (answers[2].contains("(f") && !a1CB.isSelected()){
-                a3Label.setTextFill(Color.web("#03fc30"));
-            }else{
-                a3Label.setTextFill(Color.web("#ea0a8e"));
-                fCounter++;
-            }
-        }
-    //check 4
-        if (answers.length > 3){
-            if (answers[3].contains("(w") && a4CB.isSelected()){
-                a4Label.setTextFill(Color.web("#03fc30"));
-            }else if (answers[3].contains("(f") && !a1CB.isSelected()){
-                a4Label.setTextFill(Color.web("#03fc30"));
-            }else{
-                a4Label.setTextFill(Color.web("#ea0a8e"));
-                fCounter++;
-            }
-        }
-    //check 5
-        if (answers.length > 4){
-            if (answers[4].contains("(w") && a5CB.isSelected()){
-                a5Label.setTextFill(Color.web("#03fc30"));
-            }else if (answers[4].contains("(f") && !a1CB.isSelected()){
-                a5Label.setTextFill(Color.web("#03fc30"));
-            }else{
-                a5Label.setTextFill(Color.web("#ea0a8e"));
-                fCounter++;
-            }
-        }
+
 
     }
 
