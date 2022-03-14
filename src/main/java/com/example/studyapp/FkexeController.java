@@ -139,7 +139,7 @@ public class FkexeController {
             //check 2
             if (answers[1].contains("(w") && a2CB.isSelected()){
                 a2Label.setTextFill(Color.web("#03fc30"));
-            }else if (answers[1].contains("(f") && !a1CB.isSelected()){
+            }else if (answers[1].contains("(f") && !a2CB.isSelected()){
                 a2Label.setTextFill(Color.web("#03fc30"));
             }else{
                 a2Label.setTextFill(Color.web("#ea0a8e"));
@@ -149,7 +149,7 @@ public class FkexeController {
             if (answers.length > 2){
                 if (answers[2].contains("(w") && a3CB.isSelected()){
                     a3Label.setTextFill(Color.web("#03fc30"));
-                }else if (answers[2].contains("(f") && !a1CB.isSelected()){
+                }else if (answers[2].contains("(f") && !a3CB.isSelected()){
                     a3Label.setTextFill(Color.web("#03fc30"));
                 }else{
                     a3Label.setTextFill(Color.web("#ea0a8e"));
@@ -160,7 +160,7 @@ public class FkexeController {
             if (answers.length > 3){
                 if (answers[3].contains("(w") && a4CB.isSelected()){
                     a4Label.setTextFill(Color.web("#03fc30"));
-                }else if (answers[3].contains("(f") && !a1CB.isSelected()){
+                }else if (answers[3].contains("(f") && !a4CB.isSelected()){
                     a4Label.setTextFill(Color.web("#03fc30"));
                 }else{
                     a4Label.setTextFill(Color.web("#ea0a8e"));
@@ -171,7 +171,7 @@ public class FkexeController {
             if (answers.length > 4){
                 if (answers[4].contains("(w") && a5CB.isSelected()){
                     a5Label.setTextFill(Color.web("#03fc30"));
-                }else if (answers[4].contains("(f") && !a1CB.isSelected()){
+                }else if (answers[4].contains("(f") && !a5CB.isSelected()){
                     a5Label.setTextFill(Color.web("#03fc30"));
                 }else{
                     a5Label.setTextFill(Color.web("#ea0a8e"));
