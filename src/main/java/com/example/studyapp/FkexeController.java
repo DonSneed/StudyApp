@@ -54,6 +54,7 @@ public class FkexeController {
     public String a5;
     public int qNumber = 0;
     public int fCounter = 0;
+    public int aCounter = 0;
     public Random rd = new Random();
 
 
@@ -105,6 +106,7 @@ public class FkexeController {
         int qLength = full.indexOf("?");
         String aString = full.substring(qLength + 1);
         answers = aString.split("\\)");
+        aCounter += answers.length;
         qLabel.setText(full.substring(0, qLength + 1));
         a1Label.setText(answers[0].replace("(w", "").replace("(f", ""));
         a2Label.setText(answers[1].replace("(w", "").replace("(f", ""));
@@ -124,78 +126,89 @@ public class FkexeController {
     }
 
     public void submitA(){
-        if (questions.size() > 0){
-            submitB.setVisible(false);
-            nextB.setVisible(true);
-            //check 1
-            if (answers[0].contains("(w") && a1CB.isSelected()){
-                a1Label.setTextFill(Color.web("#03fc30"));
-            }else if (answers[0].contains("(f") && !a1CB.isSelected()){
-                a1Label.setTextFill(Color.web("#03fc30"));
-            }else{
-                a1Label.setTextFill(Color.web("#ea0a8e"));
-                fCounter++;
-            }
-            //check 2
-            if (answers[1].contains("(w") && a2CB.isSelected()){
-                a2Label.setTextFill(Color.web("#03fc30"));
-            }else if (answers[1].contains("(f") && !a2CB.isSelected()){
-                a2Label.setTextFill(Color.web("#03fc30"));
-            }else{
-                a2Label.setTextFill(Color.web("#ea0a8e"));
-                fCounter++;
-            }
-            //check 3
-            if (answers.length > 2){
-                if (answers[2].contains("(w") && a3CB.isSelected()){
-                    a3Label.setTextFill(Color.web("#03fc30"));
-                }else if (answers[2].contains("(f") && !a3CB.isSelected()){
-                    a3Label.setTextFill(Color.web("#03fc30"));
-                }else{
-                    a3Label.setTextFill(Color.web("#ea0a8e"));
-                    fCounter++;
-                }
-            }
-            //check 4
-            if (answers.length > 3){
-                if (answers[3].contains("(w") && a4CB.isSelected()){
-                    a4Label.setTextFill(Color.web("#03fc30"));
-                }else if (answers[3].contains("(f") && !a4CB.isSelected()){
-                    a4Label.setTextFill(Color.web("#03fc30"));
-                }else{
-                    a4Label.setTextFill(Color.web("#ea0a8e"));
-                    fCounter++;
-                }
-            }
-            //check 5
-            if (answers.length > 4){
-                if (answers[4].contains("(w") && a5CB.isSelected()){
-                    a5Label.setTextFill(Color.web("#03fc30"));
-                }else if (answers[4].contains("(f") && !a5CB.isSelected()){
-                    a5Label.setTextFill(Color.web("#03fc30"));
-                }else{
-                    a5Label.setTextFill(Color.web("#ea0a8e"));
-                    fCounter++;
-                }
-            }
+
+        submitB.setVisible(false);
+        nextB.setVisible(true);
+        //check 1
+        if (answers[0].contains("(w") && a1CB.isSelected()){
+            a1Label.setTextFill(Color.web("#03fc30"));
+        }else if (answers[0].contains("(f") && !a1CB.isSelected()){
+            a1Label.setTextFill(Color.web("#03fc30"));
         }else{
-
+            a1Label.setTextFill(Color.web("#de2834"));
+            fCounter++;
         }
-
-
+        //check 2
+        if (answers[1].contains("(w") && a2CB.isSelected()){
+            a2Label.setTextFill(Color.web("#03fc30"));
+        }else if (answers[1].contains("(f") && !a2CB.isSelected()){
+            a2Label.setTextFill(Color.web("#03fc30"));
+        }else{
+            a2Label.setTextFill(Color.web("#de2834"));
+            fCounter++;
+        }
+        //check 3
+        if (answers.length > 2){
+            if (answers[2].contains("(w") && a3CB.isSelected()){
+                a3Label.setTextFill(Color.web("#03fc30"));
+            }else if (answers[2].contains("(f") && !a3CB.isSelected()){
+                a3Label.setTextFill(Color.web("#03fc30"));
+            }else{
+                a3Label.setTextFill(Color.web("#de2834"));
+                fCounter++;
+            }
+        }
+        //check 4
+        if (answers.length > 3){
+            if (answers[3].contains("(w") && a4CB.isSelected()){
+                a4Label.setTextFill(Color.web("#03fc30"));
+            }else if (answers[3].contains("(f") && !a4CB.isSelected()){
+                a4Label.setTextFill(Color.web("#03fc30"));
+            }else{
+                a4Label.setTextFill(Color.web("#de2834"));
+                fCounter++;
+            }
+        }
+        //check 5
+        if (answers.length > 4){
+            if (answers[4].contains("(w") && a5CB.isSelected()){
+                a5Label.setTextFill(Color.web("#03fc30"));
+            }else if (answers[4].contains("(f") && !a5CB.isSelected()){
+                a5Label.setTextFill(Color.web("#03fc30"));
+            }else{
+                a5Label.setTextFill(Color.web("#de2834"));
+                fCounter++;
+            }
+        }
     }
 
     public void next(){
-        nextB.setVisible(false);
-        submitB.setVisible(true);
-        a1Label.setTextFill(Color.web("#888888"));
-        a2Label.setTextFill(Color.web("#888888"));
-        a3Label.setTextFill(Color.web("#888888"));
-        a4Label.setTextFill(Color.web("#888888"));
-        a5Label.setTextFill(Color.web("#888888"));
-        currentQ = nextQ();
-        qNumber++;
-        header.setText(StudyApp.currentFk.getName() + " Quiz: "+ qNumber + "/" + StudyApp.currentFk.qAmount);
-        displayQ(currentQ);
+        if (questions.size() > 0){
+            nextB.setVisible(false);
+            submitB.setVisible(true);
+            a1Label.setTextFill(Color.web("#888888"));
+            a2Label.setTextFill(Color.web("#888888"));
+            a3Label.setTextFill(Color.web("#888888"));
+            a4Label.setTextFill(Color.web("#888888"));
+            a5Label.setTextFill(Color.web("#888888"));
+            currentQ = nextQ();
+            qNumber++;
+            header.setText(StudyApp.currentFk.getName() + " Quiz: "+ qNumber + "/" + StudyApp.currentFk.qAmount);
+            displayQ(currentQ);
+        }else{
+            a1Label.setVisible(false);
+            a2Label.setVisible(false);
+            a3Label.setVisible(false);
+            a4Label.setVisible(false);
+            a5Label.setVisible(false);
+            a1CB.setVisible(false);
+            a2CB.setVisible(false);
+            a3CB.setVisible(false);
+            a4CB.setVisible(false);
+            a5CB.setVisible(false);
+            header.setText("Quiz abgeschlossen!");
+            qLabel.setText("Sie haben in " + StudyApp.currentFk.qAmount + " Fragen " + (aCounter - fCounter) + "/" + aCounter + " richtige Antworten gegeben");
+        }
+
     }
 }
