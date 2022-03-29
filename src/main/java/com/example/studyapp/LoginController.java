@@ -41,7 +41,6 @@ public class LoginController {
             root = loader.load();
             MainMenueController mainMenueController = loader.getController();
             mainMenueController.setupTopics();
-            mainMenueController.displayName(StudyApp.currentUser.getuName());
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
 

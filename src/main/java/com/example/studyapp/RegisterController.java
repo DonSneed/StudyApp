@@ -95,7 +95,7 @@ public class RegisterController {
     }
     public void addUserToList(User newUser)throws IOException{
         FileWriter fw = new FileWriter("src\\main\\resources\\UserData\\UList.txt", true);
-        fw.write("\r\n" + newUser.getuName() + "," + newUser.getPassword() + "," + newUser.getStandort() + "," + newUser.getAdminAsString());
+        fw.write("\n" + newUser.getuName() + "," + newUser.getPassword() + "," + newUser.getStandort() + "," + newUser.getAdminAsString());
         fw.close();
         new File("src\\main\\resources\\UserData\\" + newUser.getuName()).mkdirs();
         StudyApp.users.add(newUser);

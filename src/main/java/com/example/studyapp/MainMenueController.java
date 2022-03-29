@@ -62,6 +62,10 @@ public class MainMenueController implements Initializable{
     }
 
     public void setupTopics() {
+        header.setText("Hallo: " + StudyApp.currentUser.getuName());
+        if(StudyApp.currentUser.topics.size() > 0){
+            StudyApp.currentTopic = StudyApp.currentUser.topics.get(StudyApp.currentUser.topics.size() -1);
+        }
         File directory = new File("src\\main\\resources\\UserData\\" + StudyApp.currentUser.getuName());
         FileFilter filter = new FileFilter() {
             @Override
