@@ -17,3 +17,12 @@
 #header{
     -fx-text-fill: #ea0a8e;
 }
+
+#fkLabel{
+    -fx-font-size: 13;
+    -fx-alignment: left;
+}
+#errorLabel{
+    -fx-font-size: 13;
+    -fx-text-fill: #de2834;
+}

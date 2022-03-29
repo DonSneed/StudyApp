@@ -54,6 +54,11 @@ public class MainMenueController implements Initializable{
 
     public void displayName(String username){
         header.setText("Hallo: " + username);
+        valueFactory.setValue(StudyApp.currentUser.topicNames.get(StudyApp.currentUser.topicNames.size()-1));
+        topicSpinner.setValueFactory(valueFactory);
+        if(StudyApp.currentUser.topics.size() > 0){
+            StudyApp.currentTopic = StudyApp.currentUser.topics.get(StudyApp.currentUser.topics.size() -1);
+        }
     }
 
     public void setupTopics() {
@@ -199,7 +204,6 @@ public class MainMenueController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        setupTopics();
         if (StudyApp.currentUser.topicNames.size() > 0){
             valueFactory.setValue(StudyApp.currentUser.topicNames.get(0).replace(".txt", ""));
         }
@@ -210,6 +214,13 @@ public class MainMenueController implements Initializable{
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                 //currentValue = topicSpinner.getValue();
                 setCurrentTopic();
+
+
+                for (int i = 0; i < StudyApp.currentUser.topicNames.size(); i++){
+                    if (StudyApp.currentUser.topicNames.get(i).equals(topicSpinner.getValue())){
+                        StudyApp.currentTopic = StudyApp.currentUser.topics.get(i);
+                    }
+                }
             }
         });
     }

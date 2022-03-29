@@ -1,11 +1,18 @@
 package com.example.studyapp;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -34,6 +41,8 @@ public class FkexeController {
     @FXML
     public Button nextB;
     @FXML
+    public Button quitB;
+    @FXML
     public CheckBox a1CB;
     @FXML
     public CheckBox a2CB;
@@ -56,6 +65,10 @@ public class FkexeController {
     public int fCounter = 0;
     public int aCounter = 0;
     public Random rd = new Random();
+
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
 
 
 
@@ -206,9 +219,39 @@ public class FkexeController {
             a3CB.setVisible(false);
             a4CB.setVisible(false);
             a5CB.setVisible(false);
+            nextB.setVisible(false);
+            cancelQuizB.setVisible(false);
+            quitB.setVisible(true);
             header.setText("Quiz abgeschlossen!");
             qLabel.setText("Sie haben in " + StudyApp.currentFk.qAmount + " Fragen " + (aCounter - fCounter) + "/" + aCounter + " richtige Antworten gegeben");
         }
 
     }
+    public void cancelQuiz(ActionEvent e)throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("fkexe.fxml"));
+        root = loader.load();
+        FkexeController fkexeController = loader.getController();
+        stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+
+        String css = getClass().getResource("Fkexe.css").toExternalForm();
+        scene.getStylesheets().add(css);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void goB(ActionEvent e)throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("fScreen.fxml"));
+        root = loader.load();
+        FScreenController fScreenController = loader.getController();
+        stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+
+        String css = getClass().getResource("Login.css").toExternalForm();
+        scene.getStylesheets().add(css);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+
 }
