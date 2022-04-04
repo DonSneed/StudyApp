@@ -90,6 +90,11 @@ public class FScreenController implements Initializable {
 
 
 
+    public void displayFK(){
+        valueFactory.setValue(StudyApp.currentTopic.fKNames.get(StudyApp.currentTopic.fKNames.size()-1).getName());
+        fKSpinner.setValueFactory(valueFactory);
+    }
+
     public void setupFK()throws IOException{
         String line;
         ArrayList<String> fkNames = new ArrayList<String>();
@@ -110,6 +115,9 @@ public class FScreenController implements Initializable {
         }
         fkList = FXCollections.observableArrayList(fkNames);
         valueFactory = new SpinnerValueFactory.ListSpinnerValueFactory<>(fkList);
+        if (StudyApp.currentTopic.fKNames.size() > 0){
+            StudyApp.currentFk = StudyApp.currentTopic.fKNames.get(0);
+        }
 
 
     }
@@ -158,18 +166,27 @@ public class FScreenController implements Initializable {
     public void confirmAdd()throws IOException {
         String topicName = addFKField.getText();
         FileWriter fw = new FileWriter(StudyApp.currentTopic.getTxtLocation(), true);
-        fw.write("\n" + "F," + topicName + ",");
+        File file = new File(StudyApp.currentTopic.getTxtLocation());
+        if (file.length() == 0){
+            fw.write("F," + topicName + ",");
+        }else{
+            fw.write("\n" + "F," + topicName + ",");
+        }
+
         fw.close();
         Fragenkatalog newFK = new Fragenkatalog(topicName);
         StudyApp.currentTopic.fKNames.add(newFK);
         fkList.add(newFK.getName());
+        displayFK();
         notificationLabel.setText("Fragenkatalog wurde angelegt");
         notificationLabel.setVisible(true);
         setupFK();
         PauseTransition pause = new PauseTransition(Duration.seconds(1));
         pause.setOnFinished(e -> notificationLabel.setText(null));
         pause.play();
+        notificationLabel.setVisible(false);
 
+        fKSpinner.setVisible(true);
         confirmAddB.setVisible(false);
         cancelAddB.setVisible(false);
         addFKField.clear();
@@ -310,36 +327,36 @@ public class FScreenController implements Initializable {
             txtData.add(scanner.nextLine());
         }
         scanner.close();
-        String enteredString = "," + addFKField.getText();
-        if (!aField1.equals("")){
+        String enteredString = addFKField.getText();
+        if (!aField1.getText().equals("")){
             if (a1cb.isSelected()){
                 enteredString += aField1.getText() + "(w)";
             }else{
                 enteredString += aField1.getText() + "(f)";
             }
         }
-        if (!aField2.equals("")){
+        if (!aField2.getText().equals("")){
             if (a2cb.isSelected()){
                 enteredString += aField2.getText() + "(w)";
             }else{
                 enteredString += aField2.getText() + "(f)";
             }
         }
-        if (!aField3.equals("")){
+        if (!aField3.getText().equals("")){
             if (a3cb.isSelected()){
                 enteredString += aField3.getText() + "(w)";
             }else{
                 enteredString += aField3.getText() + "(f)";
             }
         }
-        if (!aField4.equals("")){
+        if (!aField4.getText().equals("")){
             if (a4cb.isSelected()){
                 enteredString += aField4.getText() + "(w)";
             }else{
                 enteredString += aField4.getText() + "(f)";
             }
         }
-        if (!aField5.equals("")){
+        if (!aField5.getText().equals("")){
             if (a5cb.isSelected()){
                 enteredString += aField5.getText() + "(w)";
             }else{
@@ -350,7 +367,7 @@ public class FScreenController implements Initializable {
             if (txtData.get(i).contains("," + StudyApp.currentFk.getName())){
                 enteredString = txtData.get(i) + enteredString;
                 txtData.set(i, enteredString);
-            }
+         enteredString += ",";   }
         }
         PrintWriter pw = new PrintWriter(StudyApp.currentTopic.getTxtLocation());
         for (int i = 0; i < txtData.size(); i++){
@@ -363,6 +380,31 @@ public class FScreenController implements Initializable {
 
     }
 
+    public void backToTopics(ActionEvent event)throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("mainMenue.fxml"));
+        root = loader.load();
+        MainMenueController mainMenueController = loader.getController();
+        //mainMenueController.setupTopics();
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+
+        String css = getClass().getResource("MainMenue.css").toExternalForm();
+        scene.getStylesheets().add(css);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void abmelden(ActionEvent event)throws IOException{
+        root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        stage = (Stage) header.getScene().getWindow();
+        scene = new Scene(root);
+        String css = getClass().getResource("login.css").toExternalForm();
+        scene.getStylesheets().add(css);
+        stage.setScene(scene);
+        stage.show();
+        StudyApp.currentUser = null;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -372,7 +414,6 @@ public class FScreenController implements Initializable {
         }
         if (fkList.size() > 0){
             valueFactory.setValue(fkList.get(0));
-            StudyApp.currentFk = StudyApp.currentTopic.fKNames.get(0);
         }
         fKSpinner.setValueFactory(valueFactory);
         fKSpinner.valueProperty().addListener(new ChangeListener<String>() {

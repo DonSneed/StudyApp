@@ -1,5 +1,6 @@
 package com.example.studyapp;
 
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -73,13 +75,23 @@ public class FkexeController {
 
 
     public void startQuiz(){
-        a1CB.setVisible(true);
-        a2CB.setVisible(true);
-        startQuizB.setVisible(false);
-        submitB.setVisible(true);
-        cancelQuizB.setVisible(true);
-        header.setText(StudyApp.currentFk.getName() + " Quiz: 0/" + StudyApp.currentFk.qAmount);
-        setupQuiz();
+        if (StudyApp.currentFk.questions.size() < 1){
+            a1CB.setVisible(true);
+            a2CB.setVisible(true);
+            startQuizB.setVisible(false);
+            submitB.setVisible(true);
+            cancelQuizB.setVisible(true);
+            header.setText(StudyApp.currentFk.getName() + " Quiz: 0/" + StudyApp.currentFk.qAmount);
+            setupQuiz();
+        }else{
+            qLabel.setText("Katalog leer");
+            qLabel.setVisible(true);
+            PauseTransition pause = new PauseTransition(Duration.seconds(1));
+            pause.setOnFinished(e -> qLabel.setText(null));
+            pause.play();
+            qLabel.setVisible(false);
+        }
+
     }
 
     public void setupQuiz(){

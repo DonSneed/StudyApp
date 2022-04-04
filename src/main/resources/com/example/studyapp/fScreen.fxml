@@ -17,8 +17,8 @@
         <menus>
           <Menu mnemonicParsing="false" text="zurück">
             <items>
-                  <MenuItem mnemonicParsing="false" text="zurück zu Themen" />
-                  <MenuItem mnemonicParsing="false" text="abmelden" />
+                  <MenuItem mnemonicParsing="false" onAction="#backToTopics" text="zurück zu Themen" />
+                  <MenuItem mnemonicParsing="false" onAction="#abmelden" text="abmelden" />
                   <MenuItem mnemonicParsing="false" text="Programm beenden" />
             </items>
           </Menu>

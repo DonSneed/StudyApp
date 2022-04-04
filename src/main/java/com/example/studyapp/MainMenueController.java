@@ -52,20 +52,8 @@ public class MainMenueController implements Initializable{
     private SpinnerValueFactory<String> valueFactory;
 
 
-    public void displayName(String username){
-        header.setText("Hallo: " + username);
-        valueFactory.setValue(StudyApp.currentUser.topicNames.get(StudyApp.currentUser.topicNames.size()-1));
-        topicSpinner.setValueFactory(valueFactory);
-        if(StudyApp.currentUser.topics.size() > 0){
-            StudyApp.currentTopic = StudyApp.currentUser.topics.get(StudyApp.currentUser.topics.size() -1);
-        }
-    }
-
     public void setupTopics() {
         header.setText("Hallo: " + StudyApp.currentUser.getuName());
-        if(StudyApp.currentUser.topics.size() > 0){
-            StudyApp.currentTopic = StudyApp.currentUser.topics.get(StudyApp.currentUser.topics.size() -1);
-        }
         File directory = new File("src\\main\\resources\\UserData\\" + StudyApp.currentUser.getuName());
         FileFilter filter = new FileFilter() {
             @Override
@@ -79,6 +67,9 @@ public class MainMenueController implements Initializable{
                 StudyApp.currentUser.topicNames.add(txtFiles[i].getName().replace(".txt", ""));
                 StudyApp.currentUser.topics.add(new Topic(txtFiles[i].getName().replace(".txt", ""), "src\\main\\resources\\UserData\\" + StudyApp.currentUser.getuName() + "\\\\" + txtFiles[i].getName()));
             }
+        }
+        if(StudyApp.currentUser.topics.size() > 0){
+            StudyApp.currentTopic = StudyApp.currentUser.topics.get(0);
         }
         topics = FXCollections.observableArrayList(StudyApp.currentUser.topicNames);
         valueFactory = new SpinnerValueFactory.ListSpinnerValueFactory<>(topics);
@@ -207,7 +198,7 @@ public class MainMenueController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        setupTopics();
         if (StudyApp.currentUser.topicNames.size() > 0){
             valueFactory.setValue(StudyApp.currentUser.topicNames.get(0).replace(".txt", ""));
         }
