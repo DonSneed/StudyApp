@@ -75,7 +75,7 @@ public class FkexeController {
 
 
     public void startQuiz(){
-        if (StudyApp.currentFk.questions.size() < 1){
+        if (StudyApp.currentFk.questions.size() > 0){
             a1CB.setVisible(true);
             a2CB.setVisible(true);
             startQuizB.setVisible(false);
