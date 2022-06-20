@@ -6,10 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studyapp.FkexeController">
    <children>
-      <Label fx:id="header" layoutY="74.0" prefHeight="22.0" prefWidth="610.0" text="Willkommen">
+      <Label fx:id="header" prefHeight="99.0" prefWidth="610.0" text="Willkommen">
          <font>
             <Font name="Lucida Console" size="20.0" />
          </font>
@@ -26,7 +25,7 @@
       <CheckBox fx:id="a4CB" layoutX="476.0" layoutY="307.0" mnemonicParsing="false" visible="false" />
       <CheckBox fx:id="a3CB" layoutX="476.0" layoutY="262.0" mnemonicParsing="false" visible="false" />
       <CheckBox fx:id="a2CB" layoutX="476.0" layoutY="220.0" mnemonicParsing="false" visible="false" />
-      <Label fx:id="qLabel" layoutX="5.0" layoutY="132.0" prefHeight="26.0" prefWidth="600.0" />
+      <Label fx:id="qLabel" layoutX="5.0" layoutY="24.0" prefHeight="134.0" prefWidth="600.0" wrapText="true" />
       <Button fx:id="submitB" layoutX="525.0" layoutY="325.0" mnemonicParsing="false" onAction="#submitA" text="bestätigen" visible="false" />
       <Button fx:id="nextB" layoutX="526.0" layoutY="325.0" mnemonicParsing="false" onAction="#next" text="next" visible="false" />
       <Button fx:id="quitB" layoutX="273.0" layoutY="187.0" mnemonicParsing="false" onAction="#goB" text="beenden" visible="false" />

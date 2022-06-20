@@ -41,6 +41,8 @@ public class MainMenueController implements Initializable{
     @FXML
     private Button deleteTopicBY;
     @FXML
+    private Button addTopicB;
+    @FXML
     private Spinner<String> topicSpinner;
 
     private Stage stage;
@@ -90,6 +92,7 @@ public class MainMenueController implements Initializable{
     public void enterTopic(){
         editFKB.setVisible(false);
         deleteTopicB.setVisible(false);
+        addTopicB.setVisible(false);
         addTopicLabel.setVisible(true);
         addTopicLabel.setText("Thema eingeben:");
         addTopicField.setVisible(true);
@@ -112,6 +115,10 @@ public class MainMenueController implements Initializable{
                 addTopicLabel.setText("Thema wurde angelegt");
                 addTopicField.clear();
                 displayTopic();
+
+                addTopicLabel.setVisible(false);
+                addTopicField.setVisible(false);
+                hinzufuegenB.setVisible(false);
             }
             addTopicLabel.setTextFill(Color.web("#ea0a8e"));
             topics.add(newT.getName());

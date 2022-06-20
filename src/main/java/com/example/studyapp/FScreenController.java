@@ -219,6 +219,7 @@ public class FScreenController implements Initializable {
         }
     }
 
+
     public void editFK(){
         header.setText("Fragenkatalog: " + StudyApp.currentFk.getName());
         fKLabel.setText("möchten Sie eine Frage...");
@@ -259,7 +260,20 @@ public class FScreenController implements Initializable {
         if (checkEntry()){
             saveQ();
             errorLabel.setVisible(false);
-            header.setText("nice");
+            header.setText("Frage erfolgreich hinzugefügt");
+            fKLabel.setText("");
+            PauseTransition pause = new PauseTransition(Duration.seconds(1));
+            pause.setOnFinished(e -> {
+                try {
+                    cancelAdd(new ActionEvent());
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+
+            });
+            //pause.setOnFinished(e -> header.setText("Wilkommen"));
+            pause.play();
+            //cancelAdd(new ActionEvent());
 
         }else{
             errorLabel.setVisible(true);
@@ -363,11 +377,12 @@ public class FScreenController implements Initializable {
                 enteredString += aField5.getText() + "(f)";
             }
         }
+        enteredString += (",");
         for(int i = 0; i < txtData.size(); i++){
             if (txtData.get(i).contains("," + StudyApp.currentFk.getName())){
                 enteredString = txtData.get(i) + enteredString;
                 txtData.set(i, enteredString);
-         enteredString += ",";   }
+            }
         }
         PrintWriter pw = new PrintWriter(StudyApp.currentTopic.getTxtLocation());
         for (int i = 0; i < txtData.size(); i++){
@@ -381,13 +396,9 @@ public class FScreenController implements Initializable {
     }
 
     public void backToTopics(ActionEvent event)throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("mainMenue.fxml"));
-        root = loader.load();
-        MainMenueController mainMenueController = loader.getController();
-        //mainMenueController.setupTopics();
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("mainMenue.fxml"));
+        stage = (Stage) header.getScene().getWindow();
         scene = new Scene(root);
-
         String css = getClass().getResource("MainMenue.css").toExternalForm();
         scene.getStylesheets().add(css);
         stage.setScene(scene);

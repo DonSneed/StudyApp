@@ -19,12 +19,6 @@
       </Label>
       <MenuBar layoutY="1.0" prefHeight="26.0" prefWidth="600.0">
         <menus>
-          <Menu fx:id="ThemaButton" mnemonicParsing="false" text="Thema">
-            <items>
-              <MenuItem mnemonicParsing="false" onAction="#editTopic" text="Themen bearbeiten" />
-                  <MenuItem mnemonicParsing="false" onAction="#enterTopic" text="Neues Thema anlegen" />
-            </items>
-          </Menu>
           <Menu mnemonicParsing="false" text="User">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />
@@ -43,9 +37,10 @@
             <Font name="Lucida Console" size="12.0" />
          </font>
       </Label>
-      <Button fx:id="editFKB" layoutX="206.0" layoutY="210.0" mnemonicParsing="false" onAction="#goFKScreen" text="Fragenkatalog bearbeiten" visible="false" />
-      <Button fx:id="deleteTopicB" layoutX="206.0" layoutY="252.0" mnemonicParsing="false" onAction="#deleteTopic" text="Thema löschen" visible="false" />
+      <Button fx:id="editFKB" layoutX="206.0" layoutY="210.0" mnemonicParsing="false" onAction="#goFKScreen" text="Fragenkatalog bearbeiten" />
+      <Button fx:id="deleteTopicB" layoutX="206.0" layoutY="290.0" mnemonicParsing="false" onAction="#deleteTopic" text="Thema löschen" />
       <Button fx:id="deleteTopicBY" layoutX="193.0" layoutY="265.0" mnemonicParsing="false" onAction="#confirmDelTopic" text="Ja" visible="false" />
       <Button fx:id="deleteTopicBN" layoutX="321.0" layoutY="265.0" mnemonicParsing="false" onAction="#cancelDelTopic" text="Nein" visible="false" />
+      <Button fx:id="addTopicB" layoutX="206.0" layoutY="250.0" mnemonicParsing="false" onAction="#enterTopic" text="Thema hinzufügen" />
    </children>
 </AnchorPane>

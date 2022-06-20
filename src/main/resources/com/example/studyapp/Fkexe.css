@@ -8,6 +8,8 @@
     -fx-font-family: "lucida console";
     -fx-text-fill: #888888;
     -fx-alignment: center;
+    -fx-font-stretch: expanded;
+    -fx-word-wrap: break-word;
 }
 .button{
     -fx-font-family: "lucida console";

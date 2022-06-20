@@ -25,9 +25,9 @@
         </menus>
       </MenuBar>
       <Spinner fx:id="fKSpinner" layoutX="9.0" layoutY="136.0" />
-      <Label fx:id="fKLabel" layoutX="9.0" layoutY="79.0" prefHeight="54.0" prefWidth="554.0" text="Fragenkatalog:">
+      <Label fx:id="fKLabel" layoutX="10.0" layoutY="69.0" prefHeight="83.0" prefWidth="578.0" text="Fragenkatalog:" wrapText="true">
          <font>
-            <Font name="Lucida Console" size="12.0" />
+            <Font name="Lucida Console" size="10.0" />
          </font>
       </Label>
       <Label fx:id="header" layoutY="47.0" prefHeight="18.0" prefWidth="600.0" text="Willkommen">
