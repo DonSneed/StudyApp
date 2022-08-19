@@ -1,6 +1,7 @@
 module com.example.studyapp {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
 
 
     opens com.example.studyapp to javafx.fxml;

@@ -1,54 +1,25 @@
 package com.example.studyapp;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class User {
-    private int uNumber;
+
+    private int index;
     private String uName;
-    private String password;
-    private String standort;
-    private boolean admin;
-    public ArrayList<Topic> topics;
-    public ArrayList<String> topicNames;
+    private String pw;
+    private ArrayList<Integer> Scores;
 
-
-    public User(int a, String b, String c, String d, boolean e){
-        this.uNumber = a;
-        this.uName = b;
-        this.password = c;
-        this.standort = d;
-        this.admin = e;
-        topics = new ArrayList<Topic>();
-        topicNames = new ArrayList<String>();
-    }
-
-    public int getuNumber(){
-        return this.uNumber;
-    }
-
-    public String getUNumberAsString(){
-        return ""+ this.uNumber + "";
+    public User(String uName, String pw){
+        this.uName = uName;
+        this.pw = pw;
     }
 
     public String getuName(){
         return this.uName;
     }
 
-    public String getPassword(){
-        return this.password;
+    public String getPw(){
+        return this.pw;
     }
-
-    public String getStandort(){
-        return this.standort;
-    }
-
-    public String getAdminAsString(){
-        if(this.admin){
-            return "true";
-        }else{
-            return "false";
-        }
-    }
-
-
 }

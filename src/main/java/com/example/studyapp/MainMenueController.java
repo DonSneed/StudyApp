@@ -1,5 +1,6 @@
 package com.example.studyapp;
 
+import javafx.animation.PauseTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -12,231 +13,219 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
-import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.function.IntBinaryOperator;
 
 public class MainMenueController implements Initializable{
 
     @FXML
-    private Label header;
+    private Spinner katSpinner;
     @FXML
-    private Label addTopicLabel;
+    private TextArea katField;
     @FXML
-    private TextField addTopicField;
+    private Label welcomeLabel;
     @FXML
-    private Button hinzufuegenB;
+    private MenuButton exitBtn;
     @FXML
-    private Button editFKB;
+    private Button startBtn;
     @FXML
-    private Button deleteTopicB;
+    private Button editBtn;
     @FXML
-    private Button deleteTopicBN;
+    private Button statsBtn;
     @FXML
-    private Button deleteTopicBY;
+    private Button confirmBtn;
     @FXML
-    private Button addTopicB;
-    @FXML
-    private Spinner<String> topicSpinner;
+    private Button cancelBtn;
+
+    private static String CONNECTIONURL = "jdbc:sqlserver://127.0.0.1:1433;databaseName=StudyAppDB;user=Enrico;password=Sneed1;encrypt=true;trustServerCertificate=true;";
 
     private Stage stage;
     private Scene scene;
     private Parent root;
-    private int currentTopic;
-    private String currentValue;
-    private ObservableList<String> topics;
+
+    private ArrayList<String> katList = new ArrayList<String>();
+    private ObservableList<String> katalogs;
     private SpinnerValueFactory<String> valueFactory;
-
-
-    public void setupTopics() {
-        header.setText("Hallo: " + StudyApp.currentUser.getuName());
-        File directory = new File("src\\main\\resources\\UserData\\" + StudyApp.currentUser.getuName());
-        FileFilter filter = new FileFilter() {
-            @Override
-            public boolean accept(File directory) {
-                return directory.getName().endsWith(".txt");
-            }
-        };
-        File[] txtFiles = directory.listFiles(filter);
-        for (int i = 0; i < txtFiles.length; i++){
-            if (!StudyApp.currentUser.topicNames.contains(txtFiles[i].getName().replace(".txt", ""))){
-                StudyApp.currentUser.topicNames.add(txtFiles[i].getName().replace(".txt", ""));
-                StudyApp.currentUser.topics.add(new Topic(txtFiles[i].getName().replace(".txt", ""), "src\\main\\resources\\UserData\\" + StudyApp.currentUser.getuName() + "\\\\" + txtFiles[i].getName()));
-            }
-        }
-        if(StudyApp.currentUser.topics.size() > 0){
-            StudyApp.currentTopic = StudyApp.currentUser.topics.get(0);
-        }
-        topics = FXCollections.observableArrayList(StudyApp.currentUser.topicNames);
-        valueFactory = new SpinnerValueFactory.ListSpinnerValueFactory<>(topics);
-
-    }
-
-    public void abmelden(ActionEvent event)throws IOException{
-        root = FXMLLoader.load(getClass().getResource("login.fxml"));
-        stage = (Stage) header.getScene().getWindow();
-        scene = new Scene(root);
-        String css = getClass().getResource("login.css").toExternalForm();
-        scene.getStylesheets().add(css);
-        stage.setScene(scene);
-        stage.show();
-        StudyApp.currentUser = null;
-    }
-
-    public void enterTopic(){
-        editFKB.setVisible(false);
-        deleteTopicB.setVisible(false);
-        addTopicB.setVisible(false);
-        addTopicLabel.setVisible(true);
-        addTopicLabel.setText("Thema eingeben:");
-        addTopicField.setVisible(true);
-        hinzufuegenB.setVisible(true);
-        header.setText("");
-    }
-
-    public void addTopic() throws IOException {
-
-
-        if (checkTopic(addTopicField.getText())){
-            Topic newT = new Topic(addTopicField.getText());
-            String fileLocation = "src\\main\\resources\\UserData\\" + StudyApp.currentUser.getuName() + "\\" + addTopicField.getText() + ".txt";
-            File topicFile = new File(fileLocation);
-            if (topicFile.createNewFile()){
-                newT.setTxt(fileLocation);
-                StudyApp.currentUser.topics.add(newT);
-                StudyApp.currentUser.topicNames.add(newT.getName().replace(".txt", ""));
-
-                addTopicLabel.setText("Thema wurde angelegt");
-                addTopicField.clear();
-                displayTopic();
-
-                addTopicLabel.setVisible(false);
-                addTopicField.setVisible(false);
-                hinzufuegenB.setVisible(false);
-            }
-            addTopicLabel.setTextFill(Color.web("#ea0a8e"));
-            topics.add(newT.getName());
-        }
-
-
-    }
-
-    public boolean checkTopic(String topicName){
-        if (topicName.equals("")){
-            addTopicLabel.setText("Feld darf nicht leer sein");
-            addTopicLabel.setTextFill(Color.web("#de2834"));
-            return false;
-        }else{
-            for (int i = 0; i < topics.size() -1; i++){
-                if (topicName.equals(topics.get(i))){
-                    addTopicLabel.setText("Thema existiert bereits");
-                    addTopicLabel.setTextFill(Color.web("#de2834"));
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    public void editTopic(){
-        addTopicLabel.setVisible(false);
-        addTopicField.setVisible(false);
-        hinzufuegenB.setVisible(false);
-        editFKB.setVisible(true);
-        deleteTopicB.setVisible(true);
-        header.setText("");
-    }
-
-    public void deleteTopic(){
-        editFKB.setVisible(false);
-        deleteTopicB.setVisible(false);
-        addTopicLabel.setText("Sind Sie sicher, dass Sie das Thema inklusive aller gespeicherten Ressourcen löschen möchten?");
-        addTopicLabel.setVisible(true);
-        deleteTopicBY.setVisible(true);
-        deleteTopicBN.setVisible(true);
-    }
-    public void cancelDelTopic(){
-        editFKB.setVisible(true);
-        deleteTopicB.setVisible(true);
-        addTopicLabel.setText("");
-        addTopicLabel.setVisible(false);
-        deleteTopicBY.setVisible(false);
-        deleteTopicBN.setVisible(false);
-    }
-    public void confirmDelTopic(){
-        for (int i= 0; i < topics.size(); i++){
-            if (topics.get(i).equals(topicSpinner.getValue())){
-                File file = new File("src\\main\\resources\\UserData\\" + StudyApp.currentUser.getuName() + "\\" + topicSpinner.getValue() + ".txt");
-                file.delete();
-                topics.remove(i);
-                StudyApp.currentUser.topicNames.remove(i);
-
-            }
-        }
-        editFKB.setVisible(true);
-        deleteTopicB.setVisible(true);
-        addTopicLabel.setText("");
-        addTopicLabel.setVisible(false);
-        deleteTopicBY.setVisible(false);
-        deleteTopicBN.setVisible(false);
-
-    }
-
-    public void goFKScreen(ActionEvent event)throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("fScreen.fxml"));
-        root = loader.load();
-        FScreenController fScreenController = loader.getController();
-        fScreenController.displayTopic(topicSpinner.getValue());
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-
-        String css = getClass().getResource("Login.css").toExternalForm();
-        scene.getStylesheets().add(css);
-        stage.setScene(scene);
-        stage.show();
-    }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setupTopics();
-        if (StudyApp.currentUser.topicNames.size() > 0){
-            valueFactory.setValue(StudyApp.currentUser.topicNames.get(0).replace(".txt", ""));
+
+        setup();
+        if (katList.size() > 0){
+            valueFactory.setValue(katList.get(0));
         }
-        topicSpinner.setValueFactory(valueFactory);
+        katSpinner.setValueFactory(valueFactory);
+        welcomeLabel.setText("Welcome " + StudyApp.currentUser.getuName());
         //currentValue = topicSpinner.getValue();
-        topicSpinner.valueProperty().addListener(new ChangeListener<String>() {
+        katSpinner.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
                 //currentValue = topicSpinner.getValue();
-                setCurrentTopic();
-
-
-                for (int i = 0; i < StudyApp.currentUser.topicNames.size(); i++){
-                    if (StudyApp.currentUser.topicNames.get(i).equals(topicSpinner.getValue())){
-                        StudyApp.currentTopic = StudyApp.currentUser.topics.get(i);
-                    }
-                }
+                setKatalog();
             }
         });
     }
 
-    public void displayTopic(){
-        valueFactory.setValue(StudyApp.currentUser.topicNames.get(StudyApp.currentUser.topicNames.size()-1));
-        topicSpinner.setValueFactory(valueFactory);
+    public void setup(){
+        //Array erstellen und mit Katalognamen aus der Datenbank füllen
+        try (Connection con = DriverManager.getConnection(CONNECTIONURL); Statement stmt = con.createStatement();) {
+            String SQL = "SELECT * from [dbo].[KatalogID]";
+            ResultSet rs = stmt.executeQuery(SQL);
+
+            // Iterate through the data in the result set and display it.
+            katList.add("-Neuen Katalog erstellen-");
+            while (rs.next()) {
+                katList.add(rs.getString("Katalog"));
+            }
+            katalogs = FXCollections.observableArrayList(katList);
+            valueFactory = new SpinnerValueFactory.ListSpinnerValueFactory<>(katalogs);
+            valueFactory.setValue(katList.get(0));
+            katSpinner.setValueFactory(valueFactory);
+        }
+        // Handle any errors that may have occurred.
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
-    public void setCurrentTopic(){
-        for (int i = 0; i < StudyApp.currentUser.topicNames.size(); i++){
-            if (topicSpinner.getValue().equals(StudyApp.currentUser.topicNames.get(i))){
-                StudyApp.currentTopic = StudyApp.currentUser.topics.get(i);
+    public void setKatalog(){
+        for (int i = 0; i < katList.size(); i++){
+            if (katSpinner.getValue().equals(katList.get(i))){
+                StudyApp.currentKat = new Katalog(katList.get(i));
             }
         }
     }
+
+    public void start(ActionEvent event)throws IOException{
+        if (katSpinner.getValue().equals("-Neuen Katalog erstellen-")){
+            //neuen Katalog anlegen
+            newKatSetup();
+        }else{
+            //Quiz starten
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("quiz.fxml"));
+            root = loader.load();
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+
+            String css = getClass().getResource("Style.css").toExternalForm();
+            scene.getStylesheets().add(css);
+            stage.setScene(scene);
+            stage.show();
+        }
+    }
+
+    public void newKatSetup(){
+        welcomeLabel.setText("Name des Katalogs?");
+        katSpinner.setVisible(false);
+        katField.setVisible(true);
+        startBtn.setVisible(false);
+        editBtn.setVisible(false);
+        statsBtn.setVisible(false);
+        confirmBtn.setVisible(true);
+        cancelBtn.setVisible(true);
+
+    }
+
+    public void addNewKat() {
+        //check katField input with Database and add new entry if possible
+        for (int i = 0; i < katList.size(); i++) {
+            if (katList.get(i).equals(katField.getText())) {
+                welcomeLabel.setText("Katalogname bereits vergeben");
+                PauseTransition pause = new PauseTransition(Duration.seconds(2));
+                pause.setOnFinished(e ->
+                        welcomeLabel.setText("Willkommen " + StudyApp.currentUser.getuName())
+                );
+                pause.play();
+                return;
+            }
+        }
+        try (Connection con = DriverManager.getConnection(CONNECTIONURL); Statement stmt = con.createStatement();) {
+            String sql = "INSERT INTO [dbo].[KatalogID] VALUES (?);";
+            PreparedStatement preparedStatement = con.prepareStatement(sql);
+
+            preparedStatement.setString(1, katField.getText());
+
+            int rowsAffected = preparedStatement.executeUpdate();
+            if (rowsAffected > 0) {
+                welcomeLabel.setText("Katalog wurde angelegt");
+                katList.add(katField.getText());
+                katalogs.add(katField.getText());
+                //errorLabel.setTextFill(Color.web(#));
+                PauseTransition pause = new PauseTransition(Duration.seconds(2));
+                pause.setOnFinished(e ->{
+                    welcomeLabel.setText("Willkommen " + StudyApp.currentUser.getuName());
+                    cancel();
+                        }
+                );
+                pause.play();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void edit(ActionEvent event)throws IOException{
+        if (katSpinner.getValue().equals("-Neuen Katalog erstellen-")){
+            welcomeLabel.setText("erstmal Katalog auswählen");
+            PauseTransition pause = new PauseTransition(Duration.seconds(2));
+            pause.setOnFinished(e ->{
+                        welcomeLabel.setText("Willkommen " + StudyApp.currentUser.getuName());
+                        cancel();
+                    }
+            );
+            pause.play();
+        }else{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("editScreen.fxml"));
+            root = loader.load();
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+
+            String css = getClass().getResource("Style.css").toExternalForm();
+            scene.getStylesheets().add(css);
+            stage.setScene(scene);
+            stage.show();
+        }
+    }
+
+    public void cancel(){
+        welcomeLabel.setText("Willkommen " + StudyApp.currentUser.getuName());
+        welcomeLabel.setVisible(true);
+        katSpinner.setVisible(true);
+        startBtn.setVisible(true);
+        editBtn.setVisible(true);
+        statsBtn.setVisible(true);
+        katField.setVisible(false);
+        katField.setText("");
+        confirmBtn.setVisible(false);
+        cancelBtn.setVisible(false);
+    }
+    //MenueBtn Methods
+    public void logout(ActionEvent event)throws IOException {
+        StudyApp.currentKat = null;
+        StudyApp.currentUser = null;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+        root = loader.load();
+        stage = (Stage)welcomeLabel.getScene().getWindow();
+        scene = new Scene(root);
+
+        String css = getClass().getResource("Style.css").toExternalForm();
+        scene.getStylesheets().add(css);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void exitApp(){
+        stage = (Stage) welcomeLabel.getScene().getWindow();
+        stage.close();
+    }
+
+
+
 }

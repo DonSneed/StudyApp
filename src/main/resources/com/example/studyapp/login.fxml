@@ -7,36 +7,36 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="scenePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studyapp.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@Style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.studyapp.LoginController">
    <children>
-      <Label fx:id="header" layoutY="44.0" prefHeight="20.0" prefWidth="600.0" text="Bitte Benutzernamen und Passwort eingeben:">
+      <Label layoutX="119.0" layoutY="150.0" text="User:">
          <font>
-            <Font name="Lucida Console" size="19.0" />
-         </font>
-      </Label>
-      <Label layoutX="133.0" layoutY="149.0" text="username:">
+            <Font name="Lucida Console" size="18.0" />
+         </font></Label>
+      <Label layoutX="97.0" layoutY="200.0" text="Passwort:">
          <font>
-            <Font name="Lucida Console" size="15.0" />
-         </font>
-      </Label>
-      <Label layoutX="137.0" layoutY="200.0" text="passwort:">
+            <Font name="Lucida Console" size="18.0" />
+         </font></Label>
+      <Label fx:id="rePWLabel" layoutX="78.0" layoutY="226.0" prefHeight="59.0" prefWidth="137.0" text="PasswortWiederholen:" visible="false">
          <font>
-            <Font name="Lucida Console" size="15.0" />
-         </font>
-      </Label>
-      <TextField fx:id="uNameField" layoutX="225.0" layoutY="144.0" />
-      <PasswordField fx:id="pwField" layoutX="225.0" layoutY="195.0" />
-      <Button fx:id="loginB" layoutX="246.0" layoutY="244.0" mnemonicParsing="false" onAction="#login" text="login">
+            <Font name="Lucida Console" size="18.0" />
+         </font></Label>
+      <TextField fx:id="userField" layoutX="225.0" layoutY="147.0" prefHeight="26.0" prefWidth="150.0" />
+      <PasswordField fx:id="pwField" layoutX="224.0" layoutY="197.0" />
+      <PasswordField fx:id="pwField2" layoutX="224.0" layoutY="243.0" visible="false" />
+      <Button fx:id="loginButton" layoutX="247.0" layoutY="285.0" mnemonicParsing="false" onAction="#login" prefHeight="34.0" prefWidth="106.0" text="Login">
          <font>
-            <Font name="Lucida Console" size="15.0" />
+            <Font name="Lucida Console" size="22.0" />
          </font>
       </Button>
-      <Button layoutX="473.0" layoutY="347.0" mnemonicParsing="false" onAction="#register" text="registrieren">
+      <Button fx:id="regButton" layoutX="225.0" layoutY="344.0" mnemonicParsing="false" onAction="#register" prefHeight="26.0" prefWidth="150.0" text="Registrieren">
          <font>
-            <Font name="Lucida Console" size="12.0" />
+            <Font name="Lucida Console" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="logoutButton" layoutX="31.0" layoutY="345.0" mnemonicParsing="false" onAction="#exitApp" text="beenden" />
-      <Label fx:id="errMsg" layoutX="286.0" layoutY="116.0" />
+      <Label fx:id="errorLabel" layoutX="33.0" layoutY="43.0" prefHeight="81.0" prefWidth="534.0" textAlignment="CENTER">
+         <font>
+            <Font name="Lucida Console" size="18.0" />
+         </font></Label>
    </children>
 </AnchorPane>

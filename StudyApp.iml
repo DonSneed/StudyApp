@@ -16,5 +16,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-api:5.8.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-engine:5.8.1" level="project" />
     <orderEntry type="library" name="lib1" level="project" />
+    <orderEntry type="library" name="mssql-jdbc-10.1.0.jre17-preview" level="project" />
   </component>
 </module>
