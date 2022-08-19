@@ -1,0 +1,77 @@
+.root{
+
+    -fx-background-color: linear-gradient(from 0% 50% to 0% 100%, #59C722, #217373)
+}
+.pane{
+    -fx-background-color: #1a2b14;
+}
+
+.button{
+    -fx-background-color: #59C722;
+    -fx-text-fill: #3D3D3D;
+}
+.button:hover{
+    -fx-background-color: #288a8a;
+}
+
+.button:pressed{
+    -fx-background-color: #217373;
+}
+
+.spinner{
+    -fx-font-family: 'Lucida Console';
+}
+
+.spinner:focused,
+.spinner:contains-focus {
+  -fx-background-color: transparent;
+}
+
+.spinner .increment-arrow-button,
+.spinner .decrement-arrow-button {
+    -fx-body-color: #87D062;
+}
+.spinner .increment-arrow-button:hover,
+.spinner .decrement-arrow-button:hover {
+    /* interpolate color between yellow and red based on first color brightness */
+    -fx-body-color: #59C722;
+}
+
+.menu-item .menu-button{
+    -fx-background-color: #217373;
+    -fx-text-fill: #3D3D3D;
+}
+
+.menu-item:focused {
+     -fx-background-color: #217373;
+}
+
+.context-menu{
+    -fx-background-color: #217373;
+}
+
+.label{
+    -fx-text-fill: #3d4738;
+}
+
+#welcomeLabel{
+    -fx-alignment: center;
+}
+#confirmDeleteContainer{
+    -fx-background-color: #3d4738;
+}
+#quizContainer{
+    -fx-background-color: #3d4738;
+}
+#quizContainer .label{
+    -fx-text-fill: #BCD1AC;
+}
+#resultContainer{
+    -fx-background-color: #3d4738;
+}
+#resultContainer .label{
+    -fx-text-fill: #BCD1AC;
+}
+#confirmDelLabel{
+    -fx-text-fill: #BCD1AC;
+}
