@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="jdk-17_windows-x64_bin">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../../software/Java/jdk-17_windows-x64_bin.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
