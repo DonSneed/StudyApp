@@ -1,2 +1,0 @@
-enrico,passwortE,Kassel,false
-justin,passwortJ,Bebra,false
