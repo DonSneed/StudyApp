@@ -2,10 +2,12 @@ BEGIN TRANSACTION
 
 BEGIN TRY
 
+<<<<<<< HEAD
 EXEC sp_rename '[dbo].[User]', 'Nutzer';
 EXEC sp_rename '[dbo].[Fragenkatalog]', 'Frage';
 EXEC sp_rename '[dbo].[KatalogID]', 'Katalog';
 EXEC sp_rename '[dbo].[Score]', 'Versuch';
+
 EXEC sp_rename '[dbo].[Nutzer].[UserID]', 'NutzerID', 'COLUMN';
 EXEC sp_rename '[dbo].[Versuch].ScoreID', 'VersuchID', 'COLUMN';
 EXEC sp_rename '[dbo].[Versuch].Score', 'Punktestand', 'COLUMN';
@@ -13,7 +15,7 @@ EXEC sp_rename '[dbo].[Versuch].Score', 'Punktestand', 'COLUMN';
 DROP TABLE [dbo].[Person];
 
 CREATE TABLE Auswertung (
-	AuswertungÍD int primary Key,
+	Auswertungï¿½D int primary Key,
 	Richtig bit
 );
 
