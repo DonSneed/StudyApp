@@ -68,8 +68,6 @@ mssql.connect(config, function(err) {
     if (err) throw err;
     console.log("Connected to MSSQL");
 });
-<<<<<<< HEAD
-<<<<<<< HEAD:StudyAppWeb/server.js
 
 app.get('/', function(req, res) {
     const request = new mssql.Request();
@@ -91,7 +89,3 @@ app.listen(5173, ()=> {
     console.log("Yey, our project is running on port 5173");
 });
 
-=======
->>>>>>> c4890cbbd53bf7e796a4f57ec5c84380544b9b87:server/index.js
-=======
->>>>>>> c4890cbbd53bf7e796a4f57ec5c84380544b9b87
