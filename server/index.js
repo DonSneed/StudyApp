@@ -12,7 +12,7 @@ app.use(cors());
 const config = {
     user:  "Enrico",
     password: "Sneed1",
-    server:"DESKTOP-7JDPGSU",
+    server:"BE1CA899",
     database:"StudyAppDB",
     options:{
         trustServerCertificate: true,
@@ -68,3 +68,24 @@ mssql.connect(config, function(err) {
     if (err) throw err;
     console.log("Connected to MSSQL");
 });
+
+app.get('/', function(req, res) {
+    const request = new mssql.Request();
+    request.query('SELECT * FROM users', function (err, result){
+        if (err) throw err;
+        res.send(result);
+    });
+});
+
+app.get("/test", (req, res) => {
+    res.send("Welcome to the backend");
+})
+
+app.listen(1433, ()=> {
+    console.log("Yey, our server is running on port 1433");
+});
+
+app.listen(5173, ()=> {
+    console.log("Yey, our project is running on port 5173");
+});
+

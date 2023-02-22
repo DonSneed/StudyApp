@@ -2,13 +2,18 @@ BEGIN TRANSACTION
 
 BEGIN TRY
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 39ef692f5101946b765a5132d8ed98683c29cecd
 EXEC sp_rename '[dbo].[User]', 'Nutzer';
 EXEC sp_rename '[dbo].[Fragenkatalog]', 'Frage';
 EXEC sp_rename '[dbo].[KatalogID]', 'Katalog';
 EXEC sp_rename '[dbo].[Score]', 'Versuch';
-EXEC sp_rename '[dbo].[Nutzer].[UserID]', 'NutzerID', 'COLUMN';
-EXEC sp_rename '[dbo].[Versuch].ScoreID', 'VersuchID', 'COLUMN';
-EXEC sp_rename '[dbo].[Versuch].Score', 'Punktestand', 'COLUMN';
+<<<<<<< HEAD
+
+
+
 
 DROP TABLE [dbo].[Person];
 
