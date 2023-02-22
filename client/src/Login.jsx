@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import axios from "axios"
+import User from "./User.js"
 import './Login.css'
 import appIcon from "./assets/appIcon.png"
 
@@ -12,29 +13,57 @@ function Login() {
 
     const LoginOrRegister = () => {
       /* preventDefault(); */
-      if(!showRepeatPassword){
-        axios.get("http://127.0.0.1:5000/users").then((response) => {
-          setUserList(response.data);
-          console.log(userList);
+      axios.get("http://127.0.0.1:5000/users").then((response) => {
+          setUserList(response.data.recordset);
         })
+      if(!showRepeatPassword){
+        if(checkLogin(user, password)){
+          console.log("Login succesfull");
+        }else{
+          console.log("wrong Login info");
+          //displayLoginError
+          //clear input fields
+        }
       }else{
-        axios.post('http://127.0.0.1:5000/create', {
-          user: user,
-          password: password,
-        }).then(() => {
-          setUserList([
-            ...userList,
-            {
-              user: user,
-              password: password,
-            },
-          ]);
-          console.log("success");
-        });
+        if(checkRegister){
+          axios.post('http://127.0.0.1:5000/create', {
+            user: user,
+            password: password,
+          }).then(() => {
+            setUserList([
+              ...userList,
+              {
+                user: user,
+                password: password,
+              },
+            ]);
+            console.log("success");
+          });
+        }else{
+          //display Registererror
+          //clea input fields
+        }
+        
       }
       
     };
     
+    const checkLogin = (name, pw) =>{
+      for (let i = 0; i < userList.length; i++) {
+        if (userList[i].Username === name && userList[i].Password === password) {
+          return true; // return true if match found
+        }
+      }
+      return false; // return false if no match found
+    }
+
+    const checkRegister = (user, password, password2) =>{
+      if(password === user === password2){
+        return false;
+      }else{
+        return true;
+      }
+    }
 
     const hitBackend = () => {
         axios.get('http://localhost:5000/test')
