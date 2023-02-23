@@ -1,64 +1,80 @@
-import { useState } from 'react'
+import { useState , useEffect} from 'react'
 import axios from "axios"
 import User from "./User.js"
 import './Login.css'
 import appIcon from "./assets/appIcon.png"
 
 function Login() {
-    const[user, setUser] = useState('');
+    const[username, setUsername] = useState('');
     const[password, setPassword] = useState('');
     const[password2, setPassword2] = useState('');
+    const[currentUser, setCurrentUser] = useState(new User());
     const[showRepeatPassword, setShowRepeatPassword] = useState(false);
     const[userList, setUserList] = useState([]);
 
+    useEffect(() => {
+      axios.get("http://127.0.0.1:5000/users")
+      .then((response) => {
+        setUserList(response.data.recordset);
+      })
+      .catch((error) =>{
+        console.log(error);
+      })
+    })
+
     const LoginOrRegister = () => {
-      /* preventDefault(); */
-      axios.get("http://127.0.0.1:5000/users").then((response) => {
-          setUserList(response.data.recordset);
-        })
-      if(!showRepeatPassword){
-        if(checkLogin(user, password)){
-          console.log("Login succesfull");
-        }else{
-          console.log("wrong Login info");
-          //displayLoginError
-          //clear input fields
-        }
-      }else{
-        if(checkRegister){
-          axios.post('http://127.0.0.1:5000/create', {
-            user: user,
-            password: password,
-          }).then(() => {
-            setUserList([
-              ...userList,
-              {
-                user: user,
+      /* axios.get("http://127.0.0.1:5000/users")
+        .then((response) => {
+          setUserList(response.data.recordset); */
+    
+          if(!showRepeatPassword){
+            if(checkLogin(username, password)){
+              console.log("Login succesfull");
+            }else{
+              console.log("wrong Login info");
+              //displayLoginError for one second
+              //clear input fields
+            }
+          }else{
+            if(checkRegister){
+              axios.post('http://127.0.0.1:5000/create', {
+                user: username,
                 password: password,
-              },
-            ]);
-            console.log("success");
-          });
-        }else{
-          //display Registererror
-          //clea input fields
-        }
-        
-      }
-      
+              }).then(() => {
+                setUserList([
+                  ...userList,
+                  {
+                    username: username,
+                    password: password,
+                  },
+                ]);
+                console.log("success");
+              });
+            }else{
+              //display Registererror
+              //clea input fields
+            } 
+          }
+        /* })
+        .catch((error) => {
+          console.log(error);
+        }); */
     };
     
     const checkLogin = (name, pw) =>{
       for (let i = 0; i < userList.length; i++) {
         if (userList[i].Username === name && userList[i].Password === password) {
+          setCurrentUser(new User(userList[i].Username, userList[i].Password, userList[i].id));
           return true; // return true if match found
+        }else{
+
         }
       }
       return false; // return false if no match found
     }
 
     const checkRegister = (user, password, password2) =>{
-      if(password === user === password2){
+      if(password === username === password2){
         return false;
       }else{
         return true;
@@ -84,7 +100,7 @@ function Login() {
             <div className="field">
               <input autoComplete="off" id="logUser" placeholder="User" className="inputField" type="text"
                 onChange={(event) =>{
-                  setUser(event.target.value);
+                  setUsername(event.target.value);
                 }}
               />
             </div>

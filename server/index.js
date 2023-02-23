@@ -30,7 +30,7 @@ app.get("/test", (req, res) => {
 
 app.post('/create', (req, res) =>{
     console.log(req.body);
-    const user = req.body.user;
+    const username = req.body.username;
     const password = req.body.password;
 
     const request = new mssql.Request();
@@ -69,23 +69,8 @@ mssql.connect(config, function(err) {
     console.log("Connected to MSSQL");
 });
 
-app.get('/', function(req, res) {
-    const request = new mssql.Request();
-    request.query('SELECT * FROM users', function (err, result){
-        if (err) throw err;
-        res.send(result);
-    });
-});
-
 app.get("/test", (req, res) => {
     res.send("Welcome to the backend");
 })
 
-app.listen(1433, ()=> {
-    console.log("Yey, our server is running on port 1433");
-});
-
-app.listen(5173, ()=> {
-    console.log("Yey, our project is running on port 5173");
-});
 

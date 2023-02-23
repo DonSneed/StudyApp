@@ -6,7 +6,8 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url("./assets/rainbow-vortex.png");
+    /* background-image: url("./assets/rainbow-vortex.png"); */
+    background-image: url("./assets/wavesbackgroundYellow.png");
     background-size: cover;
     font-family: 'Poppins', sans-serif;
 }
@@ -14,11 +15,12 @@ body{
 .card{
     width: 250px;
     height: 120px;
-    background-color: #eee;
-    border: 10px solid #8FC6D9;
+    background-color: #FFFBB7;
+    border: 10px solid #323745;
     text-align: center;
     border-radius: 20px;
-    box-shadow: inset 5px 5px 10px #364B52, inset -5px -5px 10px #364B52;
+    box-shadow:  14px 14px 85px #d1ce96,
+             -14px -14px 85px #ffffd8;
     transition: 0.5s;
 }
 
@@ -30,45 +32,38 @@ body{
     width: 60px;
     height: 60px;
     font-size: 30px;
-    background-color: #364B52;
+    background-color: #323745;
     margin: 20px auto;
     padding: 5px;
     border-radius: 50%;
-    box-shadow: 8px 8px 10px #ddd, -8px -8px 10px #fff;
+    
 }
-
-/* .icon img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-} */
 
 .content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: #eee;
-    background-color: #364B52;
+    color: #FFFBB7;
+    background-color: #323745;
     padding: 10px;
     margin: 5px 20px;
     border-radius: 8px;
-    box-shadow: 8px 8px 10px #ddd, -8px -8px 10px #fff;
     transform: translateY(-150px) scale(0);
     transition: all 0.5s;
     line-height: 16px;
 }
 
 .content button{
-    color: #8FC6D9;
+    color: #FFFBB7;
     margin: 20px 0px 5px 0px;
-    background: #364B52;
+    background: #323745;
     /* font-family: inherit;
     padding: 0.6em 1.3em; */
     font-weight: 500;
     font-size: 18px;
-    border: 3px solid #8FC6D9;
+    border: 3px solid #FFFBB7;
     border-radius: 0.4em;
-    box-shadow: 0.1em 0.1em #8FC6D9;
+    box-shadow: 0.1em 0.1em #FFFBB7;
 }
 
 .content button:hover {
@@ -83,13 +78,13 @@ body{
 }
 
 .content a{
-    color: #8FC6D9;
+    color: #FFFBB7;
     text-decoration: none;
     transition: color 0.5;
 }
 
 .content a:hover{
-    color: #A3D6E7;
+    color: #807E5C;
 }
 
 .card:hover .content {
@@ -102,7 +97,7 @@ body{
     align-items: center;
     justify-content: center;
     gap: .5em;
-    background-color: #8FC6D9;
+    background-color: #FFFBB7;
     border-radius: 4px;
     padding: .5em 1em;
 }
@@ -115,7 +110,7 @@ body{
 }
 
 .card h3{
-    color: #8FC6D9;
+    color: #FFFBB7;
 }
 
 .field input:focus::placeholder {
