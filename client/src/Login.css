@@ -100,6 +100,27 @@ body{
     background-color: #FFFBB7;
     border-radius: 4px;
     padding: .5em 1em;
+    transition: all 0.5s ease;
+}
+
+.field.error{
+    background-color: #A13549;
+    animation: shake 0.7s linear;
+}
+
+@keyframes shake {
+    10%, 90%{
+        transform: translateX(-5px);
+    }
+    20%, 80%{
+        transform: translateX(10px);
+    }
+    30%, 50%, 70% {
+        transform: translateX(-10px);
+    }
+    40%, 60%{
+        transform: translateX(10px);
+    }
 }
 
 .inputField {
@@ -111,6 +132,11 @@ body{
 
 .card h3{
     color: #FFFBB7;
+    transition: all 0.5s ease;
+}
+
+.card h3.error{
+    color: #A13549;
 }
 
 .field input:focus::placeholder {

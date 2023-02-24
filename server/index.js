@@ -24,17 +24,13 @@ const config = {
     port: 1433
 };
 
-app.get("/test", (req, res) => {
-    res.send("welcome to the backend");
-})
-
 app.post('/create', (req, res) =>{
     console.log(req.body);
     const username = req.body.username;
     const password = req.body.password;
 
     const request = new mssql.Request();
-    const sqlQuery = `INSERT INTO [Nutzer] (Username, password) VALUES ('${user}','${password}')`;
+    const sqlQuery = `INSERT INTO [Nutzer] (Username, password) VALUES ('${username}','${password}')`;
 
     request.query(sqlQuery, function(err, result){
         if(err) {
