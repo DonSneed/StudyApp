@@ -1,8 +1,8 @@
 import { useState , useEffect} from 'react';
-/* import { useHistory } from "react-router-dom"; */
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import User from "./User.js";
-import './Login.css';
+import './assets/styles/Login.css';
 import appIcon from "./assets/appIcon.png";
 
 function Login() {
@@ -13,6 +13,7 @@ function Login() {
     const[showRepeatPassword, setShowRepeatPassword] = useState(false);
     const[userList, setUserList] = useState([]);
     const[inputError, setInputError] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
       axios.get("http://127.0.0.1:5000/users")
@@ -25,10 +26,11 @@ function Login() {
     })
 
     const LoginOrRegister = () => {
-    
+      
       if(!showRepeatPassword){
         if(checkLogin(username, password)){
           console.log("Login succesfull");
+          navigate("/LandingPage", {state: currentUser});
         }else{
           console.log("wrong Login info");
           setInputError(true);
@@ -134,9 +136,9 @@ function Login() {
             )}
             
             <button onClick={LoginOrRegister}>Submit</button>
-            <a href="#" onClick={() => setShowRepeatPassword(!showRepeatPassword)}>
-              {showRepeatPassword ? "Du hast bereits einen Account? Hier Klicken zum Einloggen" : "Noch keinen Account? Hier Klicken fürs Registrieren"}
-            </a>
+            <span className="link" onClick={() => setShowRepeatPassword(!showRepeatPassword)}>
+                {showRepeatPassword ? "Du hast bereits einen Account? Hier Klicken zum Einloggen" : "Noch keinen Account? Hier Klicken fürs Registrieren"}
+            </span>
           </div>
         </div>
       </div>

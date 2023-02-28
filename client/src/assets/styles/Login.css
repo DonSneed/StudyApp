@@ -1,15 +1,16 @@
-html{
+body{
+    margin: 0;
     height: 100%;
 }
 
-body{
+.Login{
+    height: 100%;
     display: flex;
     justify-content: center;
+    text-align: center;
     align-items: center;
-    /* background-image: url("./assets/rainbow-vortex.png"); */
-    background-image: url("./assets/wavesbackgroundYellow.png");
-    background-size: cover;
-    font-family: 'Poppins', sans-serif;
+    margin: auto;
+    /* border: 2px solid black; */
 }
 
 .card{
@@ -77,14 +78,14 @@ body{
     box-shadow: 0.05em 0.05em;
 }
 
-.content a{
+.content .link{
     color: #FFFBB7;
-    text-decoration: none;
     transition: color 0.5;
 }
 
-.content a:hover{
+.content .link:hover{
     color: #807E5C;
+    cursor: pointer;
 }
 
 .card:hover .content {

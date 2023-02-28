@@ -1,0 +1,17 @@
+.Navbar{
+    height: 64px;
+    width: 100%;
+    background-color: #323745;
+    margin: 0;
+    padding: 0;
+}
+
+.Navbar ul{
+    margin: 0;
+    color: #FFFBB7;
+}
+
+.Navbar ul li{
+    color: #FFFBB7;
+    text-decoration: none;
+}
