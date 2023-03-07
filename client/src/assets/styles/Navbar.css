@@ -14,4 +14,5 @@
 .Navbar ul li{
     color: #FFFBB7;
     text-decoration: none;
+    display: inline-block;
 }

@@ -25,12 +25,19 @@ function Login() {
       })
     })
 
+    /* useEffect(() => {
+      if (currentUser.Username !== "") {
+        navigate("/LandingPage", { state: currentUser });
+      }
+    }, [currentUser]); */
+
     const LoginOrRegister = () => {
       
       if(!showRepeatPassword){
         if(checkLogin(username, password)){
           console.log("Login succesfull");
-          navigate("/LandingPage", {state: currentUser});
+          /* navigate("/LandingPage", {state: currentUser}); */
+          console.log(currentUser);
         }else{
           console.log("wrong Login info");
           setInputError(true);
@@ -72,10 +79,14 @@ function Login() {
       }
     };
     
-    const checkLogin = (name, pw) =>{
+    const checkLogin = (username, password) =>{
       for (let i = 0; i < userList.length; i++) {
-        if (userList[i].Username === name && userList[i].Password === password) {
-          setCurrentUser(new User(userList[i].Username, userList[i].Password, userList[i].id));
+        if (userList[i].Username === username && userList[i].Password === password) {
+          setCurrentUser(userList[i]);
+          /* setCurrentUser(new User(userList[i].Username, userList[i].Password, userList[i].NutzerId)); */
+          /* console.log("name: " + userList[i].Username + "password: " + userList[i].Password + "id: " + userList[i].NutzerID)
+          console.log("current User: " + currentUser) */
+          navigate("/LandingPage", { state: userList[i]})
           return true; // return true if match found
         }
       }

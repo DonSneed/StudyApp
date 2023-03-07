@@ -1,20 +1,20 @@
 import "./assets/styles/LandingPage.css"
 import { useState , useEffect} from 'react';
 import { useLocation } from "react-router-dom"
+import User from "./User.js";
 
 function LandingPage() {
-    const location = useLocation();
-    const currentUser = location.state;
+    const {state} = useLocation();
+    const[currentUser, setCurrentUser] = useState(new User());
 
-    /* useEffect(() => {
-        axios.get("http://127.0.0.1:5000/userCatalogs")
-        .then((response) => {
-          setUserList(response.data.recordset);
-        })
-        .catch((error) =>{
-          console.log(error);
-        })
-      }) */
+    useEffect(() => {
+      setCurrentUser(state);
+      console.log("currentUser: ");
+      console.log(currentUser);
+      console.log("state: ")
+      console.log(state);
+      console.log("name: " + currentUser.Username + " Password: " + currentUser.Password)
+    })
 
     return(
         <div className ="LandingPage">
