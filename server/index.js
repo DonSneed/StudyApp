@@ -54,6 +54,27 @@ app.get('/users', (req, res) => {
     })
 })
 
+app.get("/kats", (req, res) => {
+    const userID = req.body.userID;
+    
+    const request = new mssql.Request();
+    const sqlQuery = `
+    SELECT K.KatalogID, K.Katalog, COUNT(F.FrageID) AS QuestionCount, MAX(V.Punktestand) AS MaxScore
+    FROM [Katalog] K
+    LEFT JOIN [Frage] F ON K.KatalogID = F.KatalogID
+    LEFT JOIN [Versuch] V ON K.KatalogID = V.KatalogID
+    WHERE K.Ersteller = '${userID}';
+    GROUP BY K.KatalogID, K.Katalog`;
+
+    request.query(sqlQuery, function(err, result){
+        if(err) {
+            console.log(err);
+        }else{
+            res.send(result);
+        }
+    })
+})
+
 const port = process.env.PORT || 5000;
 
 app.listen(port, () =>
