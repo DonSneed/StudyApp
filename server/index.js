@@ -12,7 +12,7 @@ app.use(cors());
 const config = {
     user:  "Enrico",
     password: "Sneed1",
-    server:"DESKTOP-7JDPGSU",
+    server:"BE1CA899",
     database:"StudyAppDB",
     options:{
         trustServerCertificate: true,

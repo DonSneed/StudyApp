@@ -4,6 +4,10 @@
     background-color: #323745;
     margin: 0;
     padding: 0;
+    position: absolute;
+    border-bottom: 4px solid #FCF9BF;
+    display: flex;
+    justify-content: right;
 }
 
 .Navbar ul{
