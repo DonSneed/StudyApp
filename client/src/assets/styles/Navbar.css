@@ -1,5 +1,5 @@
 .Navbar{
-    height: 64px;
+    height: 8vh;
     width: 100%;
     background-color: #323745;
     margin: 0;
@@ -8,15 +8,22 @@
     border-bottom: 4px solid #FCF9BF;
     display: flex;
     justify-content: right;
+    align-items: center;
+    box-shadow:  6px 6px 13px #2b2f3b;
 }
 
-.Navbar ul{
-    margin: 0;
-    color: #FFFBB7;
+.Navbar .UserIcon{
+    background-image: url(../graphicAssets/userIcon.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #323745;
+    border-radius: 30%;
+    border: none;
+    width: 7vh;
+    height: 7vh;
+    transition: all 0.5s;
 }
 
-.Navbar ul li{
-    color: #FFFBB7;
-    text-decoration: none;
-    display: inline-block;
+.Navbar .UserIcon:hover{
+    background-color: #252933;
 }

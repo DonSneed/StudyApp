@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import User from "./User.js";
 import './assets/styles/Login.css';
-import appIcon from "./assets/appIcon.png";
+import appIcon from "./assets/graphicAssets/appIcon.png";
 
 function Login() {
     const[username, setUsername] = useState('');
@@ -131,7 +131,7 @@ function Login() {
               />
             </div>
             <div className={`field ${inputError ? 'error' : ''}`}>
-              <input autoComplete="off" id="logPw" placeholder="Passwort" className="inputField" 
+              <input autoComplete="off" id="logPw" placeholder="Passwort" className="inputField" type="password"
                 onChange={(event) =>{
                   setPassword(event.target.value);
                 }}
@@ -139,7 +139,7 @@ function Login() {
             </div>
             {showRepeatPassword && (
               <div className={`field ${inputError ? 'error' : ''}`}>
-                <input autoComplete="off" id="logPw2" placeholder="Passwort Wiederholen" className="inputField" type="text"
+                <input autoComplete="off" id="logPw2" placeholder="Passwort Wiederholen" className="inputField" type="password"
                 onChange={(e) => {
                   setPassword2(e.target.value);
                 }}/>

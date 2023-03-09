@@ -20,8 +20,8 @@ body{
     border: 10px solid #323745;
     text-align: center;
     border-radius: 20px;
-    box-shadow:  14px 14px 85px #d1ce96,
-             -14px -14px 85px #ffffd8;
+    box-shadow:  10px 10px 20px #2b2f3b,
+        -10px -10px 20px #3a3f4f;           
     transition: 0.5s;
 }
 
@@ -80,7 +80,7 @@ body{
 
 .content .link{
     color: #FFFBB7;
-    transition: color 0.5;
+    transition: color 0.5s ease;
 }
 
 .content .link:hover{

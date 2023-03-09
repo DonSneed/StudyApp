@@ -54,8 +54,8 @@ app.get('/users', (req, res) => {
     })
 })
 
-app.get("/kats", (req, res) => {
-    const userID = req.body.userID;
+app.get("/kats/:userID", (req, res) => {
+    const userID = req.params.userID;
     
     const request = new mssql.Request();
     const sqlQuery = `
@@ -63,7 +63,7 @@ app.get("/kats", (req, res) => {
     FROM [Katalog] K
     LEFT JOIN [Frage] F ON K.KatalogID = F.KatalogID
     LEFT JOIN [Versuch] V ON K.KatalogID = V.KatalogID
-    WHERE K.Ersteller = '${userID}';
+    WHERE K.Ersteller = '${userID}'
     GROUP BY K.KatalogID, K.Katalog`;
 
     request.query(sqlQuery, function(err, result){

@@ -1,17 +1,17 @@
-import { Link } from "react-router-dom";
-import userIcon from "./assets/userIcon.png";
+import { useNavigate } from "react-router-dom"
 import "./assets/styles/Navbar.css"
 
 
 function Navbar () {
+    const navigate = useNavigate();
+
+    const logout = () => {
+        navigate("/");
+    }
+    
     return(
         <div className="Navbar">
-            <ul>
-                <li>
-                    <Link to="/">Back to Login</Link>
-                </li>
-            </ul>
-            <img src={userIcon}/>
+            <button className="UserIcon" onClick={logout}></button>
         </div>
     )
 }

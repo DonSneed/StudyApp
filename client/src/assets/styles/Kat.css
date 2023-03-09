@@ -1,0 +1,15 @@
+.Kat {
+    box-sizing: border-box;
+    border-width: 1px 0 1px 0;
+    border-color: #FCF9BF;
+    border-style: solid;
+    color: #FCF9BF;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-indent: 25px;
+    transition: all 0.5s;
+}
+
+.Kat:hover {
+    background-color: #3B4152;
+}

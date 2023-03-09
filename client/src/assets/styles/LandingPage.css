@@ -1,7 +1,90 @@
 .LandingPage{
-    margin: 0;
+    height: 100%;
+    margin: auto;
+    /* padding: 66px 0 0 0; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.LandingPage h3{
-    margin: 0;
+.KatList{
+    /* margin: auto; */
+    position: absolute;
+    width: 50vw;
+    height: 50vh;
+    background: #323745;
+    border-width: 3px 3px 0px 3px;
+    border-style: solid;
+    border-color: #FCF9BF;
+    /* box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25); */
+    box-shadow:  6px 6px 12px #303442,
+             -6px -6px 12px #353a48;
+
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.KatList header{
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: -3px;
+    width: 100%;
+    height: 20%;
+    background: #323745;
+    border: 3px solid #FCF9BF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px 15px 0px 0px;
+}
+
+.KatList header h3{
+    color: #FCF9BF;
+    width: 30%;
+    font-weight: 400;
+    font-size: 30px;
+    letter-spacing: 0.05em;
+    text-indent: 25px;
+}
+
+header .ActionIcons{
+    height: 70%;
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.ActionIcons .AddButton{
+    background-image: url("../graphicAssets/add.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #323745;
+    border-radius: 30%;
+    border: none;
+    width: 7vh;
+    height: 7vh;
+    transition: all 0.5s;
+}
+
+.ActionIcons .DeleteButton{
+    background-image: url("../graphicAssets/delete.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #323745;
+    border-radius: 30%;
+    border: none;
+    width: 7vh;
+    height: 7vh;
+    transition: all 0.5s;
+}
+
+.ActionIcons .AddButton:hover, .ActionIcons .DeleteButton:hover{
+    background-color: #252933;
+}
+
+.KatList main{
+    box-sizing: border-box;
+    overflow-y: scroll;
 }
