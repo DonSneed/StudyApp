@@ -10,6 +10,13 @@ function LandingPage() {
     const {state} = useLocation();
     const[currentUser, setCurrentUser] = useState(new User());
     const[katList, setKatList] = useState([]);
+    const[newKat, setNewKat] = useState({
+        Katalog: "Neuer Katalog",
+        KatalogID: "",
+        MaxScore: null,
+        QuestionCount: null
+    });
+    const[error, setError] = useState(false);
 
     useEffect(() => {
         setCurrentUser(state);
@@ -24,8 +31,6 @@ function LandingPage() {
         .catch((error) => {
             console.log(error);
         });
-        console.log("test");
-        console.log(katList);
     }, [currentUser]);
 
     const kats = katList.map(item => {
@@ -33,9 +38,24 @@ function LandingPage() {
             <Kat
                 key={item.KatalogID}
                 {...item}
+                onEdit={() => {
+                    //
+                }}
             />
         )
     })
+
+    const addNewKat = () => {
+        const newID = Math.max(...katList.map(kat => kat.KatalogID)) + 1;
+        const newKat = {
+            Katalog: "Neuer Katalog",
+            KatalogID: newID,
+            MaxScore: null,
+            QuestionCount: null
+        }
+        setNewKat(newKat);
+        setKatList([newKat, ...katList]);
+    }
 
     return(
         <div className ="LandingPage">
@@ -43,7 +63,7 @@ function LandingPage() {
                 <header>
                     <h3>Kataloge</h3>
                     <div className="ActionIcons">
-                        <button className="AddButton"></button>
+                        <button className="AddButton" onClick={addNewKat}></button>
                         <button className="DeleteButton"></button>
                     </div>
                 </header>
