@@ -1,31 +1,59 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "./assets/styles/Kat.css";
+import { useEffect } from "react";
 
 export default function Kat(props) {
     const[editMode, setEditMode] = useState(false);
     const[content, setContent] = useState(props.Katalog);
+    const[katNameError, setKatNameError] = useState(false);
 
-    const makeEditable = () => {
+    useEffect(() => {
+        console.log("content: " + content);
+    }, [content]);
+
+    const handleEdit = () =>{
         setEditMode(true);
+        console.log("editable");
     };
 
-    const submitEdit = () => {
+    const handleSave = (event) => {
+    const newContent = event.target.innerText;
+    if (newContent === "Neuer Katalog") {
+        setContent(props.Katalog);
+        document.querySelector(`#katName-${props.KatalogID}`).innerText = content;
+        props.setKatalog(props.Katalog);
+    } else if (props.katList.some(item => item.Katalog === newContent)){
+        setContent(props.Katalog);
+        document.querySelector(`#katName-${props.KatalogID}`).innerText = content;
+        props.setKatalog(props.Katalog);
+    } else {
+        setContent(newContent);
+        axios.post('http://127.0.0.1:5000/changeKatName', {
+            katName: newContent,
+            katalogID: props.KatalogID,
+            }).then(() => {
+            props.setKatalog(newContent);
+            console.log("success");
+        });
         setEditMode(false);
-        props.updateContent(content);
-    };
-
-    const handleEdit = (e) => {
-        setContent(e.target.textContent);
-    };
-
+    }
+};
+    
     return (
         <div className="Kat">
-            <p
+            {/* <p>
+            {props.KatalogID} 
+            </p> */}
+            <p  
+                id={`katName-${props.KatalogID}`}
+                className={`${katNameError ? 'error' : ''}`}
                 contentEditable={editMode}
-                onClick={makeEditable}
-                onBlur={submitEdit}
-                onInput={handleEdit}
-            >{content}</p>
+                suppressContentEditableWarning={true}
+                onClick={handleEdit}
+                onBlur={handleSave}
+            >
+                {content}</p>
         </div>
     )
 }
