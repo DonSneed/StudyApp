@@ -10,15 +10,14 @@ function LandingPage() {
     const {state} = useLocation();
     const[currentUser, setCurrentUser] = useState(state);
     const[katList, setKatList] = useState([]);
-    const[newKat, setNewKat] = useState({
+    /* const[newKat, setNewKat] = useState({
         Katalog: "Neuer Katalog",
         KatalogID: "",
         MaxScore: null,
         QuestionCount: null
-    });
+    }); */
     const[error, setError] = useState(false);
     const[katalog, setKatalog] = useState("");
-    const[selectedKat, setSelectedKat] = useState()
 
     useEffect(() => {
         setCurrentUser(state);
@@ -50,22 +49,28 @@ function LandingPage() {
     })
 
     const addNewKat = () => {
-        const newID = Math.max(...katList.map(kat => kat.KatalogID)) + 1;
-        const newKat = {
-            Katalog: "Neuer Katalog",
-            KatalogID: newID,
-            MaxScore: null,
-            QuestionCount: null
+        if(!checkNewKat){
+            const newID = Math.max(...katList.map(kat => kat.KatalogID)) + 1;
+            const newKat = {
+                Katalog: "Neuer Katalog",
+                KatalogID: newID,
+                MaxScore: null,
+                QuestionCount: null
+            }
+            console.log("name: " + newKat.Katalog + "creator: " + currentUser.NutzerID)
+            axios.post('http://127.0.0.1:5000/createKat', {
+                katName: newKat.Katalog,
+                creator: currentUser.NutzerID,
+                }).then(() => {
+                console.log("success");
+            });
+            setKatList([newKat, ...katList]);
         }
-        console.log("name: " + newKat.Katalog + "creator: " + currentUser.NutzerID)
-        axios.post('http://127.0.0.1:5000/createKat', {
-            katName: newKat.Katalog,
-            creator: currentUser.NutzerID,
-            }).then(() => {
-            console.log("success");
-        });
-        setNewKat(newKat);
-        setKatList([newKat, ...katList]);
+        
+    }
+
+    const checkNewKat = () =>{
+        return false;
     }
 
     return(
