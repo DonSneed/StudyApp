@@ -1,10 +1,12 @@
 import {useLocation} from "react-router-dom";
+import {useState, useEffect} from "recat";
 import "./assets/styles/EditKat.css";
 
 
 function EditKat() {
     const location = useLocation();
     const {Katalog, KatalogID} = location.state;
+    const[qList, setQList] = useState([]);
 
     return(
         <div className="EditKat">
