@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./assets/styles/Kat.css";
 import { useEffect } from "react";
+import {Navigate, useNavigate} from "react-router-dom";
 
 export default function Kat(props) {
     const[editMode, setEditMode] = useState(false);
     const[content, setContent] = useState(props.Katalog);
     const[katNameError, setKatNameError] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         console.log("content: " + content);
@@ -37,8 +39,13 @@ export default function Kat(props) {
             console.log("success");
         });
         setEditMode(false);
+        }
+    };
+    
+    const goEdit = () =>{
+        navigate(`/EditKat/${props.KatalogID}`, {state: props});
     }
-};
+
     
     return (
         <div className="Kat">
@@ -54,6 +61,7 @@ export default function Kat(props) {
                 onBlur={handleSave}
             >
                 {content}</p>
+                <button onClick={goEdit}>edit</button>
         </div>
     )
 }

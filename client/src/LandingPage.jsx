@@ -8,7 +8,7 @@ import axios from "axios";
 
 function LandingPage() {
     const {state} = useLocation();
-    const[currentUser, setCurrentUser] = useState(new User());
+    const[currentUser, setCurrentUser] = useState(state);
     const[katList, setKatList] = useState([]);
     const[newKat, setNewKat] = useState({
         Katalog: "Neuer Katalog",
@@ -18,21 +18,23 @@ function LandingPage() {
     });
     const[error, setError] = useState(false);
     const[katalog, setKatalog] = useState("");
+    const[selectedKat, setSelectedKat] = useState()
 
     useEffect(() => {
         setCurrentUser(state);
-        console.log("id: " + state.NutzerID)
+        console.log("id: " + state.NutzerID);
+        
         axios.get(`http://127.0.0.1:5000/kats/${state.NutzerID}`, {
             data: { userID: state.NutzerID}
         })
         .then((response) => {
             setKatList(response.data.recordset);
-            
+            console.log(katList);
         })
         .catch((error) => {
             console.log(error);
         });
-    }, [currentUser]);
+    }, [state]);
 
     const kats = katList.map(item => {
         return (
@@ -55,10 +57,10 @@ function LandingPage() {
             MaxScore: null,
             QuestionCount: null
         }
-        console.log("name: " + newKat.Katalog + "creator: " + currentUser.id)
+        console.log("name: " + newKat.Katalog + "creator: " + currentUser.NutzerID)
         axios.post('http://127.0.0.1:5000/createKat', {
             katName: newKat.Katalog,
-            creator: currentUser.id,
+            creator: currentUser.NutzerID,
             }).then(() => {
             console.log("success");
         });
