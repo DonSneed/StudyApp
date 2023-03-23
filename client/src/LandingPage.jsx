@@ -29,7 +29,7 @@ function LandingPage() {
         })
         .then((response) => {
             setKatList(response.data.recordset);
-            console.log(katList);
+            console.log(response.data.recordset);
         })
         .catch((error) => {
             console.log(error);

@@ -43,7 +43,8 @@ export default function Kat(props) {
     };
     
     const goEdit = () =>{
-        navigate(`/EditKat/${props.KatalogID}`, {state: props});
+        console.log(props);
+        navigate(`/EditKat/${props.KatalogID}`, {state: {Katalog: props.Katalog, KatalogID: props.KatalogID}});
     }
 
     
