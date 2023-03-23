@@ -17,6 +17,7 @@ function LandingPage() {
         QuestionCount: null
     });
     const[error, setError] = useState(false);
+    const[katalog, setKatalog] = useState("");
 
     useEffect(() => {
         setCurrentUser(state);
@@ -38,9 +39,10 @@ function LandingPage() {
             <Kat
                 key={item.KatalogID}
                 {...item}
-                onEdit={() => {
-                    //
+                setKatalog={(newContent) => {
+                    setKatalog(newContent);
                 }}
+                katList={katList}
             />
         )
     })
@@ -53,6 +55,13 @@ function LandingPage() {
             MaxScore: null,
             QuestionCount: null
         }
+        console.log("name: " + newKat.Katalog + "creator: " + currentUser.id)
+        axios.post('http://127.0.0.1:5000/createKat', {
+            katName: newKat.Katalog,
+            creator: currentUser.id,
+            }).then(() => {
+            console.log("success");
+        });
         setNewKat(newKat);
         setKatList([newKat, ...katList]);
     }

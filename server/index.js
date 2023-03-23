@@ -41,6 +41,38 @@ app.post('/create', (req, res) =>{
     })
 })
 
+app.post("/changeKatName", (req, res) => {
+    const katName = req.body.katName;
+    const katalogID = req.body.katalogID;
+
+    const request = new mssql.Request();
+    const sqlQuery = `UPDATE [Katalog] SET Katalog = '${katName}' WHERE KatalogID = ${katalogID}`;
+
+    request.query(sqlQuery, function(err, result){
+        if(err) {
+            console.log(err);
+            return res.status(500).send("Failes to update record");
+        }
+        res.send(result);
+    })
+})
+
+app.post("/createKat", (req, res) => {
+    const katName = req.body.katName;
+    const creator = req.body.creator;
+
+    const request = new mssql.Request();
+    const sqlQuery = `INSERT INTO Katalog (Katalog, Ersteller) VALUES ('${katName}', ${creator})`;
+
+    request.query(sqlQuery, function(err, result){
+        if(err) {
+            console.log(err);
+            return res.status(500).send("Failes to update record");
+        }
+        res.send(result);
+    })
+})
+
 app.get('/users', (req, res) => {
     const request = new mssql.Request();
     const sqlQuery = `SELECT * from [Nutzer]`;
