@@ -12,14 +12,14 @@ app.use(cors());
 const config = {
     user:  "Enrico",
     password: "Sneed1",
-    server:"BE1CA899",
+    server:"BE1CA899/MSSQLSERVER01",
     database:"StudyAppDB",
     options:{
         trustServerCertificate: true,
         trustedConnection: true,
         encrypt: true,
         enableArithAbort: true,
-        instancename: "MSSQLSERVER"
+        instancename: "MSSQLSERVER01"
     },
     port: 1433
 };
