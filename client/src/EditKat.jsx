@@ -1,6 +1,8 @@
 import {useLocation} from "react-router-dom";
 import {useState, useEffect} from "react";
+import Qst from "./Qst.jsx";
 import "./assets/styles/EditKat.css";
+import axios from "axios";
 
 
 function EditKat() {
@@ -9,8 +11,8 @@ function EditKat() {
     const[qList, setQList] = useState([]);
 
     useEffect(() => {        
-        axios.get(`http://127.0.0.1:5000/kats/${state.NutzerID}`, {
-            data: { userID: state.NutzerID}
+        axios.get(`http://127.0.0.1:5000/questions/${KatalogID}`, {
+            data: { KatalogID: KatalogID}
         })
         .then((response) => {
             setQList(response.data.recordset);
@@ -20,6 +22,19 @@ function EditKat() {
             console.log(error);
         });
     }, []);
+
+    const qs = qList.map(item => {
+        return (
+            <Qst
+                key={item.FrageID}
+                {...item}
+                /* setKatalog={(newContent) => {
+                    setKatalog(newContent);
+                }}
+                qList={qList} */
+            />
+        )
+    })
 
     return(
         <div className="EditKat">
@@ -32,7 +47,7 @@ function EditKat() {
                     </div>
                 </header>
                 <main>
-
+                    {qs}
                 </main>
             </div>
         </div>

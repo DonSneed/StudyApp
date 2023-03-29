@@ -5,24 +5,26 @@ const mssql = require('mssql');
 const { request } = require("http");
 
 const app = express();
+
+const config = require("./config");
 app.use(express.json());
 
 app.use(cors());
 
-const config = {
+/* const config = {
     user:  "Enrico",
     password: "Sneed1",
-    server:"BE1CA899/MSSQLSERVER01",
+    server:"DESKTOP-7JDPGSU",
     database:"StudyAppDB",
     options:{
         trustServerCertificate: true,
         trustedConnection: true,
         encrypt: true,
         enableArithAbort: true,
-        instancename: "MSSQLSERVER01"
+        instancename: "MSSQLSERVER"
     },
     port: 1433
-};
+}; */
 
 app.post('/create', (req, res) =>{
     console.log(req.body);
