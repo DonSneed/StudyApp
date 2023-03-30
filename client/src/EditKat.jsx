@@ -9,6 +9,7 @@ function EditKat() {
     const location = useLocation();
     const {Katalog, KatalogID} = location.state;
     const[qList, setQList] = useState([]);
+    const[editedFrageID, setEditedFrageID] = useState(-1);
 
     useEffect(() => {        
         axios.get(`http://127.0.0.1:5000/questions/${KatalogID}`, {
@@ -23,15 +24,39 @@ function EditKat() {
         });
     }, []);
 
+    /* const editClick = (frageID) => {
+        setEditedFrageID(frageID);
+        console.log("edit");
+    }
+
+    const handleHide = (id) => {
+        setQList(prevQList => prevQList.map(qst => {
+            if(qst.FrageID != id) {
+                qst.show = false;
+                console.log("id " + id + " has been set" + qst.show);
+            }
+            return qst;
+        }));
+    }
+
+    const cancelEdit = () =>{
+        setEditedFrageID(null);
+        console.log("hide");
+    }
+
+    const handleShow = () => {
+
+    } */
+
     const qs = qList.map(item => {
         return (
             <Qst
                 key={item.FrageID}
                 {...item}
-                /* setKatalog={(newContent) => {
-                    setKatalog(newContent);
-                }}
-                qList={qList} */
+                setQList={setQList}
+                editing={item.FrageID === editedFrageID}
+                editedFrageID={editedFrageID}
+                setEditedFrageID={setEditedFrageID}
             />
         )
     })

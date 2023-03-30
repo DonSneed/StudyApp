@@ -6,21 +6,30 @@ import {Navigate, useNavigate} from "react-router-dom";
 
 export default function Qst(props) {
 
-    const[content, setContent] = useState(props.Frage);
-    const[editMode, setEditMode] = useState(false);
-    const[editedQst, setEditedQst] = useState(props.Frage);
-    const[editedAns1, setEditedAns1] = useState(props.Antwort1);
-    const[editedAns2, setEditedAns2] = useState(props.Antwort2);
+    const {FrageID, Frage, Antwort1, Antwort2, setQList, editing, editedFrageID, setEditedFrageID} = props;
 
-    const handleEditClick = () => {
-        setEditMode(true);
+    const[content, setContent] = useState(Frage);
+    const[editMode, setEditMode] = useState(false);
+    const[editedQst, setEditedQst] = useState(Frage);
+    const[editedAns1, setEditedAns1] = useState(Antwort1);
+    const[editedAns2, setEditedAns2] = useState(Antwort2);
+    
+
+    const editClick = () => {
+        if (FrageID === editedFrageID) {
+            setEditedFrageID(-1);
+        } else{
+            setEditedFrageID(FrageID);
+        }
+
     };
 
-    const handleCancelClick = () => {
+    const handleCancelEdit = () => {
+        cancelEdit();
         setEditMode(false);
-        setEditedQst(props.Frage);
-        setEditedAns1(props.Antwort1);
-        setEditedAns2(props.Antwort2);
+        setEditedQst(Frage);
+        setEditedAns1(Antwort1);
+        setEditedAns2(Antwort2);
     }
 
     const handleSaveClick = () => {
@@ -30,28 +39,29 @@ export default function Qst(props) {
     
     return (
         <div className="Qst">
-            {/* <p>
-            {props.KatalogID} 
-            </p> */}
-            <header>
-                <p  id={`qstName-${props.FrageID}`}>
-                {content}</p>
-                <button>edit</button>
-            </header>
-            {editMode ? (
-                <div className="EditWindow">
-                    <textarea value={editedQst} cols="30" rows="10" 
-                    onChange={(event) => setEditedQst(event.target.value)}>
-                        
-                    </textarea>
+        {/* <p>
+        {props.KatalogID} 
+        </p> */}
+        <header>
+            <p  id={`qstName-${FrageID}`}>
+            {content}</p>
+            <button onClick={editClick}>edit</button>
+        </header>
+        {editMode ? (
+            <div className="EditWindow">
+                <textarea value={editedQst} cols="30" rows="10" 
+                onChange={(event) => setEditedQst(event.target.value)}>
                     
-                </div>
-            ) : (
-                <div className="QCard">
-                    <p>{Antwort1}</p>
-                    <p>{Antwort2}</p>
-                </div>
-            )}
-        </div>
+                </textarea>
+                
+            </div>
+        ) : (
+            <div className="QCard">
+                {/* <p>{props.Antwort1}</p>
+                <p>{props.Antwort2}</p> */}
+            </div>
+        )}
+    </div>
+        
     );
 }

@@ -47,3 +47,7 @@
     letter-spacing: 0.05em;
     text-indent: 25px;
 }
+
+.EditCard main{
+    overflow: hidden;
+}
