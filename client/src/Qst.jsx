@@ -6,7 +6,7 @@ import {Navigate, useNavigate} from "react-router-dom";
 
 export default function Qst(props) {
 
-    const {FrageID, Frage, Antwort1, Antwort2, setQList, editing, editedFrageID, setEditedFrageID} = props;
+    const {FrageID, Frage, Antwort1, Antwort2, show, handleEditClick} = props;
 
     const[content, setContent] = useState(Frage);
     const[editMode, setEditMode] = useState(false);
@@ -16,13 +16,12 @@ export default function Qst(props) {
     
 
     const editClick = () => {
-        if (FrageID === editedFrageID) {
-            setEditedFrageID(-1);
-        } else{
-            setEditedFrageID(FrageID);
-        }
-
-    };
+        handleEditClick(FrageID);
+    }
+    
+    const toggleShow = () => {
+        setShow(a => !a);
+    }
 
     const handleCancelEdit = () => {
         cancelEdit();
@@ -38,10 +37,7 @@ export default function Qst(props) {
 
     
     return (
-        <div className="Qst">
-        {/* <p>
-        {props.KatalogID} 
-        </p> */}
+        <div className="Qst" style={{ display: show ? "block" : "none"}}>
         <header>
             <p  id={`qstName-${FrageID}`}>
             {content}</p>

@@ -10,6 +10,8 @@ function EditKat() {
     const {Katalog, KatalogID} = location.state;
     const[qList, setQList] = useState([]);
     const[editedFrageID, setEditedFrageID] = useState(-1);
+    const[qHighlight, setQHighlight] = useState(false);
+    
 
     useEffect(() => {        
         axios.get(`http://127.0.0.1:5000/questions/${KatalogID}`, {
@@ -23,6 +25,12 @@ function EditKat() {
             console.log(error);
         });
     }, []);
+
+    const handleEditClick = (id) => {
+        console.log("test handleEditClcik")
+        setQHighlight(!qHighlight);
+        setEditedFrageID(id);
+    }
 
     /* const editClick = (frageID) => {
         setEditedFrageID(frageID);
@@ -53,10 +61,8 @@ function EditKat() {
             <Qst
                 key={item.FrageID}
                 {...item}
-                setQList={setQList}
-                editing={item.FrageID === editedFrageID}
-                editedFrageID={editedFrageID}
-                setEditedFrageID={setEditedFrageID}
+                show={qHighlight ? (item.FrageID === editedFrageID) : true}
+                handleEditClick={handleEditClick}
             />
         )
     })
