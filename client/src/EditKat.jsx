@@ -27,34 +27,9 @@ function EditKat() {
     }, []);
 
     const handleEditClick = (id) => {
-        console.log("test handleEditClcik")
         setQHighlight(!qHighlight);
         setEditedFrageID(id);
     }
-
-    /* const editClick = (frageID) => {
-        setEditedFrageID(frageID);
-        console.log("edit");
-    }
-
-    const handleHide = (id) => {
-        setQList(prevQList => prevQList.map(qst => {
-            if(qst.FrageID != id) {
-                qst.show = false;
-                console.log("id " + id + " has been set" + qst.show);
-            }
-            return qst;
-        }));
-    }
-
-    const cancelEdit = () =>{
-        setEditedFrageID(null);
-        console.log("hide");
-    }
-
-    const handleShow = () => {
-
-    } */
 
     const qs = qList.map(item => {
         return (

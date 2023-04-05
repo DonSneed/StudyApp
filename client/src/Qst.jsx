@@ -16,48 +16,46 @@ export default function Qst(props) {
     
 
     const editClick = () => {
+        setEditMode(!editMode);
         handleEditClick(FrageID);
-    }
-    
-    const toggleShow = () => {
-        setShow(a => !a);
-    }
-
-    const handleCancelEdit = () => {
-        cancelEdit();
-        setEditMode(false);
-        setEditedQst(Frage);
-        setEditedAns1(Antwort1);
-        setEditedAns2(Antwort2);
-    }
-
-    const handleSaveClick = () => {
-        setEditMode(false);
     }
 
     
     return (
-        <div className="Qst" style={{ display: show ? "block" : "none"}}>
-        <header>
-            <p  id={`qstName-${FrageID}`}>
-            {content}</p>
-            <button onClick={editClick}>edit</button>
-        </header>
-        {editMode ? (
-            <div className="EditWindow">
-                <textarea value={editedQst} cols="30" rows="10" 
-                onChange={(event) => setEditedQst(event.target.value)}>
-                    
-                </textarea>
-                
-            </div>
-        ) : (
-            <div className="QCard">
-                {/* <p>{props.Antwort1}</p>
-                <p>{props.Antwort2}</p> */}
-            </div>
-        )}
-    </div>
+        <div className="Qst" style={{ display: show ? "flex" : "none"}}>
+            <main>
+                <p  id={`qstName-${FrageID}`}>
+                {content}</p>
+                <button className="qEditB" onClick={editClick}></button>
+            </main>
+                <div className="EditWindow" style={{ display: editMode ? "flex" : "none"}}>
+                    <div className="editRow">
+                        <textarea value={Antwort1}></textarea>
+                        <input type="checkbox"/>
+                    </div>
+                    <div className="editRow">
+                        <textarea value={Antwort2}></textarea>
+                        <input type="checkbox"/>
+                    </div>
+                    <div className="editRow">
+                        <textarea value={props.Antwort3}></textarea>
+                        <input type="checkbox"/>
+                    </div>
+                    <div className="editRow">
+                        <textarea value={props.Antwort4}></textarea>
+                        <input type="checkbox"/>
+                    </div>
+                    <div className="editRow">
+                        <textarea value={props.Antwort5}></textarea>
+                        <input type="checkbox"/>
+                    </div>
+                    <div className="editRow">
+                        <textarea value={props.Antwort6}></textarea>
+                        <input type="checkbox"/>
+                    </div>
+                    <button className="saveButton"></button>                 
+                </div>
+        </div>
         
     );
 }
