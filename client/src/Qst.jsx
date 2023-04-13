@@ -24,33 +24,69 @@ export default function Qst(props) {
     return (
         <div className="Qst" style={{ display: show ? "flex" : "none"}}>
             <main>
-                <p  id={`qstName-${FrageID}`}>
-                {content}</p>
+                {/* <p  id={`qstName-${FrageID}`}>
+                {content}</p> */}
+                <textarea 
+                    rows="2"
+                    cols="50"
+                    readOnly={!editMode}>
+                        {content}
+                </textarea>
                 <button className="qEditB" onClick={editClick}></button>
             </main>
                 <div className="EditWindow" style={{ display: editMode ? "flex" : "none"}}>
                     <div className="editRow">
-                        <textarea value={Antwort1}></textarea>
+                        <textarea 
+                            rows="2"
+                            cols="50"
+                            readOnly={!editMode}>
+                                {props.Antwort1}
+                        </textarea>
                         <input type="checkbox"/>
                     </div>
                     <div className="editRow">
-                        <textarea value={Antwort2}></textarea>
+                        <textarea 
+                            rows="2"
+                            cols="50"
+                            readOnly={!editMode}>
+                                {props.Antwort2}
+                        </textarea>
                         <input type="checkbox"/>
                     </div>
                     <div className="editRow">
-                        <textarea value={props.Antwort3}></textarea>
+                        <textarea 
+                            rows="2"
+                            cols="50"
+                            readOnly={!editMode}>
+                                {props.Antwort3}
+                        </textarea>
                         <input type="checkbox"/>
                     </div>
                     <div className="editRow">
-                        <textarea value={props.Antwort4}></textarea>
+                        <textarea 
+                            rows="2"
+                            cols="50"
+                            readOnly={!editMode}>
+                                {props.Antwort4}
+                        </textarea>
                         <input type="checkbox"/>
                     </div>
                     <div className="editRow">
-                        <textarea value={props.Antwort5}></textarea>
+                        <textarea 
+                            rows="2"
+                            cols="50"
+                            readOnly={!editMode}>
+                                {props.Antwort5}
+                        </textarea>
                         <input type="checkbox"/>
                     </div>
                     <div className="editRow">
-                        <textarea value={props.Antwort6}></textarea>
+                        <textarea 
+                            rows="2"
+                            cols="50"
+                            readOnly={!editMode}>
+                                {props.Antwort6}
+                        </textarea>
                         <input type="checkbox"/>
                     </div>
                     <button className="saveButton"></button>                 
