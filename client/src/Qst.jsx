@@ -17,22 +17,7 @@ export default function Qst(props) {
 
     const editClick = () => {
         handleEditClick(FrageID);
-    }
-    
-    const toggleShow = () => {
-        setShow(a => !a);
-    }
-
-    const handleCancelEdit = () => {
-        cancelEdit();
-        setEditMode(false);
-        setEditedQst(Frage);
-        setEditedAns1(Antwort1);
-        setEditedAns2(Antwort2);
-    }
-
-    const handleSaveClick = () => {
-        setEditMode(false);
+        setEditMode(!editMode);
     }
 
     
@@ -43,21 +28,18 @@ export default function Qst(props) {
             {content}</p>
             <button onClick={editClick}>edit</button>
         </header>
-        {editMode ? (
             <div className="EditWindow">
-                <textarea value={editedQst} cols="30" rows="10" 
-                onChange={(event) => setEditedQst(event.target.value)}>
+                <textarea 
+                    value={editedQst} 
+                    cols="50" 
+                    rows="2"
+                    id="qArea"
+                    onChange={(event) => setEditedQst(event.target.value)}>
                     
                 </textarea>
                 
             </div>
-        ) : (
-            <div className="QCard">
-                {/* <p>{props.Antwort1}</p>
-                <p>{props.Antwort2}</p> */}
-            </div>
-        )}
-    </div>
         
+    </div> 
     );
 }
