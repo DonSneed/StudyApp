@@ -17,6 +17,8 @@ export default function Qst(props) {
     const[editedAns4, setEditedAns4] = useState(props.Antwort4 ? props.Antwort4 : " ");
     const[editedAns5, setEditedAns5] = useState(props.Antwort5 ? props.Antwort5 : " ");
     const[editedAns6, setEditedAns6] = useState(props.Antwort6 ? props.Antwort6 : " ");
+
+    const ergebniss = props.Ergebniss;
     
 
     const editClick = () => {
@@ -26,11 +28,21 @@ export default function Qst(props) {
     }
 
     const saveClick = () => {
-
+        if(checkEdit()){
+            //save edited question information
+        }else{
+            //display error of sorts, reset to old values
+        }
     }
 
     const checkEdit = () =>{
-
+        const checkboxes = document.querySelectorAll("input[type='checkbox']");
+        const uncheckedCheckboxes = [...checkboxes].filter((checkbox) => !checkbox.checked);
+        if (uncheckedCheckboxes.length === checkboxes.length) {
+            return false;
+        }else{
+            
+        }
     }
 
     
@@ -59,7 +71,7 @@ export default function Qst(props) {
                             onChange={(e) => setEditedAns1(e.target.value)}>
                                 
                         </textarea>
-                        <input type="checkbox" id="a1Box"/>
+                        <input type="checkbox" id="a1Box" defaultChecked={ergebniss.charAt(0) === "w"}/>
                     </div>
                     <div className="editRow">
                         <textarea 
@@ -71,7 +83,7 @@ export default function Qst(props) {
                             onChange={(e) => setEditedAns2(e.target.value)}>
                                 
                         </textarea>
-                        <input type="checkbox" id="a2Box"/>
+                        <input type="checkbox" id="a2Box" defaultChecked={ergebniss.charAt(1) === "w"}/>
                     </div>
                     <div className="editRow">
                         <textarea 
@@ -83,7 +95,7 @@ export default function Qst(props) {
                             onChange={(e) => setEditedAns3(e.target.value)}>
                                 
                         </textarea>
-                        <input type="checkbox" id="a3Box"/>
+                        <input type="checkbox" id="a3Box" defaultChecked={ergebniss.charAt(2) === "w"}/>
                     </div>
                     <div className="editRow">
                         <textarea 
@@ -95,7 +107,7 @@ export default function Qst(props) {
                             onChange={(e) => setEditedAns4(e.target.value)}>
                                 
                         </textarea>
-                        <input type="checkbox" id="a4Box"/>
+                        <input type="checkbox" id="a4Box" defaultChecked={ergebniss.charAt(3) === "w"}/>
                     </div>
                     <div className="editRow">
                         <textarea 
@@ -107,7 +119,7 @@ export default function Qst(props) {
                             onChange={(e) => setEditedAns5(e.target.value)}>
                                 
                         </textarea>
-                        <input type="checkbox" id="a5Box"/>
+                        <input type="checkbox" id="a5Box" defaultChecked={ergebniss.charAt(4) === "w"}/>
                     </div>
                     <div className="editRow">
                         <textarea 
@@ -119,9 +131,9 @@ export default function Qst(props) {
                             onChange={(e) => setEditedAns6(e.target.value)}>
                                 
                         </textarea>
-                        <input type="checkbox" id="a6Box"/>
+                        <input type="checkbox" id="a6Box" defaultChecked={ergebniss.charAt(5) === "w"}/>
                     </div>
-                    <button className="saveButton" onClick={saveClick}></button>                 
+                    <button className="saveButton" onClick={saveClick} ></button>                 
                 </div>
         </div>        
     
