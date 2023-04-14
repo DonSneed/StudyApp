@@ -1,0 +1,62 @@
+.Qst {
+    box-sizing: border-box;
+    flex-direction: column;
+    border-width: 1px 0 1px 0;
+    border-color: #FCF9BF;
+    border-style: solid;
+    color: #FCF9BF;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-indent: 25px;
+    transition: all 0.5s;
+}
+
+.Qst > main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+
+}
+
+.Qst:hover {
+    background-color: #3B4152;
+}
+
+.Qst .qEditB{
+    background-image: url("../graphicAssets/edit.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgba(0,0,0,0);
+    border-radius: 30%;
+    border: none;
+    width: 5vh;
+    height: 5vh;
+    transition: all 0.5s;
+}
+
+.Qst .qEditB:hover{
+    background-color: #252933;
+}
+
+.Qst .EditWindow .saveButton{
+    background-image: url("../graphicAssets/save.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgba(0,0,0,0);
+    border-radius: 30%;
+    border: none;
+    width: 5vh;
+    height: 5vh;
+    transition: all 0.5s;
+}
+
+.Qst .EditWindow .saveButton:hover{
+    background-color: #252933;
+}
+
+.EditWindow{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

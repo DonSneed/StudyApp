@@ -11,7 +11,7 @@
     /* margin: auto; */
     /* position: absolute; */
     width: 50vw;
-    height: 50vh;
+    height: 60vh;
     background: #323745;
     border-width: 3px 3px 0px 3px;
     border-style: solid;
@@ -25,7 +25,7 @@
     flex-direction: column;
 }
 
-.KatList header{
+.KatList > header{
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -39,7 +39,7 @@
     border-radius: 15px 15px 0px 0px;
 }
 
-.KatList header h3{
+.KatList > header > h3{
     color: #FCF9BF;
     width: 30%;
     font-weight: 400;
@@ -48,7 +48,7 @@
     text-indent: 25px;
 }
 
-header .ActionIcons{
+header > .ActionIcons{
     height: 70%;
     width: 25%;
     display: flex;
@@ -56,7 +56,7 @@ header .ActionIcons{
     flex-direction: row;
 }
 
-.ActionIcons .AddButton{
+.ActionIcons > .AddButton{
     background-image: url("../graphicAssets/add.png");
     background-repeat: no-repeat;
     background-position: center;
@@ -68,7 +68,7 @@ header .ActionIcons{
     transition: all 0.5s;
 }
 
-.ActionIcons .DeleteButton{
+.ActionIcons > .DeleteButton{
     background-image: url("../graphicAssets/delete.png");
     background-repeat: no-repeat;
     background-position: center;
@@ -84,7 +84,7 @@ header .ActionIcons{
     background-color: #252933;
 }
 
-.KatList main{
+.KatList > main{
     box-sizing: border-box;
     overflow-y: scroll;
 }

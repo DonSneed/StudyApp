@@ -11,7 +11,7 @@
     /* margin: auto; */
     /* position: absolute; */
     width: 50vw;
-    height: 50vh;
+    height: 60vh;
     background: #323745;
     border-width: 3px 3px 0px 3px;
     border-style: solid;
@@ -23,9 +23,10 @@
     border-radius: 15px;
     display: flex;
     flex-direction: column;
+    
 }
 
-.EditCard header{
+.EditCard > header{
     box-sizing: border-box;
     display: flex;
     align-items: center;
@@ -39,7 +40,7 @@
     border-radius: 15px 15px 0px 0px;
 }
 
-.EditCard header h3{
+.EditCard > header > h3{
     color: #FCF9BF;
     width: 30%;
     font-weight: 400;
@@ -48,6 +49,7 @@
     text-indent: 25px;
 }
 
-.EditCard main{
-    overflow: hidden;
+.EditCard > main{
+    box-sizing: border-box;
+    overflow-y: scroll;
 }
