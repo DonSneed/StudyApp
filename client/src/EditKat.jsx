@@ -19,7 +19,6 @@ function EditKat() {
         })
         .then((response) => {
             setQList(response.data.recordset);
-            console.log(response.data.recordset);
         })
         .catch((error) => {
             console.log(error);
@@ -31,6 +30,20 @@ function EditKat() {
         setEditedFrageID(id);
     }
 
+    const handleUpdate = () => {
+        /* useEffect(() => {        
+            axios.get(`http://127.0.0.1:5000/questions/${KatalogID}`, {
+                data: { KatalogID: KatalogID}
+            })
+            .then((response) => {
+                setQList(response.data.recordset);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        }, []); */
+    }
+
     const qs = qList.map(item => {
         return (
             <Qst
@@ -38,6 +51,7 @@ function EditKat() {
                 {...item}
                 show={qHighlight ? (item.FrageID === editedFrageID) : true}
                 handleEditClick={handleEditClick}
+                handleUpdate={handleUpdate}
             />
         )
     })

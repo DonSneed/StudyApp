@@ -8,8 +8,44 @@
     letter-spacing: 0.05em;
     text-indent: 25px;
     transition: all 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
 }
 
 .Kat:hover {
     background-color: #3B4152;
+}
+
+#editB{
+    background-image: url("../graphicAssets/edit.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgba(0,0,0,0);
+    border-radius: 30%;
+    border: none;
+    width: 5vh;
+    height: 5vh;
+    transition: all 0.5s;
+}
+
+#playB{
+    background-image: url("../graphicAssets/play.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgba(0,0,0,0);
+    border-radius: 30%;
+    border: none;
+    width: 5vh;
+    height: 5vh;
+    transition: all 0.5s;
+}
+
+#editB:hover {
+    background-color: #252933;
+}
+
+#playB:hover {
+    background-color: #252933;
 }

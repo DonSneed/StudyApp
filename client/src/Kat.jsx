@@ -11,7 +11,7 @@ export default function Kat(props) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log("content: " + content);
+        /* console.log("content: " + content); */
     }, [content]);
 
     const handleEdit = () =>{
@@ -43,8 +43,11 @@ export default function Kat(props) {
     };
     
     const goEdit = () =>{
-        console.log(props);
         navigate(`/EditKat/${props.KatalogID}`, {state: {Katalog: props.Katalog, KatalogID: props.KatalogID}});
+    }
+
+    const goPlay = () =>{
+        navigate(`/RunKat/${props.KatalogID}`, {state: props.KatalogID})
     }
 
     
@@ -62,7 +65,10 @@ export default function Kat(props) {
                 onBlur={handleSave}
             >
                 {content}</p>
-                <button onClick={goEdit}>edit</button>
+                <div className="ActionIcons">
+                    <button id="editB" onClick={goEdit}></button>
+                    <button id="playB" onClick={goPlay}></button>
+                </div>
         </div>
     )
 }

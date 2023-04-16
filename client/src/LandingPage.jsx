@@ -21,7 +21,6 @@ function LandingPage() {
 
     useEffect(() => {
         setCurrentUser(state);
-        console.log("id: " + state.NutzerID);
         
         axios.get(`http://127.0.0.1:5000/kats/${state.NutzerID}`, {
             data: { userID: state.NutzerID}

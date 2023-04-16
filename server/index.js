@@ -7,6 +7,7 @@ const { request } = require("http");
 const app = express();
 
 const config = require("./config");
+const { rmSync } = require("fs");
 app.use(express.json());
 
 app.use(cors());
@@ -54,6 +55,41 @@ app.post("/changeKatName", (req, res) => {
         if(err) {
             console.log(err);
             return res.status(500).send("Failes to update record");
+        }
+        res.send(result);
+    })
+})
+
+app.post("/updateQst/:frageID", (req, res) => {
+    const frageID = req.params.frageID;
+    const frage = req.body.frage;
+    const a1 = req.body.a1;
+    const a2 = req.body.a2;
+    const a3 = req.body.a3;
+    const a4 = req.body.a4;
+    const a5 = req.body.a5;
+    const a6 = req.body.a6;
+    const ergebniss = req.body.ergebniss;
+
+    const request = new mssql.Request();
+    const sqlQuery = `UPDATE Frage
+    SET
+        Frage = '${frage}',
+        Antwort1 = '${a1}',
+        Antwort2 = '${a2}',
+        Antwort3 = '${a3}',
+        Antwort4 = '${a4}',
+        Antwort5 = '${a5}',
+        Antwort6 = '${a6}',
+        Ergebniss ='${ergebniss}'
+    WHERE FrageID = ${frageID};
+    
+    `;
+
+    request.query(sqlQuery, function(err, result){
+        if(err){
+            console.log(err);
+            return res.status(500).send("failed to update qst");
         }
         res.send(result);
     })
