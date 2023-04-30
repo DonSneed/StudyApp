@@ -47,7 +47,7 @@ export default function Kat(props) {
     }
 
     const goPlay = () =>{
-        navigate(`/RunKat/${props.KatalogID}`, {state: props.KatalogID})
+        navigate(`/RunKat/${props.KatalogID}`, {state: {Katalog: props.Katalog, KatalogID: props.KatalogID}});
     }
 
     

@@ -14,6 +14,8 @@ DROP TABLE [dbo].[Person];
 
 CREATE TABLE Auswertung (
 	AuswertungID int primary Key,
+	VersuchID int FOREIGN KEY REFERENCES [dbo].[Versuch](VersuchID),
+	FrageID int FOREIGN KEY REFERENCES [dbo].[Frage](FrageID),
 	Richtig bit
 );
 

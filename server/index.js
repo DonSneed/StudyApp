@@ -160,6 +160,24 @@ app.get("/questions/:KatalogID", (req, res) =>{
     })
 })
 
+app.get("/tries/:KatalogID", (req, res) => {
+    const KatalogID = req.params.KatalogID;
+
+    const request = new mssql.Request();
+    const sqlQuery = `SELECT a.*
+    FROM Auswertung a
+    INNER JOIN Versuch v ON a.VersuchID = v.VersuchID
+    WHERE v.KatalogID = ${KatalogID}`;
+
+    request.query(sqlQuery, function(err, result){
+        if(err){
+            console.log(err);
+        }else{
+            res.send(result);
+        }
+    })
+})
+
 const port = process.env.PORT || 5000;
 
 app.listen(port, () =>

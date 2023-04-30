@@ -1,0 +1,100 @@
+.RunKat{
+    height: 100%;
+    margin: auto;
+    /* padding: 66px 0 0 0; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.RunCard{
+    width: 60vw;
+    height: 70vh;
+    background: #323745;
+    border-width: 3px 3px 0px 3px;
+    border-style: solid;
+    border-color: #FCF9BF;
+    /* box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25); */
+    box-shadow:  6px 6px 12px #303442,
+             -6px -6px 12px #353a48;
+
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.RunCard .Window{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#WelcomeWindow > h3{
+    color: #FCF9BF;
+    width: 30%;
+    font-weight: 400;
+    font-size: 30px;
+    letter-spacing: 0.05em;
+    text-indent: 25px;
+}
+
+/* #MainWindow{
+    overflow-y: scroll;
+} */
+
+#MainWindow > textarea{
+    height: 20vh;
+    width:  30vw;
+    margin:5px 0 15px 0;
+    background-color: #252933;
+    border-radius: 2px;
+    color: #FCF9BF;
+    border: none;
+}
+
+/* #MainWindow textarea{
+    width: 30vw;
+    background-color: transparent;
+    border: none;
+    transition: all 1s;
+    border-radius: 30px;
+} */
+
+#AnswerBlock {
+    display: flex;
+    flex-direction: column;
+}
+
+#AnswerBlock textarea{
+    margin: 2px;
+    width: 55vw;
+    background-color: transparent;
+    border: 2px solid #FCF9BF;
+    border-radius: 30px;
+    padding: 5px;
+    color: #FCF9BF;
+    transition: all 0.2s;
+}
+
+#AnswerBlock textarea:hover{
+    background-color: #35A148;
+}
+
+#startQuizB {
+    background-image: url("../graphicAssets/play.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgba(0,0,0,0);
+    border-radius: 30%;
+    border: none;
+    width: 5vh;
+    height: 5vh;
+    transition: all 0.5s;
+}
+
+#startQuizB:hover {
+    background-color: #252933;
+    cursor: pointer;
+}
