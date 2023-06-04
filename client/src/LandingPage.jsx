@@ -27,7 +27,6 @@ function LandingPage() {
         })
         .then((response) => {
             setKatList(response.data.recordset);
-            console.log(response.data.recordset);
         })
         .catch((error) => {
             console.log(error);

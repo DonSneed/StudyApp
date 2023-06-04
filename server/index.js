@@ -111,6 +111,22 @@ app.post("/createKat", (req, res) => {
     })
 })
 
+app.post("/createAttempt", (req, res) => {
+    const katID = req.body.katalogID;
+    const userID = req.body.userID;
+
+    const request = new mssql.Request();
+    const sqlQuery = `INSERT INTO Auswertung (Punktestand, KatalogID, UserID) VALUES ('${katID}', '${userID}')`;
+
+    request.query(sqlQuery, function(err, result){
+        if(err) {
+            console.log(err);
+            return res.status(500).send("Failes to upload record");
+        }
+        res.send(result);
+    })
+})
+
 app.get('/users', (req, res) => {
     const request = new mssql.Request();
     const sqlQuery = `SELECT * from [Nutzer]`;

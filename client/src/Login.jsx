@@ -37,7 +37,6 @@ function Login() {
         if(checkLogin(username, password)){
           console.log("Login succesfull");
           /* navigate("/LandingPage", {state: currentUser}); */
-          console.log(currentUser);
         }else{
           console.log("wrong Login info");
           setInputError(true);

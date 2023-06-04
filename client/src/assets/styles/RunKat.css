@@ -79,7 +79,8 @@
 }
 
 #AnswerBlock textarea:hover{
-    background-color: #35A148;
+    /* background-color: #35A148; */
+    cursor: pointer;
 }
 
 #startQuizB {
