@@ -12,6 +12,7 @@ function RunKat() {
     const[welcome, setWelcome] = useState(true);
     const[done, setDone] = useState(false);
     const[qIndex, setIndex] = useState(0);
+    const[currentUserID, setCurrentUserID] = useState(0);
     const[currentQ, setCurrentQ] = useState("");
     const[currentA1, setCurrentA1] = useState("");
     const[currentA2, setCurrentA2] = useState("");
@@ -44,7 +45,7 @@ function RunKat() {
             data: { KatalogID: KatalogID}
         })
         .then((response) => {
-            console.log(response.data.recordset[0]);
+            setCurrentUserID(response.data.recordset[0].Ersteller);
         })
         .catch((error) => {
             console.log(error);
@@ -52,13 +53,13 @@ function RunKat() {
     }, []);
 
     const startQuiz = () => {
-        versuch.insgesamt = checkAnswerAmount(shuffledList);
-        /* axios.post('http://127.0.0.1:5000/createAttempt', {
+        console.log("Ersteller:" + currentUserID);
+        axios.post('http://127.0.0.1:5000/createAttempt', {
                 katID: KatalogID,
-                userID: NutzerID,
+                userID: currentUserID,
                 }).then(() => {
                 console.log("success");
-            }); */
+            });
         setWelcome(!welcome);
         setCurrentQ(shuffledList[qIndex].Frage);
         setCurrentA1(shuffledList[qIndex].Antwort1);
