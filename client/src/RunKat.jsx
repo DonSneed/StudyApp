@@ -9,7 +9,6 @@ function RunKat() {
     const {Katalog, KatalogID} = location.state;
     const[qList, setQList] = useState([]);
     const[shuffledList, setShuffledList] = useState([]);
-    const[tryList, setTryList] = useState([]);
     const[welcome, setWelcome] = useState(true);
     const[done, setDone] = useState(false);
     const[qIndex, setIndex] = useState(0);
@@ -27,11 +26,6 @@ function RunKat() {
     const[a5Selected, setA5Selected] = useState(false);
     const[a6Selected, setA6Selected] = useState(false);
 
-    let versuch = {
-        richtige: 0,
-        insgesamt: 0
-    }
-
 
     useEffect(() => {        //get data regarding Katalogue from DB. Questions+Answers, Tries, Error%
         axios.get(`http://127.0.0.1:5000/questions/${KatalogID}`, {
@@ -46,20 +40,25 @@ function RunKat() {
             console.log(error);
         });
 
-
-        axios.get(`http://127.0.0.1:5000/tries/${KatalogID}`, {
+        axios.get(`http://127.0.0.1:5000/userOfKat/${KatalogID}`, {
             data: { KatalogID: KatalogID}
         })
         .then((response) => {
-            setTryList(response.data.recordset);
+            console.log(response.data.recordset[0]);
         })
         .catch((error) => {
             console.log(error);
-        });
+        })
     }, []);
 
     const startQuiz = () => {
         versuch.insgesamt = checkAnswerAmount(shuffledList);
+        /* axios.post('http://127.0.0.1:5000/createAttempt', {
+                katID: KatalogID,
+                userID: NutzerID,
+                }).then(() => {
+                console.log("success");
+            }); */
         setWelcome(!welcome);
         setCurrentQ(shuffledList[qIndex].Frage);
         setCurrentA1(shuffledList[qIndex].Antwort1);

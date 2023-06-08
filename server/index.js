@@ -161,6 +161,21 @@ app.get("/kats/:userID", (req, res) => {
     })
 })
 
+app.get("/userOfKat/:KatalogID", (req, res) => {
+    const KatalogID= req.params.KatalogID;
+
+    const request = new mssql.Request();
+    const sqlQuery = `SELECT Ersteller FROM Katalog WHERE KatalogID = '${KatalogID}'`;
+
+    request.query(sqlQuery, function(err, result){
+        if(err) {
+            console.log(err);
+        }else{
+            res.send(result);
+        }
+    })
+})
+
 app.get("/questions/:KatalogID", (req, res) =>{
     const KatalogID = req.params.KatalogID;
 
