@@ -131,6 +131,7 @@ app.post("/createAttempt", (req, res) => {
 
 app.post("/createResult", (req, res) => {
     const richtig = req.body.richtig;
+    const frageID = req.body.frageID;
     
 })
 app.get('/users', (req, res) => {
