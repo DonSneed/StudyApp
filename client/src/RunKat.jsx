@@ -11,8 +11,9 @@ function RunKat() {
     const[shuffledList, setShuffledList] = useState([]);
     const[welcome, setWelcome] = useState(true);
     const[done, setDone] = useState(false);
-    const[qIndex, setIndex] = useState(0);
     const[currentUserID, setCurrentUserID] = useState(0);
+    const[currentVersuch, setCurrentVersuch] = useState((0));
+    const[qIndex, setIndex] = useState(0); 
     const[currentQ, setCurrentQ] = useState("");
     const[currentA1, setCurrentA1] = useState("");
     const[currentA2, setCurrentA2] = useState("");
@@ -53,15 +54,15 @@ function RunKat() {
     }, []);
 
     const startQuiz = () => {
-        console.log("Ersteller:" + currentUserID);
+        console.log(shuffledList);
         const jetzt = new Date().toISOString().slice(0, 19).replace('T', ' ');
         axios.post('http://127.0.0.1:5000/createAttempt', {
                 katalogID: KatalogID,
                 userID: currentUserID,
                 zeitpunkt: jetzt,
                 }).then((response) => {
-                const versuchID = response.data.VersuchID;
-                console.log("success (ID= " + versuchID + ")");
+                setCurrentVersuch(response.data.VersuchID);
+                console.log("success (ID= " + currentVersuch + ")");
             });
         setWelcome(!welcome);
         setCurrentQ(shuffledList[qIndex].Frage);
@@ -103,15 +104,17 @@ function RunKat() {
         }else{
             //check Answers
             console.log("The correct answers are: " + shuffledList[qIndex].Ergebniss);
-            axios.post('http://127.0.0.1:5000/createResult', {
-                katalogID: KatalogID,
-                userID: currentUserID,
-                zeitpunkt: jetzt,
-                }).then((response) => {
-                const versuchID = response.data.VersuchID;
-                console.log("success (ID= " + versuchID + ")");
-            });
+            console.log(checkAnswers());
+            console.log("frageID: ", shuffledList[qIndex].FrageID);
+            console.log("versuchID: ", versuchID);
             //save Auswertung to db 
+            /* axios.post('http://127.0.0.1:5000/createResult', {
+                richtig: checkAnswers(),
+                frageID: shuffledList[qIndex].FrageID,
+                versuchID: versuchID,
+                }).then(() => {
+                    console.log("result created");
+            }); */
             //and display content of next object in shuffledList
             console.log((shuffledList.length - qIndex) + " more questions");
 
