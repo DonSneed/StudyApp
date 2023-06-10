@@ -54,11 +54,14 @@ function RunKat() {
 
     const startQuiz = () => {
         console.log("Ersteller:" + currentUserID);
+        const jetzt = new Date().toISOString().slice(0, 19).replace('T', ' ');
         axios.post('http://127.0.0.1:5000/createAttempt', {
-                katID: KatalogID,
+                katalogID: KatalogID,
                 userID: currentUserID,
-                }).then(() => {
-                console.log("success");
+                zeitpunkt: jetzt,
+                }).then((response) => {
+                const versuchID = response.data.VersuchID;
+                console.log("success (ID= " + versuchID + ")");
             });
         setWelcome(!welcome);
         setCurrentQ(shuffledList[qIndex].Frage);
@@ -100,7 +103,14 @@ function RunKat() {
         }else{
             //check Answers
             console.log("The correct answers are: " + shuffledList[qIndex].Ergebniss);
-            checkAnswers();
+            axios.post('http://127.0.0.1:5000/createResult', {
+                katalogID: KatalogID,
+                userID: currentUserID,
+                zeitpunkt: jetzt,
+                }).then((response) => {
+                const versuchID = response.data.VersuchID;
+                console.log("success (ID= " + versuchID + ")");
+            });
             //save Auswertung to db 
             //and display content of next object in shuffledList
             console.log((shuffledList.length - qIndex) + " more questions");
@@ -110,6 +120,7 @@ function RunKat() {
     }
 
     const checkAnswers = () => {
+        let noErrors = true;
         let aCounter = 2;
         let correctCounter = 0;
         if(shuffledList[qIndex].Antwort3){
@@ -157,7 +168,11 @@ function RunKat() {
                 console.log(shuffledList[qIndex].Antwort6 + " richtig6");
             }
         }
+        if(aCounter !== correctCounter){
+            noErrors = false;
+        }
         console.log("Die Frage hat " + aCounter + " Antworten von denen " + correctCounter + " richtig angekreuzt wurden");
+        return(noErrors);
     }
 
     const handleAnswerSelection = (aArea) => {
