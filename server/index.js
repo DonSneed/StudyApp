@@ -130,8 +130,20 @@ app.post("/createAttempt", (req, res) => {
 })
 
 app.post("/createResult", (req, res) => {
-    const richtig = req.body.richtig;
+    const richtig = req.body.richtig ? 1: 0;
+    const versuchID = req.body.versuchID;
     const frageID = req.body.frageID;
+
+    const request = new mssql.Request();
+    const sqlQuery = `INSERT INTO Auswertung (Richtig, VersuchID, FrageID) VALUES ('${richtig}', '${versuchID}', '${frageID}')`;
+
+    request.query(sqlQuery, function(err, result){
+        if(err) {
+            console.log(err);
+            return res.status(500).send("Failed to upload record");
+        }
+        res.send(result);
+    })
     
 })
 app.get('/users', (req, res) => {

@@ -13,7 +13,7 @@ EXEC sp_rename '[dbo].[Score]', 'Versuch';
 DROP TABLE [dbo].[Person];
 
 CREATE TABLE Auswertung (
-	AuswertungID int primary Key,
+	AuswertungID int IDENTITY(1, 1) primary Key,
 	VersuchID int FOREIGN KEY REFERENCES [dbo].[Versuch](VersuchID),
 	FrageID int FOREIGN KEY REFERENCES [dbo].[Frage](FrageID),
 	Richtig bit
@@ -46,6 +46,9 @@ ADD Antwort6 varchar(100);
 
 ALTER TABLE [dbo].[Versuch]
 DROP COLUMN VersuchNR;
+
+ALTER TABLE [dbo].[Versuch]
+ALTER COLUMN Zeitpunkt datetime;
 
 END TRY
 BEGIN CATCH

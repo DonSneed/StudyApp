@@ -11,9 +11,11 @@ function RunKat() {
     const[shuffledList, setShuffledList] = useState([]);
     const[welcome, setWelcome] = useState(true);
     const[done, setDone] = useState(false);
+    const[submitToggle, setSubmitToggle] = useState(true);
     const[currentUserID, setCurrentUserID] = useState(0);
     const[currentVersuch, setCurrentVersuch] = useState((0));
-    const[qIndex, setIndex] = useState(0); 
+    const[qIndex, setIndex] = useState(0);
+    const[points, setPoints] = useState(0);
     const[currentQ, setCurrentQ] = useState("");
     const[currentA1, setCurrentA1] = useState("");
     const[currentA2, setCurrentA2] = useState("");
@@ -54,6 +56,7 @@ function RunKat() {
     }, []);
 
     const startQuiz = () => {
+        let firstRound = 2;
         console.log(shuffledList);
         const jetzt = new Date().toISOString().slice(0, 19).replace('T', ' ');
         axios.post('http://127.0.0.1:5000/createAttempt', {
@@ -62,7 +65,7 @@ function RunKat() {
                 zeitpunkt: jetzt,
                 }).then((response) => {
                 setCurrentVersuch(response.data.VersuchID);
-                console.log("success (ID= " + currentVersuch + ")");
+                
             });
         setWelcome(!welcome);
         setCurrentQ(shuffledList[qIndex].Frage);
@@ -74,52 +77,110 @@ function RunKat() {
         setCurrentA6(shuffledList[qIndex].Antwort6);
         if(shuffledList[qIndex].Antwort3){
             document.querySelector("#aBlock3").style.display = "inline-block";
+            firstRound = firstRound + 1;
         }else{
             document.querySelector("#aBlock3").style.display = "none";            
         }
         if(shuffledList[qIndex].Antwort4){
             document.querySelector("#aBlock4").style.display = "inline-block";
+            firstRound = firstRound + 1;
         }else{
             document.querySelector("#aBlock4").style.display = "none";            
         }
         if(shuffledList[qIndex].Antwort5){
             document.querySelector("#aBlock5").style.display = "inline-block";
+            firstRound = firstRound + 1;
         }else{
             document.querySelector("#aBlock5").style.display = "none";            
         }
         if(shuffledList[qIndex].Antwort6){
             document.querySelector("#aBlock6").style.display = "inline-block";
+            firstRound = firstRound + 1;
         }else{
             document.querySelector("#aBlock6").style.display = "none";            
         }
+        setPoints(firstRound);
     }
 
     const submitAnswer = () => {
         if(qIndex >= shuffledList.length){
             //quiz ending
             setDone(true);
+            setCurrentQ("Quiz abgeschlossen mit " + points + " Punkten");
+            document.querySelector("#aBlock1").style.display = "none";  
+            document.querySelector("#aBlock2").style.display = "none";  
+            document.querySelector("#aBlock3").style.display = "none";  
+            document.querySelector("#aBlock4").style.display = "none";  
+            document.querySelector("#aBlock5").style.display = "none";  
+            document.querySelector("#aBlock6").style.display = "none";  
             console.log("qindex: " + qIndex)
             console.log("shuffledList: " + shuffledList.length);
             console.log("done");
+            //update result in db
+
         }else{
             //check Answers
             console.log("The correct answers are: " + shuffledList[qIndex].Ergebniss);
-            console.log(checkAnswers());
             console.log("frageID: ", shuffledList[qIndex].FrageID);
-            console.log("versuchID: ", versuchID);
-            //save Auswertung to db 
-            /* axios.post('http://127.0.0.1:5000/createResult', {
-                richtig: checkAnswers(),
-                frageID: shuffledList[qIndex].FrageID,
-                versuchID: versuchID,
-                }).then(() => {
-                    console.log("result created");
-            }); */
+            console.log("versuchID: ", currentVersuch);
+            //save Auswertung to db
+            checkAnswers();
             //and display content of next object in shuffledList
             console.log((shuffledList.length - qIndex) + " more questions");
-
-            setIndex(qIndex+1);
         }
+        if(qIndex + 1 < qList.length){
+            setSubmitToggle(false);
+        }
+        setIndex(qIndex + 1);
+    }
+
+    const nextQuestion = () => {
+        let nextRound = 2;
+        setCurrentQ(shuffledList[qIndex].Frage);
+        setA1Selected(false);
+        setCurrentA1(shuffledList[qIndex].Antwort1);
+        document.querySelector("#aBlock1").style.backgroundColor = "transparent";
+        setA2Selected(false);
+        setCurrentA2(shuffledList[qIndex].Antwort2);
+        document.querySelector("#aBlock2").style.backgroundColor = "transparent";
+        setA3Selected(false);
+        setCurrentA3(shuffledList[qIndex].Antwort3);
+        document.querySelector("#aBlock3").style.backgroundColor = "transparent";
+        setA4Selected(false);
+        setCurrentA4(shuffledList[qIndex].Antwort4);
+        document.querySelector("#aBlock4").style.backgroundColor = "transparent";
+        setA5Selected(false);
+        setCurrentA5(shuffledList[qIndex].Antwort5);
+        document.querySelector("#aBlock5").style.backgroundColor = "transparent";
+        setA6Selected(false);
+        setCurrentA6(shuffledList[qIndex].Antwort6);
+        document.querySelector("#aBlock6").style.backgroundColor = "transparent";
+        if(shuffledList[qIndex].Antwort3){
+            document.querySelector("#aBlock3").style.display = "inline-block";
+            nextRound = nextRound + 1;
+        }else{
+            document.querySelector("#aBlock3").style.display = "none";            
+        }
+        if(shuffledList[qIndex].Antwort4){
+            document.querySelector("#aBlock4").style.display = "inline-block";
+            nextRound = nextRound + 1;
+        }else{
+            document.querySelector("#aBlock4").style.display = "none";            
+        }
+        if(shuffledList[qIndex].Antwort5){
+            document.querySelector("#aBlock5").style.display = "inline-block";
+            nextRound = nextRound + 1;
+        }else{
+            document.querySelector("#aBlock5").style.display = "none";            
+        }
+        if(shuffledList[qIndex].Antwort6){
+            document.querySelector("#aBlock6").style.display = "inline-block";
+            nextRound = nextRound + 1;
+        }else{
+            document.querySelector("#aBlock6").style.display = "none";            
+        }
+        setSubmitToggle(true);
+        setPoints(points + nextRound);
     }
 
     const checkAnswers = () => {
@@ -138,44 +199,88 @@ function RunKat() {
         if(shuffledList[qIndex].Antwort6){
             aCounter = aCounter +1;
         }
+
         if((shuffledList[qIndex].Ergebniss.includes(shuffledList[qIndex].Antwort1) && a1Selected) || (!shuffledList[qIndex].Ergebniss.includes(shuffledList[qIndex].Antwort1) && !a1Selected)){
             correctCounter = correctCounter + 1;
+            document.querySelector("#aBlock1").style.backgroundColor = "#35A148";
             console.log(shuffledList[qIndex].Antwort1 + "richtig");
+        }else{
+            document.querySelector("#aBlock1").style.backgroundColor = "#A13549";
+            console.log(shuffledList[qIndex].Antwort1 + "FALSCH");
         }
+
         if((shuffledList[qIndex].Ergebniss.includes(shuffledList[qIndex].Antwort2) && a2Selected) || (!shuffledList[qIndex].Ergebniss.includes(shuffledList[qIndex].Antwort2) && !a2Selected)){
             correctCounter = correctCounter + 1;
+            document.querySelector("#aBlock2").style.backgroundColor = "#35A148";
             console.log(shuffledList[qIndex].Antwort2 + "richtig");
 
+        }else{
+            document.querySelector("#aBlock2").style.backgroundColor = "#A13549";
+            console.log(shuffledList[qIndex].Antwort2 + "FALSCH");
+
         }
-        if(shuffledList[qIndex].Antwort3){
+        
+        if(shuffledList[qIndex].Antwort3 !== ""){
             if((shuffledList[qIndex].Ergebniss.includes(shuffledList[qIndex].Antwort3) && a3Selected) || (!shuffledList[qIndex].Ergebniss.includes(shuffledList[qIndex].Antwort3) && !a3Selected)){
                 correctCounter = correctCounter + 1;
+                document.querySelector("#aBlock3").style.backgroundColor = "#35A148";
                 console.log(shuffledList[qIndex].Antwort3 + "richtig3");
+            }else{
+                document.querySelector("#aBlock3").style.backgroundColor = "#A13549";
+                console.log(shuffledList[qIndex].Antwort3 + "FALSCH");
+    
             }
         }
-        if(shuffledList[qIndex].Antwort4){
+
+        if(shuffledList[qIndex].Antwort4 !== ""){
             if((shuffledList[qIndex].Ergebniss.includes(shuffledList[qIndex].Antwort4) && a4Selected) || (!shuffledList[qIndex].Ergebniss.includes(shuffledList[qIndex].Antwort4) && !a4Selected)){
                 correctCounter = correctCounter + 1;
+                document.querySelector("#aBlock4").style.backgroundColor = "#35A148";
                 console.log(shuffledList[qIndex].Antwort4 + "richtig4");
-            }
+            }else{
+                document.querySelector("#aBlock4").style.backgroundColor = "#A13549";
+                console.log(shuffledList[qIndex].Antwort4 + "FALSCH");
+    
         }
-        if(shuffledList[qIndex].Antwort5){
+        }
+
+        if(shuffledList[qIndex].Antwort5 !== ""){
             if((shuffledList[qIndex].Ergebniss.includes(shuffledList[qIndex].Antwort5) && a5Selected) || (!shuffledList[qIndex].Ergebniss.includes(shuffledList[qIndex].Antwort5) && !a5Selected)){
                 correctCounter = correctCounter + 1;
+                document.querySelector("#aBlock5").style.backgroundColor = "#35A148";
                 console.log(shuffledList[qIndex].Antwort5 + " richtig5");
-            }
-        } 
-        if(shuffledList[qIndex].Antwort6){
-            if((shuffledList[qIndex].Ergebniss.includes(shuffledList[qIndex].Antwort6) && a6Selected) || (!shuffledList[qIndex].Ergebniss.includes(shuffledList[qIndex].Antwort6) && !a6Selected)){
-                correctCounter = correctCounter + 1;
-                console.log(shuffledList[qIndex].Antwort6 + " richtig6");
+            }else{
+                document.querySelector("#aBlock5").style.backgroundColor = "#A13549";
+                console.log(shuffledList[qIndex].Antwort5 + "FALSCH");
+    
             }
         }
+
+        if(shuffledList[qIndex].Antwort6 !== ""){
+            if((shuffledList[qIndex].Ergebniss.includes(shuffledList[qIndex].Antwort6) && a6Selected) || (!shuffledList[qIndex].Ergebniss.includes(shuffledList[qIndex].Antwort6) && !a6Selected)){
+                correctCounter = correctCounter + 1;
+                document.querySelector("#aBlock6").style.backgroundColor = "#35A148";
+                console.log(shuffledList[qIndex].Antwort6 + " richtig6");
+            }else{
+                document.querySelector("#aBlock6").style.backgroundColor = "#A13549";
+                console.log(shuffledList[qIndex].Antwort6 + "FALSCH");
+    
+            }
+        }
+
         if(aCounter !== correctCounter){
             noErrors = false;
         }
         console.log("Die Frage hat " + aCounter + " Antworten von denen " + correctCounter + " richtig angekreuzt wurden");
-        return(noErrors);
+        axios.post('http://127.0.0.1:5000/createResult', {
+                richtig: noErrors,
+                frageID: shuffledList[qIndex].FrageID,
+                versuchID: currentVersuch,
+                }).then(() => {
+                    console.log("result created");
+            });
+        setPoints(points + correctCounter);
+
     }
 
     const handleAnswerSelection = (aArea) => {
@@ -333,17 +438,20 @@ function RunKat() {
                         onClick={startQuiz}></button>
                 </div>
                 <div id="MainWindow" className="Window" style={{ display: welcome ? "none" : "flex"}}>
-                     <textarea defaultValue={currentQ} readOnly={true}></textarea>
+                     <div id="infobar">
+                        <h5>Punkte: {points}</h5>
+                        <button>abbrechen</button>
+                     </div>
+                     <textarea id="qBlock" defaultValue={currentQ} readOnly={true}></textarea>
                      <div id="AnswerBlock">
-                        <textarea id ="aBlock1" defaultValue={currentA1} readOnly={true} onClick={() => handleAnswerSelection(1)} /* style={{background: a1Selected? "#35A148" : "transparent"}} */ ></textarea>
+                        <textarea id ="aBlock1" defaultValue={currentA1} readOnly={true} onClick={() => handleAnswerSelection(1)} ></textarea>
                         <textarea id ="aBlock2" defaultValue={currentA2} readOnly={true} onClick={() => handleAnswerSelection(2)} ></textarea>
                         <textarea id ="aBlock3" defaultValue={currentA3} readOnly={true} onClick={() => handleAnswerSelection(3)} ></textarea>
                         <textarea id ="aBlock4" defaultValue={currentA4} readOnly={true} onClick={() => handleAnswerSelection(4)} ></textarea>
                         <textarea id ="aBlock5" defaultValue={currentA5} readOnly={true} onClick={() => handleAnswerSelection(5)} ></textarea>
                         <textarea id ="aBlock6" defaultValue={currentA6} readOnly={true} onClick={() => handleAnswerSelection(6)} ></textarea>
                      </div>
-                     <button onClick={submitAnswer}>submit</button>
-                     
+                     <button id="submitAnswerB" onClick={submitToggle? submitAnswer : nextQuestion}>{submitToggle ? "bestätigen" : "nächste Frage"}</button>
                 </div>
             </div>
         </div>
