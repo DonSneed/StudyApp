@@ -146,6 +146,23 @@ app.post("/createResult", (req, res) => {
     })
     
 })
+
+app.post("/updateAttempt", (req, res) => {
+    const versuchID = req.body.versuchID;
+    const points = req.body.points;
+
+    const request = new mssql.Request();
+    const sqlQuery = `UPDATE VERSUCH SET Punktestand = ${points} WHERE VersuchID = ${versuchID}`;
+
+    request.query(sqlQuery, function(err, result){
+        if(err) {
+            console.log(err);
+            return res.status(500).send("Failes to update Attempt");
+        }
+        res.send(result);
+    })
+})
+
 app.get('/users', (req, res) => {
     const request = new mssql.Request();
     const sqlQuery = `SELECT * from [Nutzer]`;

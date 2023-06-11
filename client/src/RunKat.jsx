@@ -117,7 +117,12 @@ function RunKat() {
             console.log("shuffledList: " + shuffledList.length);
             console.log("done");
             //update result in db
-
+            axios.post('http://127.0.0.1:5000/updateAttempt', {
+                versuchID: currentVersuch,
+                points: points,
+                }).then(() => {
+                    console.log("attempt updated");
+            });
         }else{
             //check Answers
             console.log("The correct answers are: " + shuffledList[qIndex].Ergebniss);
