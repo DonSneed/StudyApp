@@ -42,10 +42,40 @@
     transition: all 0.5s;
 }
 
+.notPublic {
+    background-image: url("../graphicAssets/publicGrey.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgba(0,0,0,0);
+    fill: blue;
+    border-radius: 30%;
+    border: none;
+    width: 5vh;
+    height: 5vh;
+    transition: all 0.5s;
+}
+
 #editB:hover {
     background-color: #252933;
 }
 
 #playB:hover {
     background-color: #252933;
+}
+
+#publicB:hover {
+    background-color: #252933;
+}
+
+.public{
+    background-image: url("../graphicAssets/public.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgba(0,0,0,0);
+    fill: blue;
+    border-radius: 30%;
+    border: none;
+    width: 5vh;
+    height: 5vh;
+    transition: all 0.5s;
 }

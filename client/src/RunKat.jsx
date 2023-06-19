@@ -1,5 +1,6 @@
 import {useLocation} from "react-router-dom";
 import {useState, useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 import "./assets/styles/RunKat.css";
 import axios from "axios";
 
@@ -12,7 +13,7 @@ function RunKat() {
     const[welcome, setWelcome] = useState(true);
     const[done, setDone] = useState(false);
     const[submitToggle, setSubmitToggle] = useState(true);
-    const[currentUserID, setCurrentUserID] = useState(0);
+    const[currentUserID, setCurrentUserID] = useState({});
     const[currentVersuch, setCurrentVersuch] = useState((0));
     const[qIndex, setIndex] = useState(0);
     const[points, setPoints] = useState(0);
@@ -29,6 +30,10 @@ function RunKat() {
     const[a4Selected, setA4Selected] = useState(false);
     const[a5Selected, setA5Selected] = useState(false);
     const[a6Selected, setA6Selected] = useState(false);
+    const[showCancelWindow, setShowCancelWindow] = useState(false);
+    const[cancelAnswer, setCancelAnswer] = useState(null); //???
+    const[userList, setUserList] = useState([]);
+    const navigate = useNavigate();
 
 
     useEffect(() => {        //get data regarding Katalogue from DB. Questions+Answers, Tries, Error%
@@ -48,7 +53,7 @@ function RunKat() {
             data: { KatalogID: KatalogID}
         })
         .then((response) => {
-            setCurrentUserID(response.data.recordset[0].Ersteller);
+            setCurrentUserID(response.data.recordset[0]);
         })
         .catch((error) => {
             console.log(error);
@@ -57,11 +62,10 @@ function RunKat() {
 
     const startQuiz = () => {
         let firstRound = 2;
-        console.log(shuffledList);
         const jetzt = new Date().toISOString().slice(0, 19).replace('T', ' ');
         axios.post('http://127.0.0.1:5000/createAttempt', {
                 katalogID: KatalogID,
-                userID: currentUserID,
+                userID: currentUserID.NutzerID,
                 zeitpunkt: jetzt,
                 }).then((response) => {
                 setCurrentVersuch(response.data.VersuchID);
@@ -354,25 +358,6 @@ function RunKat() {
         return list;
     };
 
-    const checkAnswerAmount = (list) =>{
-        let amount = list.length * 2;
-        for(let i = 0; i < list.length; i++){
-            if(list[i].Antwort3){
-                amount++;
-            }
-            if(list[i].Antwort4){
-                amount++;
-            }
-            if(list[i].Antwort5){
-                amount++;
-            }
-            if(list[i].Antwort6){
-                amount++;
-            }
-        }
-        return amount;
-    }
-
     const setErgebniss = (list) => {
         //save right answers in e variable
         for(let i = 0; i < list.length; i++){
@@ -428,6 +413,46 @@ function RunKat() {
         
     }
 
+    const CancelQuizWindow = () => {
+        const handleCancel = () =>{
+            axios.get("http://127.0.0.1:5000/users")
+                .then((response) => {
+                    setUserList(response.data.recordset);
+                })
+                .catch((error) =>{
+                    console.log(error);
+            })
+            
+            //cancelQuiz
+            axios.post('http://127.0.0.1:5000/deleteAttempt', {
+                versuchID: currentVersuch,
+                }).then(() => {
+                    console.log("Attempt deleted");
+            });
+            navigate("/LandingPage", { state: currentUserID});
+        };
+    
+        const handleContinue = () =>{
+            //continueQuiz
+            setShowCancelWindow(false);
+        };
+            
+        return (
+            <div className="cancelQuizWindow">
+                <h3>Möchten Sie den aktuellen Versuch wirklich abbrechen?</h3>
+                <div>
+                    <button onClick={handleCancel} id="confirmCancelQuizB">Ja</button>
+                    <button onClick={handleContinue} id="cancelCancelQuizB">Nein</button>
+                </div>
+            </div>
+        );
+        
+    }
+
+    const cancelQuizAttempt = () => {
+        setShowCancelWindow(true);
+    }
+
     
     return(
         <div className="RunKat">
@@ -445,8 +470,9 @@ function RunKat() {
                 <div id="MainWindow" className="Window" style={{ display: welcome ? "none" : "flex"}}>
                      <div id="infobar">
                         <h5>Punkte: {points}</h5>
-                        <button>abbrechen</button>
+                        <button id="cancelQuizB" onClick={cancelQuizAttempt}></button>
                      </div>
+                     {showCancelWindow && <CancelQuizWindow />}
                      <textarea id="qBlock" defaultValue={currentQ} readOnly={true}></textarea>
                      <div id="AnswerBlock">
                         <textarea id ="aBlock1" defaultValue={currentA1} readOnly={true} onClick={() => handleAnswerSelection(1)} ></textarea>

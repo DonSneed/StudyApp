@@ -85,6 +85,42 @@ header > .ActionIcons{
 }
 
 .KatList > main{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
     box-sizing: border-box;
     overflow-y: scroll;
+}
+
+.createKatWindow {
+    position: absolute;
+    width: 50vw;
+    height: 45vh;
+    background-color: rgba(0,0,0,0.8);
+    z-index: 9;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #FCF9BF;
+    border-radius: 15px;
+}
+
+.importKatWindow {
+    position: absolute;
+    width: 50vw;
+    height: 45vh;
+    background-color: rgba(0,0,0);
+    z-index: 9;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    
+    color: #FCF9BF;
+    border-radius: 15px;
+}
+
+.importKatWindow h4 {
+    text-align: center;
 }

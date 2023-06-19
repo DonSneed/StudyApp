@@ -100,7 +100,7 @@ app.post("/createKat", (req, res) => {
     const creator = req.body.creator;
 
     const request = new mssql.Request();
-    const sqlQuery = `INSERT INTO Katalog (Katalog, Ersteller) VALUES ('${katName}', ${creator})`;
+    const sqlQuery = `INSERT INTO Katalog (KatalogID, Katalog, Ersteller, Oeffentlich) VALUES ('${katName}', ${creator}, 0)`;
 
     request.query(sqlQuery, function(err, result){
         if(err) {
@@ -163,6 +163,37 @@ app.post("/updateAttempt", (req, res) => {
     })
 })
 
+app.post("/deleteAttempt", (req, res) =>{
+    const versuchID = req.body.versuchID;
+
+    const request = new mssql.Request();
+    const sqlQuery = `DELETE FROM VERSUCH WHERE VersuchID = ${versuchID}`;
+
+    request.query(sqlQuery, function(err, result){
+        if(err) {
+            console.log(err);
+            return res.status(500).send("Failed to delete Attempt");
+        }
+        res.send(result);
+    })
+})
+
+app.post("/togglePublic", (req, res) => {
+    const katalogID = req.body.katalogID;
+    const oeffentlich = req.body.oeffentlich;
+
+    const request = new mssql.Request();
+    const sqlQuery = `UPDATE [Katalog] SET Oeffentlich = ${oeffentlich? 0 : 1} WHERE KatalogID = ${katalogID}`;
+
+    request.query(sqlQuery, function(err, result){
+        if(err){
+            console.log(err);
+            return res.status(500).send("Failed to Update Katalog");
+        }
+        res.send(result);
+    })
+})
+
 app.get('/users', (req, res) => {
     const request = new mssql.Request();
     const sqlQuery = `SELECT * from [Nutzer]`;
@@ -181,12 +212,12 @@ app.get("/kats/:userID", (req, res) => {
     
     const request = new mssql.Request();
     const sqlQuery = `
-    SELECT K.KatalogID, K.Katalog, COUNT(F.FrageID) AS QuestionCount, MAX(V.Punktestand) AS MaxScore
+    SELECT K.KatalogID, K.Katalog, K.Oeffentlich, COUNT(F.FrageID) AS QuestionCount, MAX(V.Punktestand) AS MaxScore
     FROM [Katalog] K
     LEFT JOIN [Frage] F ON K.KatalogID = F.KatalogID
     LEFT JOIN [Versuch] V ON K.KatalogID = V.KatalogID
     WHERE K.Ersteller = '${userID}'
-    GROUP BY K.KatalogID, K.Katalog`;
+    GROUP BY K.KatalogID, K.Katalog, K.Oeffentlich`;
 
     request.query(sqlQuery, function(err, result){
         if(err) {
@@ -201,7 +232,10 @@ app.get("/userOfKat/:KatalogID", (req, res) => {
     const KatalogID= req.params.KatalogID;
 
     const request = new mssql.Request();
-    const sqlQuery = `SELECT Ersteller FROM Katalog WHERE KatalogID = '${KatalogID}'`;
+    const sqlQuery = `SELECT U.*
+    FROM Katalog AS K
+    INNER JOIN [Nutzer] AS U ON K.Ersteller = U.NutzerID
+    WHERE K.KatalogID ='${KatalogID}'`;
 
     request.query(sqlQuery, function(err, result){
         if(err) {

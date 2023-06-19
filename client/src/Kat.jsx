@@ -8,6 +8,7 @@ export default function Kat(props) {
     const[editMode, setEditMode] = useState(false);
     const[content, setContent] = useState(props.Katalog);
     const[katNameError, setKatNameError] = useState(false);
+    const[isPublic, setIsPublic] = useState(props.Oeffentlich);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -50,6 +51,18 @@ export default function Kat(props) {
         navigate(`/RunKat/${props.KatalogID}`, {state: {Katalog: props.Katalog, KatalogID: props.KatalogID}});
     }
 
+    const togglePublic = () => {
+        axios.post('http://127.0.0.1:5000/togglePublic', {
+            katalogID: props.KatalogID,
+            oeffentlich: isPublic,
+            }).then(() => {
+            console.log("success");
+        });
+        console.log(props.KatalogID)
+        console.log(isPublic? "ye" : "no");
+        setIsPublic(!isPublic);
+    }
+
     
     return (
         <div className="Kat">
@@ -65,7 +78,8 @@ export default function Kat(props) {
                 onBlur={handleSave}
             >
                 {content}</p>
-                <div className="ActionIcons">
+                <div className="KatActionIcons">
+                    <button id="publicB" onClick={togglePublic} className={`${isPublic ? 'public' : 'notPublic'}`}></button>
                     <button id="editB" onClick={goEdit}></button>
                     <button id="playB" onClick={goPlay}></button>
                 </div>

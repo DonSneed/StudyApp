@@ -34,6 +34,7 @@ function Login() {
     const LoginOrRegister = () => {
       
       if(!showRepeatPassword){
+        console.log(userList);
         if(checkLogin(username, password)){
           console.log("Login succesfull");
           /* navigate("/LandingPage", {state: currentUser}); */
@@ -82,10 +83,7 @@ function Login() {
       for (let i = 0; i < userList.length; i++) {
         if (userList[i].Username === username && userList[i].Password === password) {
           setCurrentUser(userList[i]);
-          /* setCurrentUser(new User(userList[i].Username, userList[i].Password, userList[i].NutzerId)); */
-          /* console.log("name: " + userList[i].Username + "password: " + userList[i].Password + "id: " + userList[i].NutzerID)
-          console.log("current User: " + currentUser) */
-          navigate("/LandingPage", { state: userList[i]})
+          navigate("/LandingPage", { state: userList[i]});
           return true; // return true if match found
         }
       }
