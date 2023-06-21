@@ -15,10 +15,10 @@ function ImportKat() {
         axios.get(`http://127.0.0.1:5000/publicKats/${nutzerID}`, {
         })
         .then((response) => {
-            const updatedPublicQList = response.data.recordset.map((item) => ({
+            /* const updatedPublicQList = response.data.recordset.map((item) => ({
                 ...item,
                 isChecked: false,
-            }));
+            })); */
             setPublicQList(response.data.recordset);
         })
         .catch((error) => {
@@ -26,52 +26,59 @@ function ImportKat() {
         });
     }, []);
 
-    const PublicImport = () =>{
-
-        const publicKats = publicQList.map(item => {
-
-            const PublicKat = (props) => {
-                const[isChecked, setIsChecked] = useState(false);
-
-                const handleCheckboxChange = (event) => {
-                    setIsChecked(event.target.checked);
-                }
-
-                return(
-                    <div className="publicKat">
-                        <p>{props.KatalogID}</p>
-                        <p>{props.Katalog}</p>
-                        <p>{props.Ersteller}</p>
-                        <input
-                            type="checkbox"
-                            checkbox={isChecked.toString()}
-                            onChange={() => handleCheckboxChange(props.KatalogID)}
-                        />
-                    </div>
-                )
-            }
-            return (
-                <PublicKat
-                    key={item.KatalogID}
-                    {...item}   
-                />
-            )
-        })
-
-        return(
-            <div className="publicImports">
-                <div className="publicImportHeader">
-                    <textarea placeholder="Katalognamen suchen"></textarea>
-                    <button className="searchPublicKatB"></button>
-                    <button className="confirmPublicKatImportB"></button>
-                    <button className="cancelKatImportB"></button>
-                </div>
-                <div className="publicImportList">
-                    {publicKats}
-                </div> 
+    const PublicImport = () => {
+        const PublicKat = ({ KatalogID, Katalog, Ersteller, isChecked, onCheck }) => {
+          return (
+            <div className="publicKat">
+              <p>{KatalogID}</p>
+              <p>{Katalog}</p>
+              <p>{Ersteller}</p>
+              <input
+                type="checkbox"
+                checked={isChecked}
+                onChange={onCheck}
+              />
             </div>
-        )
-    }
+          );
+        };
+    
+        const handleCheck = (katalogID) => {
+          setPublicQList((prevPublicQList) =>
+            prevPublicQList.map((item) =>
+              item.KatalogID === katalogID
+                ? { ...item, isChecked: !item.isChecked }
+                : item
+            )
+          );
+        };
+    
+        const handleConfirmPImport = () => {
+          const checkedKats = publicQList.filter((publicKat) => publicKat.isChecked);
+          const checkedKatNames = checkedKats.map((publicKat) => publicKat.Katalog);
+          console.log(checkedKats);
+          console.log(checkedKatNames);
+        };
+    
+        const publicKats = publicQList.map((item) => (
+          <PublicKat
+            key={item.KatalogID}
+            {...item}
+            onCheck={() => handleCheck(item.KatalogID)}
+          />
+        ));
+    
+        return (
+          <div className="publicImports">
+            <div className="publicImportHeader">
+              <textarea placeholder="Katalognamen suchen"></textarea>
+              <button className="searchPublicKatB"></button>
+              <button className="confirmPublicKatImportB" onClick={handleConfirmPImport}></button>
+              <button className="cancelKatImportB"></button>
+            </div>
+            <div className="publicImportList">{publicKats}</div>
+          </div>
+        );
+      }
 
     const ExcelImport = () => {
         const onDrop = useCallback((acceptedFiles) => {

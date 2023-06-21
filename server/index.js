@@ -194,6 +194,10 @@ app.post("/togglePublic", (req, res) => {
     })
 })
 
+app.post("/importPublicKats", (req, res) => {
+    
+})
+
 app.get('/users', (req, res) => {
     const request = new mssql.Request();
     const sqlQuery = `SELECT * from [Nutzer]`;
