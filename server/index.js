@@ -228,6 +228,25 @@ app.get("/kats/:userID", (req, res) => {
     })
 })
 
+app.get("/publicKats/:NutzerID", (req, res) => {
+    const userID = req.params.NutzerID;
+
+    const request = new mssql.Request();
+    const sqlQuery = `SELECT *
+    FROM Katalog
+    WHERE Oeffentlich = 1
+      AND Ersteller <> ${userID}`;
+
+    request.query(sqlQuery, function(err, result){
+        if(err){
+            console.log(err);
+        }else{
+            res.send(result);
+        }
+    })
+
+})
+
 app.get("/userOfKat/:KatalogID", (req, res) => {
     const KatalogID= req.params.KatalogID;
 

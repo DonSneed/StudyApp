@@ -1,6 +1,6 @@
 import "./assets/styles/LandingPage.css"
 import { useState , useEffect} from 'react';
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import Kat from "./Kat.jsx";
 import axios from "axios";
 
@@ -12,6 +12,8 @@ function LandingPage() {
     const[error, setError] = useState(false);
     const[katalog, setKatalog] = useState("");
     const[showCreateKatWindow, setShowCreateKatWindow] = useState(false);
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         setCurrentUser(state);
@@ -30,7 +32,7 @@ function LandingPage() {
     const kats = katList.map(item => {
         return (
             <Kat
-                key={item.KatalogID}create
+                key={item.KatalogID}
                 {...item}
                 setKatalog={(newContent) => {
                     setKatalog(newContent);
@@ -58,8 +60,6 @@ function LandingPage() {
 
     const CreateKatWindow = () => {
 
-        const[showImportKatWindow, setShowImportKatWindow] = useState(false);
-
         const addEmptyKat = () => {
             setShowCreateKatWindow(false);
             const newID = Math.max(...katList.map(kat => kat.KatalogID)) + 1;
@@ -80,35 +80,18 @@ function LandingPage() {
         }
         
     
-        const importKat = () =>{
-            if(showImportKatWindow){
-                setShowImportKatWindow(false);
-            }else{
-                setShowImportKatWindow(true);
-            }
-            
+        const goImportKat = () =>{
+            navigate(`/ImportKat/${currentUser}`, {state: {nutzerID: currentUser.NutzerID}}); 
         };
 
-        const ImportKatWindow = () => {
-            
-            return (
-                <div className="importKatWindow">
-                    <h4>Sie können einen öffentlich gestellten Katalog der anderen Spieler auswählen oder eine Excel Datei von ihrem Gerät hochladen</h4>
-                    <div>
-                        <div className="publicKatList"></div>
-                        <div className="fileImportField"></div>
-                    </div>
-                </div>               
-            )
-        }
+
             
         return (
             <div className="createKatWindow">
-                {showImportKatWindow && <ImportKatWindow />}
                 <h3>Möchten Sie einen neuen Katalog erstellen oder einen existierenden importieren?</h3>
                 <div>
                     <button onClick={addEmptyKat} id="createQuizB">Erstellen</button>
-                    <button onClick={importKat} id="importQuizB">Importieren</button>
+                    <button onClick={goImportKat} id="importQuizB">Importieren</button>
                 </div>
             </div>
         );
