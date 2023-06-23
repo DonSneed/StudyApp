@@ -81,7 +81,8 @@ function LandingPage() {
         
     
         const goImportKat = () =>{
-            navigate(`/ImportKat/${currentUser}`, {state: {nutzerID: currentUser.NutzerID}}); 
+            navigate(`/ImportKat/${currentUser}`, {state: {nutzerID: currentUser.NutzerID}});
+            navigate("/LandingPage", { state: userList[i]});
         };
 
 

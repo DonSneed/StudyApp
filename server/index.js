@@ -194,8 +194,39 @@ app.post("/togglePublic", (req, res) => {
     })
 })
 
-app.post("/importPublicKats", (req, res) => {
-    
+app.post("/importPublicKat", (req, res) => {
+    const ersteller = req.body.ersteller;
+    const katalogID = req.body.katalogID;
+
+    const request = new mssql.Request();
+    const sqlQuery = `INSERT INTO Katalog (Katalog, Ersteller, Original) OUTPUT INSERTED.* SELECT  Katalog, ${ersteller}, ${katalogID} FROM Katalog WHERE KatalogID = ${katalogID};`;
+
+    request.query(sqlQuery, function(err, result){
+        if(err){
+            console.log(err);
+            return res.status(500).send("Failed to duplicate Quiz");
+        }
+        res.send(result.recordset[0]);
+    })
+})
+
+app.post("/importPublicKatQ", (req, res) => {
+    const originalKat = req.body.originalKat;
+    const newKat = req.body.newKat;
+
+    const request = new mssql.Request();
+    const sqlQuery = `INSERT INTO Frage (KatalogID, FrageNr, Frage, Antwort1, Antwort2, Antwort3, Antwort4, Antwort5, Ergebniss,  Antwort6)
+    SELECT ${newKat}, FrageNr, Frage, Antwort1, Antwort2, Antwort3, Antwort4, Antwort5, Ergebniss,  Antwort6
+    FROM Frage
+    WHERE KatalogID = ${originalKat};`;
+
+    request.query(sqlQuery, function(err, result){
+        if(err){
+            console.log(err);
+            return res.status(500).send("Failed duplicate Questions");
+        }
+        res.send(result);
+    })
 })
 
 app.get('/users', (req, res) => {

@@ -1,4 +1,4 @@
-import {useLocation} from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom"
 import {useState, useEffect, useCallback} from "react";
 import { useDropzone } from 'react-dropzone';
 import "./assets/styles/ImportKat.css";
@@ -9,16 +9,14 @@ function ImportKat() {
     const location = useLocation();
     const {nutzerID} = location.state;
     const[publicQList, setPublicQList] = useState([]);
-    
+    const[importDone, setImportDone] = useState(false);
+    const navigate = useNavigate();
+     
 
     useEffect(() => {        
         axios.get(`http://127.0.0.1:5000/publicKats/${nutzerID}`, {
         })
         .then((response) => {
-            /* const updatedPublicQList = response.data.recordset.map((item) => ({
-                ...item,
-                isChecked: false,
-            })); */
             setPublicQList(response.data.recordset);
         })
         .catch((error) => {
@@ -54,9 +52,34 @@ function ImportKat() {
     
         const handleConfirmPImport = () => {
           const checkedKats = publicQList.filter((publicKat) => publicKat.isChecked);
-          const checkedKatNames = checkedKats.map((publicKat) => publicKat.Katalog);
-          console.log(checkedKats);
-          console.log(checkedKatNames);
+          const checkedKatNames = checkedKats.map((publicKat) => publicKat.KatalogID);
+
+          for(let i = 0; i < checkedKatNames.length; i++) {
+
+            axios.post("http://127.0.0.1:5000/importPublicKat", {
+                ersteller: nutzerID,
+                katalogID: checkedKatNames[i]
+            })
+            .then(function(response) {
+                console.log(response.data.KatalogID);
+                
+                axios.post("http://127.0.0.1:5000/importPublicKatQ", {
+                    originalKat: checkedKatNames[i],
+                    newKat: response.data.KatalogID
+                }).then(() => {
+                    console.log("success");
+                    setImportDone(true);
+                    setTimeout(() =>{
+                        navigate("/LandingPage", { state: userList[i]});
+                      }, 1500);
+                });
+            })
+            .catch(function(error) {
+                console.log(error);
+            })
+
+            
+          }
         };
     
         const publicKats = publicQList.map((item) => (
@@ -75,7 +98,7 @@ function ImportKat() {
               <button className="confirmPublicKatImportB" onClick={handleConfirmPImport}></button>
               <button className="cancelKatImportB"></button>
             </div>
-            <div className="publicImportList">{publicKats}</div>
+            {!importDone && <div className="publicImportList">{publicKats}</div>}
           </div>
         );
       }
@@ -95,7 +118,7 @@ function ImportKat() {
                 {isDragActive ? (
                     <p>Drop the Excel file here</p>
                 ) : (
-                    <p>Drag and drop Excel file here or click to select from our device</p>
+                    <p>Drag and drop Excel file here or click to select from your device</p>
                 )
                 }
             </div>
