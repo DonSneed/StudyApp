@@ -73,6 +73,19 @@
     padding: 10px;
 }
 
+.ImportSuccessDisplay {
+    height: 2vh;
+    border-width: 1px 0 1px 0;
+    border-color: #FCF9BF;
+    border-style: solid;
+    color: #FCF9BF;
+    transition: all 0.5s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
 .publicImports {
     width: 100%;
     height: 45vh;

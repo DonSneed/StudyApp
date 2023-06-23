@@ -8,13 +8,15 @@ import axios from "axios";
 function ImportKat() {
     const location = useLocation();
     const {nutzerID} = location.state;
+    const {state} = useLocation();
+    const[currentUser, setCurrentUser] = useState(state);
     const[publicQList, setPublicQList] = useState([]);
     const[importDone, setImportDone] = useState(false);
     const navigate = useNavigate();
      
 
     useEffect(() => {        
-        axios.get(`http://127.0.0.1:5000/publicKats/${nutzerID}`, {
+        axios.get(`http://127.0.0.1:5000/publicKats/${state.NutzerID}`, {
         })
         .then((response) => {
             setPublicQList(response.data.recordset);
@@ -39,6 +41,14 @@ function ImportKat() {
             </div>
           );
         };
+
+        const ImportSuccessDisplay = () => {
+          return (
+            <div className="ImportSuccessDisplay">
+              <p>Kataloge wurden importiert</p>
+            </div>
+          )
+        }
     
         const handleCheck = (katalogID) => {
           setPublicQList((prevPublicQList) =>
@@ -57,7 +67,7 @@ function ImportKat() {
           for(let i = 0; i < checkedKatNames.length; i++) {
 
             axios.post("http://127.0.0.1:5000/importPublicKat", {
-                ersteller: nutzerID,
+                ersteller: state.NutzerID,
                 katalogID: checkedKatNames[i]
             })
             .then(function(response) {
@@ -70,7 +80,7 @@ function ImportKat() {
                     console.log("success");
                     setImportDone(true);
                     setTimeout(() =>{
-                        navigate("/LandingPage", { state: userList[i]});
+                        navigate("/LandingPage", { state: state});
                       }, 1500);
                 });
             })
@@ -81,6 +91,10 @@ function ImportKat() {
             
           }
         };
+
+        const handleCancelImport = () => {
+          navigate("/LandingPage", { state: state});
+        }
     
         const publicKats = publicQList.map((item) => (
           <PublicKat
@@ -96,8 +110,9 @@ function ImportKat() {
               <textarea placeholder="Katalognamen suchen"></textarea>
               <button className="searchPublicKatB"></button>
               <button className="confirmPublicKatImportB" onClick={handleConfirmPImport}></button>
-              <button className="cancelKatImportB"></button>
+              <button className="cancelKatImportB" onClick={handleCancelImport}></button>
             </div>
+            {importDone && <ImportSuccessDisplay/>}
             {!importDone && <div className="publicImportList">{publicKats}</div>}
           </div>
         );

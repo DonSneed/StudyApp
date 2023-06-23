@@ -63,6 +63,10 @@ function Login() {
               },
             ]);
             console.log("success");
+            setShowRepeatPassword(false);
+            document.querySelectorAll("#logUser").value ="";
+            document.querySelectorAll("#logPw").value ="";
+            document.querySelectorAll("#logPw2").value ="";
           });
           //rerender Page
           //display notification "Account has succesfully been created"

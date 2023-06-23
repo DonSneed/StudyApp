@@ -37,6 +37,7 @@ function LandingPage() {
                 setKatalog={(newContent) => {
                     setKatalog(newContent);
                 }}
+                currentUser={currentUser}
                 katList={katList}
             />
         )
@@ -81,8 +82,7 @@ function LandingPage() {
         
     
         const goImportKat = () =>{
-            navigate(`/ImportKat/${currentUser}`, {state: {nutzerID: currentUser.NutzerID}});
-            navigate("/LandingPage", { state: userList[i]});
+            navigate(`/ImportKat/${currentUser}`, {state: currentUser});
         };
 
 

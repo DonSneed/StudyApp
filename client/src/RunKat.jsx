@@ -7,7 +7,7 @@ import axios from "axios";
 function RunKat() {
 
     const location = useLocation();
-    const {Katalog, KatalogID} = location.state;
+    const {Katalog, KatalogID, currentUser} = location.state;
     const[qList, setQList] = useState([]);
     const[shuffledList, setShuffledList] = useState([]);
     const[welcome, setWelcome] = useState(true);
@@ -127,6 +127,10 @@ function RunKat() {
                 }).then(() => {
                     console.log("attempt updated");
             });
+            setTimeout(() =>{
+                navigate("/LandingPage", { state: currentUser});
+              }, 1500);
+
         }else{
             //check Answers
             console.log("The correct answers are: " + shuffledList[qIndex].Ergebniss);

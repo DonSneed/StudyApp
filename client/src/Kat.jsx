@@ -9,6 +9,7 @@ export default function Kat(props) {
     const[content, setContent] = useState(props.Katalog);
     const[katNameError, setKatNameError] = useState(false);
     const[isPublic, setIsPublic] = useState(props.Oeffentlich);
+    const[currentUser, setCurrentUser] = useState(props.currentUser);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -48,7 +49,8 @@ export default function Kat(props) {
     }
 
     const goPlay = () =>{
-        navigate(`/RunKat/${props.KatalogID}`, {state: {Katalog: props.Katalog, KatalogID: props.KatalogID}});
+/*         navigate(`/RunKat/${props.KatalogID}`, {state: {Katalog: props.Katalog, KatalogID: props.KatalogID}});
+ */        navigate(`/RunKat/${props.KatalogID}`, {state: {Katalog: props.Katalog, KatalogID: props.KatalogID, currentUser: currentUser}});
     }
 
     const togglePublic = () => {
