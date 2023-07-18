@@ -11,6 +11,7 @@ function EditKat() {
     const[qList, setQList] = useState([]);
     const[editedFrageID, setEditedFrageID] = useState(-1);
     const[qHighlight, setQHighlight] = useState(false);
+    const[qAdded, setQAdded] = useState(false);
     
 
     useEffect(() => {        
@@ -30,18 +31,24 @@ function EditKat() {
         setEditedFrageID(id);
     }
 
-    const handleUpdate = () => {
-        /* useEffect(() => {        
-            axios.get(`http://127.0.0.1:5000/questions/${KatalogID}`, {
-                data: { KatalogID: KatalogID}
-            })
-            .then((response) => {
-                setQList(response.data.recordset);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-        }, []); */
+    const addEmptyQ = () => {
+        setQAdded(true);
+        const newQ = {
+            FrageID : 0,
+            FrageNr : qList.length,
+            KatalogID : KatalogID,
+            Frage : "Neue Frage",
+            Ergebniss: "wfffff",
+            Antwort1: "Platzhalter 1",
+            Antwort2: "Platzhalter 2",
+            Antwort3: "",
+            Antwort4: "",
+            Antwort5: "",
+            Antwort6: "",
+        }
+
+        setQList((prevQList) => [...prevQList, newQ]);
+
     }
 
     const qs = qList.map(item => {
@@ -51,7 +58,6 @@ function EditKat() {
                 {...item}
                 show={qHighlight ? (item.FrageID === editedFrageID) : true}
                 handleEditClick={handleEditClick}
-                handleUpdate={handleUpdate}
             />
         )
     })
@@ -62,7 +68,7 @@ function EditKat() {
                 <header>
                     <h3>{Katalog}:</h3>
                     <div className="ActionIcons">
-                        <button className="AddButton"></button>
+                        <button className="AddButton" onClick={addEmptyQ}></button>
                         <button className="DeleteButton"></button>
                     </div>
                 </header>
@@ -73,6 +79,6 @@ function EditKat() {
         </div>
     )
     
-}
+}   
 
 export default EditKat

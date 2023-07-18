@@ -6,7 +6,7 @@ import {Navigate, useNavigate} from "react-router-dom";
 
 export default function Qst(props) {
 
-    const {FrageID, Frage, Antwort1, Antwort2, show, handleEditClick, handleUpdate} = props;
+    const {FrageID, Frage, Antwort1, Antwort2, show, handleEditClick} = props;
 
     const[content, setContent] = useState(Frage);
     const[editMode, setEditMode] = useState(false);
@@ -76,9 +76,7 @@ export default function Qst(props) {
                 ergebniss: ergebniss
             }).then(() => {
                 console.log("sucessfully updated question");
-            })
-            handleUpdate();
-            
+            })            
         }else{
             console.log("changes deleted");
             //display error of sorts, reset to old values
