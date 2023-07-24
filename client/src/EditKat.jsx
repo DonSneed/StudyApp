@@ -19,7 +19,8 @@ function EditKat() {
             data: { KatalogID: KatalogID}
         })
         .then((response) => {
-            setQList(response.data.recordset);
+            const updatedQList  = response.data.recordset.map(item => ({...item, newQ: false}))
+            setQList(updatedQList);
         })
         .catch((error) => {
             console.log(error);
@@ -32,7 +33,6 @@ function EditKat() {
     }
 
     const addEmptyQ = () => {
-        setQAdded(true);
         const newQ = {
             FrageID : 0,
             FrageNr : qList.length,
@@ -45,6 +45,7 @@ function EditKat() {
             Antwort4: "",
             Antwort5: "",
             Antwort6: "",
+            newQ: true
         }
 
         setQList((prevQList) => [...prevQList, newQ]);

@@ -100,7 +100,7 @@ app.post("/createKat", (req, res) => {
     const creator = req.body.creator;
 
     const request = new mssql.Request();
-    const sqlQuery = `INSERT INTO Katalog (KatalogID, Katalog, Ersteller, Oeffentlich) VALUES ('${katName}', ${creator}, 0)`;
+    const sqlQuery = `INSERT INTO Katalog (Katalog, Ersteller, Oeffentlich) VALUES ('${katName}', ${creator}, 0)`;
 
     request.query(sqlQuery, function(err, result){
         if(err) {
@@ -173,6 +173,20 @@ app.post("/deleteAttempt", (req, res) =>{
         if(err) {
             console.log(err);
             return res.status(500).send("Failed to delete Attempt");
+        }
+        res.send(result);
+    })
+})
+
+app.post("/deleteKat", (req, res) =>{
+    const katID = req.body.katID;
+
+    const request = new mssql.Request();
+    const sqlQuery = `DELETE FROM Katalog WHERE KatalogID = ${katID}`;
+
+    request.query(sqlQuery, function(err, result){
+        if(err) {
+            console.log(err);
         }
         res.send(result);
     })

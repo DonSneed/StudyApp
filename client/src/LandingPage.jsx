@@ -12,6 +12,8 @@ function LandingPage() {
     const[error, setError] = useState(false);
     const[katalog, setKatalog] = useState("");
     const[showCreateKatWindow, setShowCreateKatWindow] = useState(false);
+    const[deleteMode, setDeleteMode] = useState(false);
+    const[delSelection, setDelSelection] = useState([]);
     const navigate = useNavigate();
 
 
@@ -39,6 +41,10 @@ function LandingPage() {
                 }}
                 currentUser={currentUser}
                 katList={katList}
+                deleteMode={deleteMode}
+                setDeleteMode={setDeleteMode}
+                delSelection={delSelection}
+                setDelSelection={setDelSelection}
             />
         )
     })
@@ -52,11 +58,20 @@ function LandingPage() {
         
     }
 
-    
-
     const deleteKat = () => {
-        //placeholder
-        console.log(katList);
+        if(deleteMode && delSelection.length !== 0){
+            console.log(delSelection);
+            for (const kat of delSelection){
+                axios.post('http://127.0.0.1:5000/deleteKat', {
+                katID: kat
+                }).then(() => {
+                console.log("success");
+            });
+                setKatList(prevKatList => prevKatList.filter(item => item.KatalogID !== kat));
+            }
+            
+        }
+        setDeleteMode(!deleteMode);
     }
 
     const CreateKatWindow = () => {

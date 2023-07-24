@@ -10,6 +10,7 @@ export default function Kat(props) {
     const[katNameError, setKatNameError] = useState(false);
     const[isPublic, setIsPublic] = useState(props.Oeffentlich);
     const[currentUser, setCurrentUser] = useState(props.currentUser);
+    const[delBoxChecked, setDelBoxChecked] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -65,6 +66,16 @@ export default function Kat(props) {
         setIsPublic(!isPublic);
     }
 
+    const handleDelBoxChange = () => {
+        setDelBoxChecked(!delBoxChecked);
+        if(!delBoxChecked){
+            props.setDelSelection((prevSelection) => [...prevSelection, props.KatalogID]);
+        }else{
+            props.setDelSelection((prevSelection) =>
+                prevSelection.filter((id) => id !== props.KatalogID))
+        }
+    }
+
     
     return (
         <div className="Kat">
@@ -84,6 +95,13 @@ export default function Kat(props) {
                     <button id="publicB" onClick={togglePublic} className={`${isPublic ? 'public' : 'notPublic'}`}></button>
                     <button id="editB" onClick={goEdit}></button>
                     <button id="playB" onClick={goPlay}></button>
+                    {props.deleteMode && (
+                        <input 
+                            type="checkbox"
+                            checked={delBoxChecked}
+                            onChange={handleDelBoxChange}
+                        />
+                    )}
                 </div>
         </div>
     )
